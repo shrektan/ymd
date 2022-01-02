@@ -20,6 +20,11 @@ test_that("ymd works", {
   expect_equal(ymd("21/01/12"), as.Date("2021-01-12"))
   expect_equal(ymd("2020/01/12"), as.Date("2020-01-12"))
 
+  expect_equal(ymd("98/1/12"), as.Date("1998-01-12"))
+  expect_equal(ymd("1998/1/12"), as.Date("1998-01-12"))
+  expect_equal(ymd("21/1/12"), as.Date("2021-01-12"))
+  expect_equal(ymd("2020/1/1"), as.Date("2020-01-01"))
+
   expect_equal(ymd("98-01-12"), as.Date("1998-01-12"))
   expect_equal(ymd("1998-01-12"), as.Date("1998-01-12"))
   expect_equal(ymd("21-01-12"), as.Date("2021-01-12"))
