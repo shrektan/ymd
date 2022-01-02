@@ -102,38 +102,61 @@ mod test {
 }
 
 
-// /// Convert integers or strings to Date
-// ///
-// /// @param x an integerable or string vector in ymd format
-// ///
-// /// @value a Date object
-// ///
-// /// @export
-// #[extendr]
-// fn ymd(x: Robj) -> Robj {
-//     if x.inherits("Date") {
-//         return x;
-//     }
-//     let out: NaiveDate = match x.rtype() {
-//         RType::Integer => {
+/// Convert integers or strings to Date
+///
+/// @param x an integerable or string vector in ymd format
+///
+/// @return a Date object
+///
+/// @export
+#[extendr]
+fn ymd(x: Robj) -> Robj {
+    if x.inherits("Date") {
+        return x;
+    }
+    let value: Vec<Option<f64>> = match x.rtype() {
+        RType::Integer => {
+            x.as_integer_iter().unwrap().map(|i| {
+                if i.is_na() {
+                    None
+                } else {
+                    to_rdate(&int2date(i))
+                }
+            })
+            .collect()
+        },
+        RType::Real => {
+            x.as_real_iter().unwrap().map(|i| {
+                if i.is_na() {
+                    None
+                } else {
+                    to_rdate(&dbl2date(i))
+                }
+            })
+            .collect()
+        },
+        RType::Character => {
+            x.as_str_vector().unwrap().iter().map(|i| {
+                if i.is_na() {
+                    None
+                } else {
+                    to_rdate(&str2date(i))
+                }
+            })
+            .collect()
+        },
+        _ => {
+            panic!("x must be integerable or string vector");
+        }
+    };
+    let out: Robj = r!(value).set_class(&["Date"]).unwrap();
+    out
+}
 
-//         },
-//         RType::Real => {
-
-//         },
-//         RType::Character => {
-
-//         },
-//         _ => {
-//             panic!("x must be integerable or string vector");
-//         }
-//     };
-// }
-
-// // Macro to generate exports.
-// // This ensures exported functions are registered with R.
-// // See corresponding C code in `entrypoint.c`.
-// extendr_module! {
-//     mod ymd;
-//     fn ymd;
-// }
+// Macro to generate exports.
+// This ensures exported functions are registered with R.
+// See corresponding C code in `entrypoint.c`.
+extendr_module! {
+    mod ymd;
+    fn ymd;
+}
