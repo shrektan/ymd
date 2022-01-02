@@ -31,16 +31,20 @@ fn dbl2date(x: f64) -> Option<NaiveDate> {
 }
 
 fn str2date(x: &str) -> Option<NaiveDate> {
-    if x.len() < 6 || x.len() > 10 || x.len() % 2 != 0 {
-        return None;
+    match x.parse::<i32>() {
+        Ok(v) => int2date(v),
+        Err(_) => {
+            let v: Vec<&str> = x.split(&['-', '.', '/', ' '][..]).collect();
+            if v.len() == 3 {
+                let year: i32 = v[0].parse().ok()?;
+                let month: i32 = v[1].parse().ok()?;
+                let day: i32 = v[2].parse().ok()?;
+                int2date(year * 10000 + month * 100 + day)
+            } else {
+                None
+            }
+        },
     }
-    const FMTS: [&str;3] = ["-", ".", "/"];
-    let mut v: String = String::from(x);
-    for fmt in &FMTS {
-        v = v.replace(fmt, "");
-    };
-    let v: i32 = v.parse().ok()?;
-    int2date(v)
 }
 
 fn to_rdate(x: &Option<NaiveDate>) -> Option<f64> {
@@ -81,6 +85,8 @@ mod test {
     #[test]
     fn strings() {
         assert_eq!(str2date("980308").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
+        assert_eq!(str2date("98.3.08").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
+        assert_eq!(str2date("98.3.8").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
         assert_eq!(str2date("98.03.08").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
         assert_eq!(str2date("98/03/08").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
         assert_eq!(str2date("98-03-08").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
