@@ -4,7 +4,8 @@ Version: 0.0.0.9000
 Authors@R:
     person("Xianying", "Tan", , "shrektan@126.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6072-3521"))
-Description: Convert integers or strings to dates and generate begin or end date of given period.
+Description: Convert integers or strings to dates, generate begin or end date of given period,
+    and other useful functions for dates.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
