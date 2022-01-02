@@ -135,7 +135,7 @@ fn ymd(x: Robj) -> Robj {
             })
             .collect()
         },
-        RType::Character => {
+        RType::String => {
             x.as_str_vector().unwrap().iter().map(|i| {
                 if i.is_na() {
                     None
