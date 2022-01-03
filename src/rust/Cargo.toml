@@ -8,4 +8,5 @@ crate-type = [ 'staticlib' ]
 
 [dependencies]
 extendr-api = '*'
+extendr-engine = "*"
 chrono = "0.4.19"

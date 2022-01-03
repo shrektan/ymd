@@ -173,4 +173,5 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "extendr-api",
+ "extendr-engine",
 ]

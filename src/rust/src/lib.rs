@@ -48,9 +48,43 @@ fn str2date(x: &str) -> Option<NaiveDate> {
     }
 }
 
+// The days from 1970-1-1 (R's first date) to CE (1-1-0)
+const R_DATE_FROM_CE: i32 = 719163;
+
+fn robj2date(x: Robj) -> Vec<Option<NaiveDate>> {
+    if !x.inherits("Date") {
+        return vec![None; x.len()];
+    }
+    match x.rtype() {
+        RType::Real => {
+            x.as_real_iter().unwrap().map(|d| {
+                if d.is_na() {
+                    None
+                } else {
+                    NaiveDate::from_num_days_from_ce_opt(d as i32 + R_DATE_FROM_CE)
+                }
+            })
+            .collect()
+        },
+        RType::Integer => {
+            x.as_integer_iter().unwrap().map(|d| {
+                if d.is_na() {
+                    None
+                } else {
+                    NaiveDate::from_num_days_from_ce_opt(d + R_DATE_FROM_CE)
+                }
+            })
+            .collect()
+        },
+        _ => {
+            vec![None; x.len()]
+        }
+    }
+}
+
 fn to_rdate(x: &Option<NaiveDate>) -> Option<f64> {
     match x {
-        Some(v) => Some(v.num_days_from_ce() as f64 - 719163.0),
+        Some(v) => Some((v.num_days_from_ce() - R_DATE_FROM_CE) as f64),
         None => None,
     }
 }
@@ -106,6 +140,7 @@ fn ymd(x: Robj) -> Robj {
     out
 }
 
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -156,6 +191,13 @@ mod test {
         assert_eq!(str2date("98308"), None);
         assert_eq!(str2date("9800308"), None);
         assert_eq!(str2date("9a0308"), None);
+    }
+    #[test]
+    fn to_date() {
+        test! {
+            let x: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap();
+            assert_eq!(robj2date(x), [Some(NaiveDate::from_ymd(2021, 12, 29)), Some(NaiveDate::from_ymd(2021, 12, 30))]);
+        }
     }
 }
 
