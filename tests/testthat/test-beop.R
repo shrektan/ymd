@@ -37,3 +37,8 @@ test_that("period_end returns right ending date", {
   expect_equal(out, c(FALSE, rep(TRUE, length(out) - 2L), FALSE))
 
 })
+
+test_that("bop / eop auto converts the input to date first", {
+  expect_equal(bop$ty(980301), ymd(980101))
+  expect_equal(eop$ty(980301), ymd(981231))
+})

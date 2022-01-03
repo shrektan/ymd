@@ -152,7 +152,7 @@ fn beop(x: Robj, unit: &str, fun: fn(&NaiveDate, period::Period)->NaiveDate) -> 
         Some(i) => i,
         None => return make_rdate( vec![None; x.len()] ),
     };
-    let x = robj2date(x);
+    let x = robj2date(ymd(x));
     let out = x.iter().map(|v| {
         match v {
             Some(date) => Some(fun(date, p)),
@@ -181,7 +181,7 @@ fn period_end(x: Robj, unit: &str) -> Robj {
 /// @export
 #[extendr]
 fn edate(ref_date: Robj, months: i32) -> Robj {
-    let out = robj2date(ref_date).iter().map(|v| {
+    let out = robj2date(ymd(ref_date)).iter().map(|v| {
         match v {
             Some(date) => Some(period::add_months(date, months)),
             None => None,
