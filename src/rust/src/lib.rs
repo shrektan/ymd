@@ -93,6 +93,11 @@ fn make_rdate(x: Vec<Option<f64>>) -> Robj {
     r!(x).set_class(&["Date"]).unwrap()
 }
 
+fn make_rdate2(x: Vec<Option<NaiveDate>>) -> Robj {
+    let v: Vec<Option<f64>> = x.iter().map(to_rdate).collect();
+    make_rdate(v)
+}
+
 /// Convert integers or strings to Date
 ///
 /// @param x an integerable or string vector in ymd format
@@ -150,23 +155,39 @@ fn beop(x: Robj, p: &str, fun: fn(&NaiveDate, period::Period)->NaiveDate) -> Rob
     };
     let x = robj2date(x);
     let out = x.iter().map(|v| {
-        let v = match v {
-            Some(date) => Some(fun(&date, p)),
+        match v {
+            Some(date) => Some(fun(date, p)),
             None => None,
-        };
-        to_rdate(&v)
+        }
     }).collect();
-    make_rdate(out)
+    make_rdate2(out)
 }
 
 #[extendr]
-fn bop(x: Robj, p: &str) -> Robj {
+fn period_begin(x: Robj, p: &str) -> Robj {
     beop(x, p, period::bop)
 }
 
 #[extendr]
-fn eop(x: Robj, p: &str) -> Robj {
+fn period_end(x: Robj, p: &str) -> Robj {
     beop(x, p, period::eop)
+}
+
+/// Add months to a Date
+/// @param x a Date vector
+/// @param n the number of months that's added to `x`
+/// @export
+#[extendr]
+fn add_months(x: Robj, n: i32) -> Robj {
+    let x = robj2date(x);
+    let out = x.iter().map(|v| {
+        match v {
+            Some(date) => Some(period::add_months(date, n)),
+            None => None,
+        }
+    })
+    .collect();
+    make_rdate2(out)
 }
 
 #[cfg(test)]
@@ -235,6 +256,7 @@ mod test {
 extendr_module! {
     mod ymd;
     fn ymd;
-    fn bop;
-    fn eop;
+    fn period_begin;
+    fn period_end;
+    fn add_months;
 }

@@ -1,10 +1,10 @@
 use chrono::{Datelike, NaiveDate, Weekday};
 
-fn add_days(ref_date: &NaiveDate, days: i32) -> NaiveDate {
+pub fn add_days(ref_date: &NaiveDate, days: i32) -> NaiveDate {
   NaiveDate::from_num_days_from_ce(ref_date.num_days_from_ce() + days)
 }
 
-fn add_months(ref_date: &NaiveDate, months: i32) -> NaiveDate {
+pub fn add_months(ref_date: &NaiveDate, months: i32) -> NaiveDate {
   let num_of_months = ref_date.year() * 12 + ref_date.month() as i32 + months as i32;
   let year = (num_of_months - 1) / 12;
   let month = (num_of_months - 1) % 12 + 1;
