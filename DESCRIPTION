@@ -7,10 +7,15 @@ Authors@R:
 Description: Convert integers or strings to dates, generate begin or end date of given period,
     and other useful functions for dates.
 License: MIT + file LICENSE
+URL: https://shrektan.github.io/ymd/, https://github.com/shrektan/ymd
+BugReports: https://github.com/shrektan/ymd/issues
+SystemRequirements: Cargo (rustc package manager)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-URL: https://shrektan.github.io/ymd/
+Config/ymd/windows_toolchain: stable-msvc
+Config/ymd/crate_name: ymd
+Config/ymd/github_repo: shrektan/ymd
