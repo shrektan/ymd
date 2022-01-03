@@ -148,8 +148,8 @@ fn ymd(x: Robj) -> Robj {
     make_rdate(value)
 }
 
-fn beop(x: Robj, p: &str, fun: fn(&NaiveDate, period::Period)->NaiveDate) -> Robj {
-    let p = match period::to_period(p) {
+fn beop(x: Robj, unit: &str, fun: fn(&NaiveDate, period::Period)->NaiveDate) -> Robj {
+    let p = match period::to_period(unit) {
         Some(i) => i,
         None => return make_rdate( vec![None; x.len()] ),
     };
@@ -164,13 +164,13 @@ fn beop(x: Robj, p: &str, fun: fn(&NaiveDate, period::Period)->NaiveDate) -> Rob
 }
 
 #[extendr]
-fn period_begin(x: Robj, p: &str) -> Robj {
-    beop(x, p, period::bop)
+fn period_begin(x: Robj, unit: &str) -> Robj {
+    beop(x, unit, period::bop)
 }
 
 #[extendr]
-fn period_end(x: Robj, p: &str) -> Robj {
-    beop(x, p, period::eop)
+fn period_end(x: Robj, unit: &str) -> Robj {
+    beop(x, unit, period::eop)
 }
 
 /// Add months to a Date

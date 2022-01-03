@@ -11,16 +11,19 @@ NULL
 #' Convert integers or strings to Date
 #'
 #' @param x an integerable or string vector in ymd format
+#'
 #' @return a Date object
+#'
 #' @export
 ymd <- function(x) .Call(wrap__ymd, x)
 
-period_begin <- function(x, p) .Call(wrap__period_begin, x, p)
+period_begin <- function(x, unit) .Call(wrap__period_begin, x, unit)
 
-period_end <- function(x, p) .Call(wrap__period_end, x, p)
+period_end <- function(x, unit) .Call(wrap__period_end, x, unit)
 
 #' Add months to a Date
 #' @param x a Date vector
 #' @param n the number of months that's added to `x`
 #' @export
 add_months <- function(x, n) .Call(wrap__add_months, x, n)
+
