@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {os: windows-latest, r: 'release',    rust: 'stable'}
+          - {os: windows-latest, r: 'release',    rust: 'stable'}
           - {os: macOS-latest,   r: 'release',    rust: 'stable'}
           - {os: ubuntu-18.04,   r: 'release',    rust: 'stable',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
           # - {os: ubuntu-18.04,   r: 'devel',      rust: 'stable',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest", http-user-agent: "R/4.1.0 (ubuntu-20.04) R (4.1.0 x86_64-pc-linux-gnu x86_64 linux-gnu) on GitHub Actions" }
@@ -32,7 +32,7 @@ jobs:
     env:
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      # used in tools/configure_utils.sh
+      # used in tools/configure.R
       ABORT_WHEN_NO_CARGO: "true"
 
     steps:
