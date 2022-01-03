@@ -33,3 +33,8 @@ test_that("ymd works", {
   expect_equal(ymd(980112.1), structure(NA_real_, class = "Date"))
   expect_equal(ymd("1998//01/1"), structure(NA_real_, class = "Date"))
 })
+
+test_that("parse short year dates correctly", {
+  expect_equal(ymd("0098-03-05"), as.Date("0098-03-05"))
+  expect_equal(ymd("98-3-05"), as.Date("1998-03-05"))
+})

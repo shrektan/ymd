@@ -2,11 +2,13 @@ use extendr_api::prelude::*;
 use chrono::{Datelike, NaiveDate};
 mod period;
 
-fn int2date(x: i32) -> Option<NaiveDate> {
+// short_year: when true, 980102 will be converted to 19980102; when false
+// it will be regarded as 00980102
+fn int2date(x: i32, short_year: bool) -> Option<NaiveDate> {
     let day: i32 = x % 100;
     let month: i32 = x / 100 % 100;
     let y_part: i32 = x / 10000;
-    let year = if y_part < 100 {
+    let year = if short_year && y_part < 100 {
         // 700102 => 19700102; 980403 => 19980403; 691022 =? 20691022; 010204 => 20010204
         if y_part < 70 {
             y_part + 2000
@@ -14,18 +16,14 @@ fn int2date(x: i32) -> Option<NaiveDate> {
             y_part + 1900
         }
     } else {
-        if y_part < 1000 || y_part > 9999 {
-            return None;
-        } else {
-            y_part
-        }
+        y_part
     };
     NaiveDate::from_ymd_opt(year, month as u32, day as u32)
 }
 
 fn dbl2date(x: f64) -> Option<NaiveDate> {
     if x % 1.0 == 0.0 {
-        int2date(x as i32)
+        int2date(x as i32, true)
     } else {
         None
     }
@@ -33,14 +31,15 @@ fn dbl2date(x: f64) -> Option<NaiveDate> {
 
 fn str2date(x: &str) -> Option<NaiveDate> {
     match x.parse::<i32>() {
-        Ok(v) => int2date(v),
+        Ok(v) => int2date(v, true),
         Err(_) => {
             let v: Vec<&str> = x.split(&['-', '.', '/', ' '][..]).collect();
             if v.len() == 3 {
+                let short_year = v[0].len() <= 2;
                 let year: i32 = v[0].parse().ok()?;
                 let month: i32 = v[1].parse().ok()?;
                 let day: i32 = v[2].parse().ok()?;
-                int2date(year * 10000 + month * 100 + day)
+                int2date(year * 10000 + month * 100 + day, short_year)
             } else {
                 None
             }
@@ -116,7 +115,7 @@ fn ymd(x: Robj) -> Robj {
                 if i.is_na() {
                     None
                 } else {
-                    to_rdate(&int2date(i))
+                    to_rdate(&int2date(i, true))
                 }
             })
             .collect()
@@ -173,16 +172,18 @@ fn period_end(x: Robj, unit: &str) -> Robj {
     beop(x, unit, period::eop)
 }
 
-/// Add months to a Date
-/// @param x a Date vector
-/// @param n the number of months that's added to `x`
+/// Calculate the date before / after months
+/// @param ref_date a Date vector
+/// @param months the number of months that's added to `ref_date`
+/// @note The function name is the same as the Excel function `EDATE()` and
+///   does the same. It returns the date that is the indicated number of months
+///   before or after the ref date.
 /// @export
 #[extendr]
-fn add_months(x: Robj, n: i32) -> Robj {
-    let x = robj2date(x);
-    let out = x.iter().map(|v| {
+fn edate(ref_date: Robj, months: i32) -> Robj {
+    let out = robj2date(ref_date).iter().map(|v| {
         match v {
-            Some(date) => Some(period::add_months(date, n)),
+            Some(date) => Some(period::add_months(date, months)),
             None => None,
         }
     })
@@ -196,14 +197,15 @@ mod test {
     use chrono::{NaiveDate};
     #[test]
     fn integers() {
-        assert_eq!(int2date(980308).unwrap(), NaiveDate::from_ymd(1998, 3, 8));
-        assert_eq!(int2date(050308).unwrap(), NaiveDate::from_ymd(2005, 3, 8));
-        assert_eq!(int2date(19980308).unwrap(), NaiveDate::from_ymd(1998, 3, 8));
-        assert_eq!(int2date(21050308).unwrap(), NaiveDate::from_ymd(2105, 3, 8));
-        assert_eq!(int2date(980230), None);
-        assert_eq!(int2date(19980230), None);
-        assert_eq!(int2date(22), None);
-        assert_eq!(int2date(2201010), None);
+        assert_eq!(int2date(980308, true).unwrap(), NaiveDate::from_ymd(1998, 3, 8));
+        assert_eq!(int2date(980308, false).unwrap(), NaiveDate::from_ymd(0098, 3, 8));
+        assert_eq!(int2date(050308, true).unwrap(), NaiveDate::from_ymd(2005, 3, 8));
+        assert_eq!(int2date(19980308, true).unwrap(), NaiveDate::from_ymd(1998, 3, 8));
+        assert_eq!(int2date(21050308, true).unwrap(), NaiveDate::from_ymd(2105, 3, 8));
+        assert_eq!(int2date(980230, true), None);
+        assert_eq!(int2date(19980230, true), None);
+        assert_eq!(int2date(22, true), None);
+        assert_eq!(int2date(2201010, true).unwrap(), NaiveDate::from_ymd(0220, 10, 10));
     }
 
     #[test]
@@ -215,7 +217,7 @@ mod test {
         assert_eq!(dbl2date(980230.), None);
         assert_eq!(dbl2date(19980230.), None);
         assert_eq!(dbl2date(980230.1), None);
-        assert_eq!(dbl2date(2201010.), None);
+        assert_eq!(dbl2date(2201310.), None);
         assert_eq!(dbl2date(220101.5), None);
     }
     #[test]
@@ -238,7 +240,7 @@ mod test {
         assert_eq!(str2date("1998-03-08").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
 
         assert_eq!(str2date("98308"), None);
-        assert_eq!(str2date("9800308"), None);
+        assert_eq!(str2date("980338"), None);
         assert_eq!(str2date("9a0308"), None);
     }
     #[test]
@@ -258,5 +260,5 @@ extendr_module! {
     fn ymd;
     fn period_begin;
     fn period_end;
-    fn add_months;
+    fn edate;
 }

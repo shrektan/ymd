@@ -21,9 +21,12 @@ period_begin <- function(x, unit) .Call(wrap__period_begin, x, unit)
 
 period_end <- function(x, unit) .Call(wrap__period_end, x, unit)
 
-#' Add months to a Date
-#' @param x a Date vector
-#' @param n the number of months that's added to `x`
+#' Calculate the date before / after months
+#' @param ref_date a Date vector
+#' @param months the number of months that's added to `ref_date`
+#' @note The function name is the same as the Excel function `EDATE()` and
+#'   does the same. It returns the date that is the indicated number of months
+#'   before or after the ref date.
 #' @export
-add_months <- function(x, n) .Call(wrap__add_months, x, n)
+edate <- function(ref_date, months) .Call(wrap__edate, ref_date, months)
 
