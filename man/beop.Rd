@@ -21,8 +21,8 @@ A list of BOP/EOP functions.
 }
 \note{
 \code{bop} and \code{eop} provides a list of functions. Their names consist of two
-letters, the first which means __l__ast, __t__his, __n__ext while the second
-means __y__ear, __q__uarter, __m__onth, __w__eek. Thus, \code{eop$ty()} means
-"the __e__nd __o__f period of __t__his __y__ear".
+letters, the first which means \strong{l}ast, \strong{t}his, \strong{n}ext while the second
+means \strong{y}ear, \strong{q}uarter, \strong{m}onth, \strong{w}eek. Thus, \code{eop$ty()} means
+"the \strong{e}nd \strong{o}f period of \strong{t}his \strong{y}ear".
 }
 \keyword{datasets}

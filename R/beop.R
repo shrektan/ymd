@@ -3,9 +3,9 @@
 #' A list of BOP/EOP functions.
 #'
 #' @note `bop` and `eop` provides a list of functions. Their names consist of two
-#'   letters, the first which means __l__ast, __t__his, __n__ext while the second
-#'   means __y__ear, __q__uarter, __m__onth, __w__eek. Thus, `eop$ty()` means
-#'   "the __e__nd __o__f period of __t__his __y__ear".
+#'   letters, the first which means **l**ast, **t**his, **n**ext while the second
+#'   means **y**ear, **q**uarter, **m**onth, **w**eek. Thus, `eop$ty()` means
+#'   "the **e**nd **o**f period of **t**his **y**ear".
 #'
 #' @name beop
 #' @export
