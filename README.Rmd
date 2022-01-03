@@ -37,4 +37,12 @@ bench::mark(
   ymd::ymd(x),
   lubridate::ymd(x), time_unit = "us"
 )
+
+x <- c("2021-01-01", "2022-12-31", "1995-03-22")
+x <- rep(x, 100)
+bench::mark(
+  ymd::ymd(x),
+  lubridate::ymd(x), time_unit = "us",
+  as.Date(x)
+)
 ```

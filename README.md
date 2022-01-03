@@ -19,8 +19,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression           min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <dbl>  <dbl>     <dbl> <bch:byt>    <dbl>
-#> 1 ymd::ymd(x)         32.7   33.2    29782.   209.5KB      0  
-#> 2 lubridate::ymd(x) 1833.  1878.       530.     8.2MB     19.9
+#> 1 ymd::ymd(x)         32.7   33.5    29387.   209.5KB      0  
+#> 2 lubridate::ymd(x) 1849.  1929.       514.     8.2MB     19.9
 
 x <- c(210101, 210224, 211231, 19890103)
 x <- rep(x, 100)
@@ -31,6 +31,20 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression           min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <dbl>  <dbl>     <dbl> <bch:byt>    <dbl>
-#> 1 ymd::ymd(x)         12.1   12.7    77510.    3.17KB      0  
-#> 2 lubridate::ymd(x) 1683.  1711.       583.  373.41KB     21.9
+#> 1 ymd::ymd(x)         12.1   12.7    77143.    3.17KB      0  
+#> 2 lubridate::ymd(x) 1681.  1735.       566.  373.41KB     19.6
+
+x <- c("2021-01-01", "2022-12-31", "1995-03-22")
+x <- rep(x, 100)
+bench::mark(
+  ymd::ymd(x),
+  lubridate::ymd(x), time_unit = "us",
+  as.Date(x)
+)
+#> # A tibble: 3 × 6
+#>   expression          min median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>        <dbl>  <dbl>     <dbl> <bch:byt>    <dbl>
+#> 1 ymd::ymd(x)        32.0   33.3    29191.    2.39KB     0   
+#> 2 lubridate::ymd(x) 787.   842.      1158.   201.1KB    19.7 
+#> 3 as.Date(x)        665.   678.      1460.   87.54KB     2.02
 ```
