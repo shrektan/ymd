@@ -21,7 +21,13 @@ knitr::opts_chunk$set(
 
 Handle common ymd Date Operations in R using Rust. It converts ymd integers or strings to Date, e.g., `211225` to `as.Date("2021-12-25")` and it provides addition helper functions like bop or eop (quick finding the begining or ending of period, e.g., the 1st date of the year or month).
 
-It's similar to the `lubridate` package but will be much lighter and focusing on Date objects.
+It's similar to the `lubridate` package but will be much lighter and focuses on Date objects.
+
+## Installation
+
+Note, in order to compile this package from source you need the Rust toolchain, which can be found in [Rust's official website](https://www.rust-lang.org).
+
+## Some use case and benchmarks
 
 ```{r bench}
 x <- c("210101", "21/02/03", "89-1-03", "1989.03.05")
@@ -44,5 +50,22 @@ bench::mark(
   ymd::ymd(x),
   lubridate::ymd(x), time_unit = "us",
   as.Date(x)
+)
+
+x <- ymd::ymd(210515) + 1:100
+bench::mark(
+  ymd::eop$tm(x),
+  lubridate::ceiling_date(x, "month") - 1
+)
+
+`%m+%` <- lubridate::`%m+%`
+x <- ymd::ymd(c(200115, 200131, 200229, 200331, 200401))
+bench::mark(
+  ymd::edate(x, 2),
+  x %m+% months(2)
+)
+bench::mark(
+  ymd::edate(x, -12),
+  x %m+% months(-12)
 )
 ```
