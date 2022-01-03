@@ -142,7 +142,7 @@ jobs:
 
       # Upload prebuilt binaries for Windows
       - name: Tweak staticlib on Windows
-        if: runner.os == 'Windows' || runner.os == 'macOS'
+        if: runner.os == 'Windows'
         run: |
           # list all staticlibs
           find ./check -name libymd.a
@@ -201,4 +201,4 @@ jobs:
       - name: Release pkgbinary
         uses: softprops/action-gh-release@v1
         with:
-          files: "./pkgbin/*"
+          files: "pkgbin/*"
