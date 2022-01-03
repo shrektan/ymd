@@ -1,9 +1,7 @@
 on:
   push:
-    branches:
-      - main
-    tags:
-      - 'v*'
+    branches: [main, master]
+    tags: ['v*', 'build*']
 
 name: R-CMD-check
 
@@ -27,7 +25,7 @@ jobs:
           #       So, this is probably unnecessary, but leave this as-is as this
           #       might be eventually useful for other package that depends on
           #       some C/C++ library.
-          # - {os: windows-2022, r: 'devel-ucrt', rust: 'stable'}
+          - {os: windows-2022, r: 'devel-ucrt', rust: 'stable'}
 
     env:
       RSPM: ${{ matrix.config.rspm }}
@@ -128,14 +126,14 @@ jobs:
         run: cargo test
 
       - name: Build binaries
-        # if: ${{ matrix.config.r=='release' && startsWith(github.ref, 'refs/tags/') }}
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           dir.create("./pkgbin")
           pkgbuild::build(binary = TRUE, dest_path = "./pkgbin")
         shell: Rscript {0}
 
       - name: Upload pkgbin
-        # if: ${{ matrix.config.r=='release' && startsWith(github.ref, 'refs/tags/') }}
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@main
         with:
           name: pkgbin
@@ -176,6 +174,7 @@ jobs:
 
       - name: Upload staticlib
         uses: actions/upload-artifact@main
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           name: staticlib
           path: staticlib

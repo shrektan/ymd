@@ -20,3 +20,12 @@ Config/testthat/edition: 3
 Config/ymd/windows_toolchain: stable-msvc
 Config/ymd/crate_name: ymd
 Config/ymd/github_repo: shrektan/ymd
+Config/ymd/github_tag: v0.0.1
+Config/ymd/binary_sha256sum:
+    list(
+        `aarch64-apple-darwin-libymd.a`       = "fc8eab32758a962cfdda5adb1bee808fd3d907c8445ff595188e671c6cd949a6",
+        `i686-pc-windows-gnu-libymd.a`        = "77693f6e04a7a4de52ce3e05cbc601e92add0d6b53fe4e248e3dea6195807989",
+        `ucrt-x86_64-pc-windows-gnu-libymd.a` = "140de6fb34c45cd31b4fbfc6e5dbd12457f13c6336e377db9a668e0320ca6216",
+        `x86_64-apple-darwin-libymd.a`        = "aa1c13f32cd1f005bd7415e991e339d8c301bec1abc6389da3f056947f65e607",
+        `x86_64-pc-windows-gnu-libymd.a`      = "140de6fb34c45cd31b4fbfc6e5dbd12457f13c6336e377db9a668e0320ca6216"
+    )
