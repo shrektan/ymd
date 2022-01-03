@@ -124,7 +124,7 @@ jobs:
         run: cargo test
 
       - name: Build binaries
-        if: ${{ matrix.config.os=='ubuntu-18.04' && matrix.config.r=='release' && startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ matrix.config.r=='release' && startsWith(github.ref, 'refs/tags/') }}
         run: |
           dir.create("./pkgbin")
           pkgbuild::build(binary = TRUE, dest_path = "./pkgbin")
@@ -132,6 +132,6 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: ${{ matrix.config.os=='ubuntu-18.04' && matrix.config.r=='release' && startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ matrix.config.r=='release' && startsWith(github.ref, 'refs/tags/') }}
         with:
           files: "./pkgbin/*"
