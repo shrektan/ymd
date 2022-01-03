@@ -100,9 +100,7 @@ fn make_rdate2(x: Vec<Option<NaiveDate>>) -> Robj {
 /// Convert integers or strings to Date
 ///
 /// @param x an integerable or string vector in ymd format
-///
 /// @return a Date object
-///
 /// @export
 #[extendr]
 fn ymd(x: Robj) -> Robj {

@@ -11,9 +11,7 @@ NULL
 #' Convert integers or strings to Date
 #'
 #' @param x an integerable or string vector in ymd format
-#'
 #' @return a Date object
-#'
 #' @export
 ymd <- function(x) .Call(wrap__ymd, x)
 

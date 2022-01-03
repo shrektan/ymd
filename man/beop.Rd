@@ -16,9 +16,6 @@ eop
 
 bop
 }
-\arguments{
-\item{x}{a date vector}
-}
 \description{
 A list of BOP/EOP functions.
 }
