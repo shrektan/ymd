@@ -24,7 +24,8 @@ fn add_months(ref_date: &NaiveDate, months: i32) -> NaiveDate {
   )
 }
 
-enum Period {
+#[derive(Copy, Clone)]
+pub enum Period {
   Year,
   Semiannual,
   Quarter,
@@ -32,7 +33,18 @@ enum Period {
   Week,
 }
 
-fn bop(x: &NaiveDate, p: Period) -> NaiveDate {
+pub fn to_period(x: &str) -> Option<Period> {
+  match x {
+    "year" => Some(Period::Year),
+    "semiannual" => Some(Period::Semiannual),
+    "quarter" => Some(Period::Quarter),
+    "month" => Some(Period::Month),
+    "week" => Some(Period::Week),
+    _ => None,
+  }
+}
+
+pub fn bop(x: &NaiveDate, p: Period) -> NaiveDate {
   match p {
       Period::Year => {
           NaiveDate::from_ymd(x.year(), 1, 1)
@@ -62,7 +74,7 @@ fn bop(x: &NaiveDate, p: Period) -> NaiveDate {
   }
 }
 
-fn eop(x: &NaiveDate, p: Period) -> NaiveDate {
+pub fn eop(x: &NaiveDate, p: Period) -> NaiveDate {
   match p {
       Period::Year => {
           NaiveDate::from_ymd(x.year(), 12, 31)

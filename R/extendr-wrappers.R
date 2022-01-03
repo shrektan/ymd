@@ -17,3 +17,7 @@ NULL
 #' @export
 ymd <- function(x) .Call(wrap__ymd, x)
 
+bop <- function(x, p) .Call(wrap__bop, x, p)
+
+eop <- function(x, p) .Call(wrap__eop, x, p)
+

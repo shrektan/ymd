@@ -89,6 +89,10 @@ fn to_rdate(x: &Option<NaiveDate>) -> Option<f64> {
     }
 }
 
+fn make_rdate(x: Vec<Option<f64>>) -> Robj {
+    r!(x).set_class(&["Date"]).unwrap()
+}
+
 /// Convert integers or strings to Date
 ///
 /// @param x an integerable or string vector in ymd format
@@ -136,10 +140,34 @@ fn ymd(x: Robj) -> Robj {
             panic!("x must be integerable or string vector");
         }
     };
-    let out: Robj = r!(value).set_class(&["Date"]).unwrap();
-    out
+    make_rdate(value)
 }
 
+fn beop(x: Robj, p: &str, fun: fn(&NaiveDate, period::Period)->NaiveDate) -> Robj {
+    let p = match period::to_period(p) {
+        Some(i) => i,
+        None => return make_rdate( vec![None; x.len()] ),
+    };
+    let x = robj2date(x);
+    let out = x.iter().map(|v| {
+        let v = match v {
+            Some(date) => Some(fun(&date, p)),
+            None => None,
+        };
+        to_rdate(&v)
+    }).collect();
+    make_rdate(out)
+}
+
+#[extendr]
+fn bop(x: Robj, p: &str) -> Robj {
+    beop(x, p, period::bop)
+}
+
+#[extendr]
+fn eop(x: Robj, p: &str) -> Robj {
+    beop(x, p, period::eop)
+}
 
 #[cfg(test)]
 mod test {
@@ -207,4 +235,6 @@ mod test {
 extendr_module! {
     mod ymd;
     fn ymd;
+    fn bop;
+    fn eop;
 }
