@@ -22,4 +22,11 @@ while the second stands for \strong{y}ear, \strong{q}uarter, \strong{m}onth, \st
 For example, \code{eop$ty()} means "the \strong{e}nding \strong{o}f \strong{p}eriod of \strong{t}his \strong{y}ear"
 and \code{bop$lm()} means "the \strong{b}eginning \strong{o}f \strong{p}eriod of \strong{l}ast \strong{m}onth".
 }
+\examples{
+bop$ty(as.Date("2021-03-02"))
+## supports 'YMD' formatted integer or string
+bop$ty(210302)
+eop$tm(200201)
+
+}
 \keyword{datasets}

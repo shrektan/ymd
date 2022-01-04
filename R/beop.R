@@ -6,6 +6,12 @@
 #' For example, `eop$ty()` means "the **e**nding **o**f **p**eriod of **t**his **y**ear"
 #' and `bop$lm()` means "the **b**eginning **o**f **p**eriod of **l**ast **m**onth".
 #'
+#' @examples
+#' bop$ty(as.Date("2021-03-02"))
+#' ## supports 'YMD' formatted integer or string
+#' bop$ty(210302)
+#' eop$tm(200201)
+#'
 #' @rdname beop
 #' @export
 eop <- list(

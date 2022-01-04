@@ -19,3 +19,10 @@ The function name is the same as the Excel function \code{EDATE()} and
 does the same. It returns the date that is the indicated number of months
 before or after the ref date.
 }
+\examples{
+edate(as.Date("2020-02-29"), 1)
+## supports 'YMD' formatted integer or string
+edate(200229, 1)
+edate(200229, -1)
+
+}
