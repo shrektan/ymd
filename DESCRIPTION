@@ -1,5 +1,5 @@
 Package: ymd
-Title: Parse 'YMD' format number or string to Date
+Title: Parse 'YMD' Format Number or String to Date
 Version: 0.0.1
 Authors@R:
     person("Xianying", "Tan", , "shrektan@126.com", role = c("aut", "cre"),
