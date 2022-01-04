@@ -6,14 +6,36 @@
 \alias{bop}
 \title{Find the Beginning or Ending of Period}
 \format{
-An object of class \code{list} of length 12.
+\code{eop}: a list of functions with the same signature, e.g., \code{eop$tm(x)}
 
-An object of class \code{list} of length 12.
+\code{bop}: a list of functions with the same signature, e.g., \code{bop$tm(x)}
 }
 \usage{
-eop
+eop$ly(x)
+eop$ty(x)
+eop$ny(x)
+eop$lq(x)
+eop$tq(x)
+eop$nq(x)
+eop$lm(x)
+eop$tm(x)
+eop$nm(x)
+eop$lw(x)
+eop$tw(x)
+eop$nw(x)
 
-bop
+bop$ly(x)
+bop$ty(x)
+bop$ny(x)
+bop$lq(x)
+bop$tq(x)
+bop$nq(x)
+bop$lm(x)
+bop$tm(x)
+bop$nm(x)
+bop$lw(x)
+bop$tw(x)
+bop$nw(x)
 }
 \description{
 Each of \code{bop} and \code{eop} contains a list of functions, whose names all
@@ -21,6 +43,9 @@ consist of two letters, the first of which stands for \strong{l}ast, \strong{t}h
 while the second stands for \strong{y}ear, \strong{q}uarter, \strong{m}onth, \strong{w}eek.
 For example, \code{eop$ty()} means "the \strong{e}nding \strong{o}f \strong{p}eriod of \strong{t}his \strong{y}ear"
 and \code{bop$lm()} means "the \strong{b}eginning \strong{o}f \strong{p}eriod of \strong{l}ast \strong{m}onth".
+}
+\details{
+\code{x} could be a Date or values that can be converted to Date via \code{\link[=ymd]{ymd()}}
 }
 \examples{
 bop$ty(as.Date("2021-03-02"))

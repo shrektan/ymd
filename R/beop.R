@@ -6,6 +6,21 @@
 #' For example, `eop$ty()` means "the **e**nding **o**f **p**eriod of **t**his **y**ear"
 #' and `bop$lm()` means "the **b**eginning **o**f **p**eriod of **l**ast **m**onth".
 #'
+#' @usage
+#' eop$ly(x)
+#' eop$ty(x)
+#' eop$ny(x)
+#' eop$lq(x)
+#' eop$tq(x)
+#' eop$nq(x)
+#' eop$lm(x)
+#' eop$tm(x)
+#' eop$nm(x)
+#' eop$lw(x)
+#' eop$tw(x)
+#' eop$nw(x)
+#' @format `eop`: a list of functions with the same signature, e.g., `eop$tm(x)`
+#' @details `x` could be a Date or values that can be converted to Date via [ymd()]
 #' @examples
 #' bop$ty(as.Date("2021-03-02"))
 #' ## supports 'YMD' formatted integer or string
@@ -29,6 +44,20 @@ eop <- list(
   nw = function(x = Sys.Date()) period_end(period_end(x, 'week') + 1, 'week')
 )
 
+#' @usage
+#' bop$ly(x)
+#' bop$ty(x)
+#' bop$ny(x)
+#' bop$lq(x)
+#' bop$tq(x)
+#' bop$nq(x)
+#' bop$lm(x)
+#' bop$tm(x)
+#' bop$nm(x)
+#' bop$lw(x)
+#' bop$tw(x)
+#' bop$nw(x)
+#' @format `bop`: a list of functions with the same signature, e.g., `bop$tm(x)`
 #' @rdname beop
 #' @export
 bop <- list(
