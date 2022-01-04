@@ -195,10 +195,10 @@ fn period_end(x: Robj, unit: &str) -> Robj {
 ///   does the same. It returns the date that is the indicated number of months
 ///   before or after the ref date.
 /// @examples
-/// edate(as.Date("2020-02-29"), 1)
+/// edate(as.Date("2020-01-31"), 1)
 /// ## supports 'YMD' formatted integer or string
-/// edate(200229, 1)
-/// edate(200229, -1)
+/// edate(200131, 1)
+/// edate(200229, -12)
 ///
 /// @export
 #[extendr]

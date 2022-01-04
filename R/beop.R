@@ -15,7 +15,7 @@
 #' bop$ty(210302)
 #' eop$tm(200201)
 #'
-#' @rdname beop
+#' @name beop
 #' @export
 eop <- list(
   ly = function(x = Sys.Date()) period_begin(x, 'year') - 1,
@@ -34,7 +34,7 @@ eop <- list(
 
 #' @usage NULL
 #' @format NULL
-#' @rdname beop
+#' @name beop
 #' @export
 bop <- list(
   ly = function(x = Sys.Date()) period_begin(period_begin(x, 'year') - 1, 'year'),

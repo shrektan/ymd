@@ -5,9 +5,9 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/shrektan/ymd/workflows/R-CMD-check/badge.svg)](https://github.com/shrektan/ymd/actions) <!-- badges: end -->
 
-Handle common ymd Date Operations in R using Rust. It converts ymd integers or strings to Date, e.g., `211225` to `as.Date("2021-12-25")` and it provides addition helper functions like 'bop' or 'eop' (quick finding the beginning or ending of period, e.g., the 1st date of the year or month).
+Convert 'YMD' format number or string to Date efficiently, e.g., `211225` to `as.Date("2021-12-25")`, using Rust's standard library. It also provides helper functions to handle Date, e.g., quick finding the beginning or ending of the given period, adding months to Date, etc.
 
-It's similar to the `lubridate` package but will be much lighter and focuses on Date objects.
+It's similar to the `lubridate` package but is much lighter and focuses only on Date objects.
 
 ## Installation
 
@@ -25,8 +25,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression           min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <dbl>  <dbl>     <dbl> <bch:byt>    <dbl>
-#> 1 ymd::ymd(x)         32.9   33.5    29472.     214KB      0  
-#> 2 lubridate::ymd(x) 1837.  1872.       531.    8.22MB     19.9
+#> 1 ymd::ymd(x)         33.5   34.7    28502.  213.88KB      0  
+#> 2 lubridate::ymd(x) 1887.  1935.       513.    8.22MB     19.9
 
 x <- c(210101, 210224, 211231, 19890103)
 x <- rep(x, 100)
@@ -37,8 +37,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression           min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <dbl>  <dbl>     <dbl> <bch:byt>    <dbl>
-#> 1 ymd::ymd(x)         11.9   12.5    79072.    3.17KB      0  
-#> 2 lubridate::ymd(x) 1670.  1703.       586.  373.41KB     22.0
+#> 1 ymd::ymd(x)         12.2   12.7    77720.    3.17KB      0  
+#> 2 lubridate::ymd(x) 1728.  1766.       561.  373.41KB     19.7
 
 x <- c("2021-01-01", "2022-12-31", "1995-03-22")
 x <- rep(x, 100)
@@ -50,9 +50,9 @@ bench::mark(
 #> # A tibble: 3 × 6
 #>   expression          min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>        <dbl>  <dbl>     <dbl> <bch:byt>    <dbl>
-#> 1 ymd::ymd(x)        32.1   32.6    30408.    2.39KB      0  
-#> 2 lubridate::ymd(x) 780.   797.      1245.   201.1KB     21.9
-#> 3 as.Date(x)        662.   669.      1492.   87.54KB      0
+#> 1 ymd::ymd(x)        32.9   33.5    29587.    2.39KB      0  
+#> 2 lubridate::ymd(x) 801.   824.      1203.   201.1KB     22.0
+#> 3 as.Date(x)        664.   693.      1438.   87.54KB      0
 
 x <- ymd::ymd(210515) + 1:100
 bench::mark(
@@ -62,8 +62,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression                                   min   median `itr/sec` mem_alloc
 #>   <bch:expr>                              <bch:tm> <bch:tm>     <dbl> <bch:byt>
-#> 1 ymd::eop$tm(x)                            5.49µs    5.9µs   167201.    19.3KB
-#> 2 lubridate::ceiling_date(x, "month") - 1  94.87µs   99.4µs     9923.   255.1KB
+#> 1 ymd::eop$tm(x)                             5.7µs   6.15µs   158650.    19.3KB
+#> 2 lubridate::ceiling_date(x, "month") - 1   96.5µs 103.53µs     9506.   255.1KB
 #> # … with 1 more variable: gc/sec <dbl>
 
 `%m+%` <- lubridate::`%m+%`
@@ -75,8 +75,8 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression            min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>       <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 ymd::edate(x, 2)   1.07µs   1.27µs   745882.    2.24KB      0  
-#> 2 x %m+% months(2) 146.25µs 153.42µs     6469.  299.23KB     47.7
+#> 1 ymd::edate(x, 2)   1.07µs   1.44µs   693368.    2.24KB      0  
+#> 2 x %m+% months(2) 149.85µs 160.02µs     6181.  299.23KB     45.9
 bench::mark(
   ymd::edate(x, -12),
   x %m+% months(-12)
@@ -84,6 +84,6 @@ bench::mark(
 #> # A tibble: 2 × 6
 #>   expression              min   median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-#> 1 ymd::edate(x, -12)   1.15µs   1.48µs   670195.        0B      0  
-#> 2 x %m+% months(-12) 575.15µs 592.12µs     1681.    94.8KB     48.2
+#> 1 ymd::edate(x, -12)   1.15µs   1.52µs   658489.        0B      0  
+#> 2 x %m+% months(-12) 597.08µs 617.87µs     1604.    94.8KB     46.1
 ```
