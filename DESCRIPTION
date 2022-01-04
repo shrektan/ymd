@@ -25,9 +25,9 @@ Config/ymd/github_repo: shrektan/ymd
 Config/ymd/github_tag: v0.0.1
 Config/ymd/binary_sha256sum:
     list(
-        `aarch64-apple-darwin-libymd.a`       = "fc8eab32758a962cfdda5adb1bee808fd3d907c8445ff595188e671c6cd949a6",
-        `i686-pc-windows-gnu-libymd.a`        = "77693f6e04a7a4de52ce3e05cbc601e92add0d6b53fe4e248e3dea6195807989",
-        `ucrt-x86_64-pc-windows-gnu-libymd.a` = "140de6fb34c45cd31b4fbfc6e5dbd12457f13c6336e377db9a668e0320ca6216",
-        `x86_64-apple-darwin-libymd.a`        = "aa1c13f32cd1f005bd7415e991e339d8c301bec1abc6389da3f056947f65e607",
-        `x86_64-pc-windows-gnu-libymd.a`      = "140de6fb34c45cd31b4fbfc6e5dbd12457f13c6336e377db9a668e0320ca6216"
+        `aarch64-apple-darwin-libymd.a`       = "e6f9a33396a8c97dcd6b0faf92b822f4efa1ae02cc9ddc10a7aea2a25b4e3293",
+        `i686-pc-windows-gnu-libymd.a`        = "dabad815be64e6134f8e4a453dcfca35229d19726c551c071f203fa636527f35",
+        `ucrt-x86_64-pc-windows-gnu-libymd.a` = "063862240340b93ad5eb96138e42a5392c3f3c77241468f2d8e5bb39815cc2ee",
+        `x86_64-apple-darwin-libymd.a`        = "4e4bfa69b22c0611d212fd6e09f32c6066c3af61d2f8c16e29327782308b98d4",
+        `x86_64-pc-windows-gnu-libymd.a`      = "063862240340b93ad5eb96138e42a5392c3f3c77241468f2d8e5bb39815cc2ee"
     )
