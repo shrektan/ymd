@@ -69,8 +69,8 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>Handle common ymd Date Operations in R using Rust. It converts ymd integers or strings to Date, e.g., <code>211225</code> to <code>as.Date("2021-12-25")</code> and it provides addition helper functions like ‘bop’ or ‘eop’ (quick finding the beginning or ending of period, e.g., the 1st date of the year or month).</p>
-<p>It’s similar to the <code>lubridate</code> package but will be much lighter and focuses on Date objects.</p>
+<p>Convert ‘YMD’ format number or string to Date efficiently, e.g., <code>211225</code> to <code>as.Date("2021-12-25")</code>, using Rust’s standard library. It also provides helper functions to handle Date, e.g., quick finding the beginning or ending of the given period, adding months to Date, etc.</p>
+<p>It’s similar to the <code>lubridate</code> package but is much lighter and focuses only on Date objects.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -89,8 +89,8 @@
 <span class="co">#&gt; # A tibble: 2 × 6</span>
 <span class="co">#&gt;   expression           min median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::ymd(x)         32.9   33.5    29472.     214KB      0  </span>
-<span class="co">#&gt; 2 lubridate::ymd(x) 1837.  1872.       531.    8.22MB     19.9</span>
+<span class="co">#&gt; 1 ymd::ymd(x)         33.5   34.7    28502.  213.88KB      0  </span>
+<span class="co">#&gt; 2 lubridate::ymd(x) 1887.  1935.       513.    8.22MB     19.9</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">210101</span>, <span class="fl">210224</span>, <span class="fl">211231</span>, <span class="fl">19890103</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span><span class="op">)</span>
@@ -101,8 +101,8 @@
 <span class="co">#&gt; # A tibble: 2 × 6</span>
 <span class="co">#&gt;   expression           min median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::ymd(x)         11.9   12.5    79072.    3.17KB      0  </span>
-<span class="co">#&gt; 2 lubridate::ymd(x) 1670.  1703.       586.  373.41KB     22.0</span>
+<span class="co">#&gt; 1 ymd::ymd(x)         12.2   12.7    77720.    3.17KB      0  </span>
+<span class="co">#&gt; 2 lubridate::ymd(x) 1728.  1766.       561.  373.41KB     19.7</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-01-01"</span>, <span class="st">"2022-12-31"</span>, <span class="st">"1995-03-22"</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span><span class="op">)</span>
@@ -114,9 +114,9 @@
 <span class="co">#&gt; # A tibble: 3 × 6</span>
 <span class="co">#&gt;   expression          min median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;        &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::ymd(x)        32.1   32.6    30408.    2.39KB      0  </span>
-<span class="co">#&gt; 2 lubridate::ymd(x) 780.   797.      1245.   201.1KB     21.9</span>
-<span class="co">#&gt; 3 as.Date(x)        662.   669.      1492.   87.54KB      0</span>
+<span class="co">#&gt; 1 ymd::ymd(x)        32.9   33.5    29587.    2.39KB      0  </span>
+<span class="co">#&gt; 2 lubridate::ymd(x) 801.   824.      1203.   201.1KB     22.0</span>
+<span class="co">#&gt; 3 as.Date(x)        664.   693.      1438.   87.54KB      0</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">210515</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
@@ -126,8 +126,8 @@
 <span class="co">#&gt; # A tibble: 2 × 6</span>
 <span class="co">#&gt;   expression                                   min   median `itr/sec` mem_alloc</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;                              &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span>
-<span class="co">#&gt; 1 ymd::eop$tm(x)                            5.49µs    5.9µs   167201.    19.3KB</span>
-<span class="co">#&gt; 2 lubridate::ceiling_date(x, "month") - 1  94.87µs   99.4µs     9923.   255.1KB</span>
+<span class="co">#&gt; 1 ymd::eop$tm(x)                             5.7µs   6.15µs   158650.    19.3KB</span>
+<span class="co">#&gt; 2 lubridate::ceiling_date(x, "month") - 1   96.5µs 103.53µs     9506.   255.1KB</span>
 <span class="co">#&gt; # … with 1 more variable: gc/sec &lt;dbl&gt;</span>
 
 <span class="va">`%m+%`</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="va">`%m+%`</span>
@@ -139,8 +139,8 @@
 <span class="co">#&gt; # A tibble: 2 × 6</span>
 <span class="co">#&gt;   expression            min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;       &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::edate(x, 2)   1.07µs   1.27µs   745882.    2.24KB      0  </span>
-<span class="co">#&gt; 2 x %m+% months(2) 146.25µs 153.42µs     6469.  299.23KB     47.7</span>
+<span class="co">#&gt; 1 ymd::edate(x, 2)   1.07µs   1.44µs   693368.    2.24KB      0  </span>
+<span class="co">#&gt; 2 x %m+% months(2) 149.85µs 160.02µs     6181.  299.23KB     45.9</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
   <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/edate.html">edate</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">-</span><span class="fl">12</span><span class="op">)</span>,
   <span class="va">x</span> <span class="op">%m+%</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="op">-</span><span class="fl">12</span><span class="op">)</span>
@@ -148,8 +148,8 @@
 <span class="co">#&gt; # A tibble: 2 × 6</span>
 <span class="co">#&gt;   expression              min   median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   &lt;bch:expr&gt;         &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::edate(x, -12)   1.15µs   1.48µs   670195.        0B      0  </span>
-<span class="co">#&gt; 2 x %m+% months(-12) 575.15µs 592.12µs     1681.    94.8KB     48.2</span></code></pre></div>
+<span class="co">#&gt; 1 ymd::edate(x, -12)   1.15µs   1.52µs   658489.        0B      0  </span>
+<span class="co">#&gt; 2 x %m+% months(-12) 597.08µs 617.87µs     1604.    94.8KB     46.1</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
