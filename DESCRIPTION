@@ -1,11 +1,13 @@
 Package: ymd
-Title: Handle YMD Dates
+Title: Parse 'YMD' format number or string to Date
 Version: 0.0.1
 Authors@R:
     person("Xianying", "Tan", , "shrektan@126.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6072-3521"))
-Description: Convert integers or strings to dates, generate begin or end date of given period,
-    and other useful functions for dates.
+Maintainer: Xianying Tan <shrektan@126.com>
+Description: Convert 'YMD' format number or string to Date efficiently, using Rust's
+    standard library. It also provides helper functions to handle Date, e.g., quick
+    finding the beginning or ending of the given period, adding months to Date, etc.
 License: MIT + file LICENSE
 URL: https://shrektan.github.io/ymd/, https://github.com/shrektan/ymd
 BugReports: https://github.com/shrektan/ymd/issues

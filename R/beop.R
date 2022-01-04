@@ -1,13 +1,12 @@
-#' Begin/End of Period (BOP and EOP)
+#' Find the Beginning or Ending of Period
 #'
-#' A list of BOP/EOP functions.
+#' Each of `bop` and `eop` contains a list of functions, whose names all
+#' consist of two letters, the first of which stands for **l**ast, **t**his, **n**ext
+#' while the second stands for **y**ear, **q**uarter, **m**onth, **w**eek.
+#' For example, `eop$ty()` means "the **e**nding **o**f **p**eriod of **t**his **y**ear"
+#' and `bop$lm()` means "the **b**eginning **o**f **p**eriod of **l**ast **m**onth".
 #'
-#' @note `bop` and `eop` provides a list of functions. Their names consist of two
-#'   letters, the first which means **l**ast, **t**his, **n**ext while the second
-#'   means **y**ear, **q**uarter, **m**onth, **w**eek. Thus, `eop$ty()` means
-#'   "the **e**nd **o**f period of **t**his **y**ear".
-#'
-#' @name beop
+#' @rdname beop
 #' @export
 eop <- list(
   ly = function(x = Sys.Date()) period_begin(x, 'year') - 1,
@@ -24,7 +23,7 @@ eop <- list(
   nw = function(x = Sys.Date()) period_end(period_end(x, 'week') + 1, 'week')
 )
 
-#' @name beop
+#' @rdname beop
 #' @export
 bop <- list(
   ly = function(x = Sys.Date()) period_begin(period_begin(x, 'year') - 1, 'year'),

@@ -2,16 +2,25 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{ymd}
 \alias{ymd}
-\title{Convert integers or strings to Date}
+\title{Convert 'YMD' format integer or string to Date}
 \usage{
 ymd(x)
 }
 \arguments{
-\item{x}{an integerable or string vector in ymd format}
+\item{x}{An integer or string vector in 'YMD' format. Double
+values without the decimal part are allowed.}
 }
 \value{
-a Date object
+A Date object. When the parse fails for certain input,
+the value returned would be \code{NA}, silently.
 }
 \description{
-Convert integers or strings to Date
+Transform integer or strings vectors in 'YMD' format to Date objects.
+It intends to only support limited formats (no separator or one of
+'.', ' ', '-' and '/' separators). See the possible formats in examples.
+}
+\examples{
+ymd(c(210326, 19981225))
+ymd(c("2020/1/8", "20 1 7", "1998.7.1", "1990-02-03"))
+
 }

@@ -99,10 +99,21 @@ fn make_rdate2(x: Vec<Option<NaiveDate>>) -> Robj {
     make_rdate(v)
 }
 
-/// Convert integers or strings to Date
+/// Convert 'YMD' format integer or string to Date
 ///
-/// @param x an integerable or string vector in ymd format
-/// @return a Date object
+/// Transform integer or strings vectors in 'YMD' format to Date objects.
+/// It intends to only support limited formats (no separator or one of
+/// '.', ' ', '-' and '/' separators). See the possible formats in examples.
+///
+/// @param x An integer or string vector in 'YMD' format. Double
+///   values without the decimal part are allowed.
+/// @return A Date object. When the parse fails for certain input,
+///   the value returned would be `NA`, silently.
+///
+/// @examples
+/// ymd(c(210326, 19981225))
+/// ymd(c("2020/1/8", "20 1 7", "1998.7.1", "1990-02-03"))
+///
 /// @export
 #[extendr]
 fn ymd(x: Robj) -> Robj {
