@@ -8,3 +8,4 @@
 ^CRAN-RELEASE$
 ^src/.cargo
 ^src/rust/target
+^CRAN-SUBMISSION$
