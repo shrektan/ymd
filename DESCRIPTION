@@ -1,6 +1,6 @@
 Package: ymd
 Title: Parse 'YMD' Format Number or String to Date
-Version: 0.0.1
+Version: 0.0.1.9000
 Authors@R: c(
     person("Xianying", "Tan", , "shrektan@126.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6072-3521")),
