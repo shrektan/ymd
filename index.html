@@ -30,7 +30,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ymd</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,81 +80,306 @@
 <h2 id="some-use-case-and-benchmarks">Some use case and benchmarks<a class="anchor" aria-label="anchor" href="#some-use-case-and-benchmarks"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"210101"</span>, <span class="st">"21/02/03"</span>, <span class="st">"89-1-03"</span>, <span class="st">"1989.03.05"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">print_bmk</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+  <span class="va">x</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+  <span class="va">rnd</span> <span class="op">&lt;-</span> \<span class="op">(</span><span class="va">v</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">is.numeric</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">v</span>, <span class="fl">1</span><span class="op">)</span> <span class="kw">else</span> <span class="va">v</span>
+  <span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">rnd</span><span class="op">)</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> |&gt; <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span> |&gt; <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"210101"</span>, <span class="st">"21/02/03"</span>, <span class="st">"89-1-03"</span>, <span class="st">"1989.03.05"</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span><span class="op">)</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
   <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/ymd.html">ymd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
   <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, time_unit <span class="op">=</span> <span class="st">"us"</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 6</span>
-<span class="co">#&gt;   expression           min median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::ymd(x)         33.5   34.7    28502.  213.88KB      0  </span>
-<span class="co">#&gt; 2 lubridate::ymd(x) 1887.  1935.       513.    8.22MB     19.9</span>
-
+<span class="op">)</span> |&gt; <span class="fu">print_bmk</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">expression</th>
+<th align="right">min</th>
+<th align="right">median</th>
+<th align="right">itr.sec</th>
+<th align="left">mem_alloc</th>
+<th align="right">gc.sec</th>
+<th align="right">n_itr</th>
+<th align="right">n_gc</th>
+<th align="right">total_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ymd::ymd(x)</td>
+<td align="right">32.8</td>
+<td align="right">33.7</td>
+<td align="right">29107.3</td>
+<td align="left">214.27KB</td>
+<td align="right">0.0</td>
+<td align="right">10000</td>
+<td align="right">0</td>
+<td align="right">343556.5</td>
+</tr>
+<tr class="even">
+<td align="left">lubridate::ymd(x)</td>
+<td align="right">1843.0</td>
+<td align="right">1932.1</td>
+<td align="right">511.4</td>
+<td align="left">8.19MB</td>
+<td align="right">19.9</td>
+<td align="right">231</td>
+<td align="right">9</td>
+<td align="right">451659.5</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">210101</span>, <span class="fl">210224</span>, <span class="fl">211231</span>, <span class="fl">19890103</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span><span class="op">)</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
   <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/ymd.html">ymd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
   <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, time_unit <span class="op">=</span> <span class="st">"us"</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 6</span>
-<span class="co">#&gt;   expression           min median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;         &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::ymd(x)         12.2   12.7    77720.    3.17KB      0  </span>
-<span class="co">#&gt; 2 lubridate::ymd(x) 1728.  1766.       561.  373.41KB     19.7</span>
-
+<span class="op">)</span> |&gt; <span class="fu">print_bmk</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">expression</th>
+<th align="right">min</th>
+<th align="right">median</th>
+<th align="right">itr.sec</th>
+<th align="left">mem_alloc</th>
+<th align="right">gc.sec</th>
+<th align="right">n_itr</th>
+<th align="right">n_gc</th>
+<th align="right">total_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ymd::ymd(x)</td>
+<td align="right">11.8</td>
+<td align="right">12.4</td>
+<td align="right">78836.5</td>
+<td align="left">3.17KB</td>
+<td align="right">0.0</td>
+<td align="right">10000</td>
+<td align="right">0</td>
+<td align="right">126844.8</td>
+</tr>
+<tr class="even">
+<td align="left">lubridate::ymd(x)</td>
+<td align="right">1707.7</td>
+<td align="right">1843.4</td>
+<td align="right">527.9</td>
+<td align="left">373.41KB</td>
+<td align="right">19.8</td>
+<td align="right">240</td>
+<td align="right">9</td>
+<td align="right">454630.2</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-01-01"</span>, <span class="st">"2022-12-31"</span>, <span class="st">"1995-03-22"</span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span><span class="op">)</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
   <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/ymd.html">ymd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
   <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ymd</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, time_unit <span class="op">=</span> <span class="st">"us"</span>,
   <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 6</span>
-<span class="co">#&gt;   expression          min median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;        &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::ymd(x)        32.9   33.5    29587.    2.39KB      0  </span>
-<span class="co">#&gt; 2 lubridate::ymd(x) 801.   824.      1203.   201.1KB     22.0</span>
-<span class="co">#&gt; 3 as.Date(x)        664.   693.      1438.   87.54KB      0</span>
-
+<span class="op">)</span> |&gt; <span class="fu">print_bmk</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">expression</th>
+<th align="right">min</th>
+<th align="right">median</th>
+<th align="right">itr.sec</th>
+<th align="left">mem_alloc</th>
+<th align="right">gc.sec</th>
+<th align="right">n_itr</th>
+<th align="right">n_gc</th>
+<th align="right">total_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ymd::ymd(x)</td>
+<td align="right">32.0</td>
+<td align="right">32.6</td>
+<td align="right">30097.2</td>
+<td align="left">2.39KB</td>
+<td align="right">0.0</td>
+<td align="right">10000</td>
+<td align="right">0</td>
+<td align="right">332257.2</td>
+</tr>
+<tr class="even">
+<td align="left">lubridate::ymd(x)</td>
+<td align="right">787.2</td>
+<td align="right">837.2</td>
+<td align="right">1172.8</td>
+<td align="left">201.1KB</td>
+<td align="right">19.6</td>
+<td align="right">539</td>
+<td align="right">9</td>
+<td align="right">459576.8</td>
+</tr>
+<tr class="odd">
+<td align="left">as.Date(x)</td>
+<td align="right">659.6</td>
+<td align="right">690.4</td>
+<td align="right">1435.8</td>
+<td align="left">87.54KB</td>
+<td align="right">2.0</td>
+<td align="right">711</td>
+<td align="right">1</td>
+<td align="right">495201.9</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">210515</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
   <span class="fu">ymd</span><span class="fu">::</span><span class="va"><a href="reference/beop.html">eop</a></span><span class="op">$</span><span class="fu">tm</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
-  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 6</span>
-<span class="co">#&gt;   expression                                   min   median `itr/sec` mem_alloc</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;                              &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;</span>
-<span class="co">#&gt; 1 ymd::eop$tm(x)                             5.7µs   6.15µs   158650.    19.3KB</span>
-<span class="co">#&gt; 2 lubridate::ceiling_date(x, "month") - 1   96.5µs 103.53µs     9506.   255.1KB</span>
-<span class="co">#&gt; # … with 1 more variable: gc/sec &lt;dbl&gt;</span>
-
+  <span class="fu">lubridate</span><span class="fu">::</span><span class="fu">ceiling_date</span><span class="op">(</span><span class="va">x</span>, <span class="st">"month"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, time_unit <span class="op">=</span> <span class="st">"us"</span>
+<span class="op">)</span> |&gt; <span class="fu">print_bmk</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="36%">
+<col width="5%">
+<col width="7%">
+<col width="8%">
+<col width="10%">
+<col width="7%">
+<col width="7%">
+<col width="6%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">expression</th>
+<th align="right">min</th>
+<th align="right">median</th>
+<th align="right">itr.sec</th>
+<th align="left">mem_alloc</th>
+<th align="right">gc.sec</th>
+<th align="right">n_itr</th>
+<th align="right">n_gc</th>
+<th align="right">total_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ymd::eop$tm(x)</td>
+<td align="right">5.5</td>
+<td align="right">5.9</td>
+<td align="right">164290.1</td>
+<td align="left">19.3KB</td>
+<td align="right">0.0</td>
+<td align="right">10000</td>
+<td align="right">0</td>
+<td align="right">60867.9</td>
+</tr>
+<tr class="even">
+<td align="left">lubridate::ceiling_date(x, “month”) - 1</td>
+<td align="right">94.5</td>
+<td align="right">101.4</td>
+<td align="right">9547.0</td>
+<td align="left">255.1KB</td>
+<td align="right">35.6</td>
+<td align="right">4285</td>
+<td align="right">16</td>
+<td align="right">448832.8</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">`%m+%`</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="va">`%m+%`</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200115</span>, <span class="fl">200131</span>, <span class="fl">200229</span>, <span class="fl">200331</span>, <span class="fl">200401</span><span class="op">)</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">100</span><span class="op">)</span>
 <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
   <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/edate.html">edate</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>,
-  <span class="va">x</span> <span class="op">%m+%</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 6</span>
-<span class="co">#&gt;   expression            min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;       &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::edate(x, 2)   1.07µs   1.44µs   693368.    2.24KB      0  </span>
-<span class="co">#&gt; 2 x %m+% months(2) 149.85µs 160.02µs     6181.  299.23KB     45.9</span>
-<span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
+  <span class="va">x</span> <span class="op">%m+%</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, time_unit <span class="op">=</span> <span class="st">"us"</span>
+<span class="op">)</span> |&gt; <span class="fu">print_bmk</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">expression</th>
+<th align="right">min</th>
+<th align="right">median</th>
+<th align="right">itr.sec</th>
+<th align="left">mem_alloc</th>
+<th align="right">gc.sec</th>
+<th align="right">n_itr</th>
+<th align="right">n_gc</th>
+<th align="right">total_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ymd::edate(x, 2)</td>
+<td align="right">13.2</td>
+<td align="right">13.8</td>
+<td align="right">70377.8</td>
+<td align="left">6.2KB</td>
+<td align="right">0.0</td>
+<td align="right">10000</td>
+<td align="right">0</td>
+<td align="right">142090.2</td>
+</tr>
+<tr class="even">
+<td align="left">x %m+% months(2)</td>
+<td align="right">293.6</td>
+<td align="right">309.5</td>
+<td align="right">3197.9</td>
+<td align="left">424.6KB</td>
+<td align="right">23.7</td>
+<td align="right">1485</td>
+<td align="right">11</td>
+<td align="right">464365.5</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span>
   <span class="fu">ymd</span><span class="fu">::</span><span class="fu"><a href="reference/edate.html">edate</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">-</span><span class="fl">12</span><span class="op">)</span>,
-  <span class="va">x</span> <span class="op">%m+%</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="op">-</span><span class="fl">12</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 6</span>
-<span class="co">#&gt;   expression              min   median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   &lt;bch:expr&gt;         &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ymd::edate(x, -12)   1.15µs   1.52µs   658489.        0B      0  </span>
-<span class="co">#&gt; 2 x %m+% months(-12) 597.08µs 617.87µs     1604.    94.8KB     46.1</span></code></pre></div>
+  <span class="va">x</span> <span class="op">%m+%</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="op">-</span><span class="fl">12</span><span class="op">)</span>, time_unit <span class="op">=</span> <span class="st">"us"</span>
+<span class="op">)</span> |&gt; <span class="fu">print_bmk</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">expression</th>
+<th align="right">min</th>
+<th align="right">median</th>
+<th align="right">itr.sec</th>
+<th align="left">mem_alloc</th>
+<th align="right">gc.sec</th>
+<th align="right">n_itr</th>
+<th align="right">n_gc</th>
+<th align="right">total_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ymd::edate(x, -12)</td>
+<td align="right">13.3</td>
+<td align="right">14.0</td>
+<td align="right">70184.0</td>
+<td align="left">3.95KB</td>
+<td align="right">0.0</td>
+<td align="right">10000</td>
+<td align="right">0</td>
+<td align="right">142482.6</td>
+</tr>
+<tr class="even">
+<td align="left">x %m+% months(-12)</td>
+<td align="right">793.4</td>
+<td align="right">829.1</td>
+<td align="right">1189.7</td>
+<td align="left">317.19KB</td>
+<td align="right">32.7</td>
+<td align="right">509</td>
+<td align="right">14</td>
+<td align="right">427843.8</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=ymd" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/shrektan/ymd/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/shrektan/ymd/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -188,6 +413,8 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/shrektan/ymd/actions" class="external-link"><img src="https://github.com/shrektan/ymd/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=ymd" class="external-link"><img src="https://www.r-pkg.org/badges/version/ymd" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/package=ymd" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/ymd" alt="Downloads from the RStudio CRAN mirror"></a></li>
 </ul>
 </div>
 
