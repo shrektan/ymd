@@ -32,20 +32,26 @@ Note, in order to compile this package from source you need the Rust toolchain, 
 
 ## Some use case and benchmarks
 
-```{r bench}
+```{r benchmark, results='asis'}
+print_bmk <- function(x) {
+  x[[1]] <- format(x[[1]])
+  x[[5]] <- format(x[[5]])
+  rnd <- \(v) if (is.numeric(v)) round(v, 1) else v
+  x[, 1:9] |> lapply(rnd) |> as.data.frame() |> knitr::kable() |> print()
+}
 x <- c("210101", "21/02/03", "89-1-03", "1989.03.05")
 x <- rep(x, 100)
 bench::mark(
   ymd::ymd(x),
   lubridate::ymd(x), time_unit = "us"
-)
+) |> print_bmk()
 
 x <- c(210101, 210224, 211231, 19890103)
 x <- rep(x, 100)
 bench::mark(
   ymd::ymd(x),
   lubridate::ymd(x), time_unit = "us"
-)
+) |> print_bmk()
 
 x <- c("2021-01-01", "2022-12-31", "1995-03-22")
 x <- rep(x, 100)
@@ -53,22 +59,23 @@ bench::mark(
   ymd::ymd(x),
   lubridate::ymd(x), time_unit = "us",
   as.Date(x)
-)
+) |> print_bmk()
 
 x <- ymd::ymd(210515) + 1:100
 bench::mark(
   ymd::eop$tm(x),
-  lubridate::ceiling_date(x, "month") - 1
-)
+  lubridate::ceiling_date(x, "month") - 1, time_unit = "us"
+) |> print_bmk()
 
 `%m+%` <- lubridate::`%m+%`
 x <- ymd::ymd(c(200115, 200131, 200229, 200331, 200401))
+x <- rep(x, 100)
 bench::mark(
   ymd::edate(x, 2),
-  x %m+% months(2)
-)
+  x %m+% months(2), time_unit = "us"
+) |> print_bmk()
 bench::mark(
   ymd::edate(x, -12),
-  x %m+% months(-12)
-)
+  x %m+% months(-12), time_unit = "us"
+) |> print_bmk()
 ```
