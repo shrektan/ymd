@@ -1,4 +1,6 @@
 url: https://shrektan.github.io/ymd/
 template:
   bootstrap: 5
-
+  bootswatch: cosmo
+navbar:
+  bg: dark
