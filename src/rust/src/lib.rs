@@ -99,24 +99,8 @@ fn make_rdate2(x: Vec<Option<NaiveDate>>) -> Robj {
     make_rdate(v)
 }
 
-/// Convert 'YMD' format integer or string to Date
-///
-/// Transform integer or strings vectors in 'YMD' format to Date objects.
-/// It intends to only support limited formats (no separator or one of
-/// '.', ' ', '-' and '/' separators). See the possible formats in examples.
-///
-/// @param x An integer or string vector in 'YMD' format. Double
-///   values without the decimal part are allowed.
-/// @return A Date object. When the parse fails for certain input,
-///   the value returned would be `NA`, silently.
-///
-/// @examples
-/// ymd(c(210326, 19981225))
-/// ymd(c("2020/1/8", "20 1 7", "1998.7.1", "1990-02-03"))
-///
-/// @export
 #[extendr]
-fn ymd(x: Robj) -> Robj {
+fn rust_ymd(x: Robj) -> Robj {
     if x.inherits("Date") {
         return x;
     }
@@ -167,7 +151,7 @@ fn beop(x: Robj, unit: &str, fun: fn(&NaiveDate, period::Period) -> NaiveDate) -
         Some(i) => i,
         None => return make_rdate(vec![None; x.len()]),
     };
-    let x = robj2date(ymd(x));
+    let x = robj2date(rust_ymd(x));
     let out = x
         .iter()
         .map(|v| match v {
@@ -203,7 +187,7 @@ fn period_end(x: Robj, unit: &str) -> Robj {
 /// @export
 #[extendr]
 fn edate(ref_date: Robj, months: i32) -> Robj {
-    let out = robj2date(ymd(ref_date))
+    let out = robj2date(rust_ymd(ref_date))
         .iter()
         .map(|v| match v {
             Some(date) => Some(period::add_months(date, months)),
@@ -336,7 +320,7 @@ mod test {
 // See corresponding C code in `entrypoint.c`.
 extendr_module! {
     mod ymd;
-    fn ymd;
+    fn rust_ymd;
     fn period_begin;
     fn period_end;
     fn edate;

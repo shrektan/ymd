@@ -8,23 +8,7 @@
 #' @useDynLib ymd, .registration = TRUE
 NULL
 
-#' Convert 'YMD' format integer or string to Date
-#'
-#' Transform integer or strings vectors in 'YMD' format to Date objects.
-#' It intends to only support limited formats (no separator or one of
-#' '.', ' ', '-' and '/' separators). See the possible formats in examples.
-#'
-#' @param x An integer or string vector in 'YMD' format. Double
-#'   values without the decimal part are allowed.
-#' @return A Date object. When the parse fails for certain input,
-#'   the value returned would be `NA`, silently.
-#'
-#' @examples
-#' ymd(c(210326, 19981225))
-#' ymd(c("2020/1/8", "20 1 7", "1998.7.1", "1990-02-03"))
-#'
-#' @export
-ymd <- function(x) .Call(wrap__ymd, x)
+rust_ymd <- function(x) .Call(wrap__rust_ymd, x)
 
 period_begin <- function(x, unit) .Call(wrap__period_begin, x, unit)
 
