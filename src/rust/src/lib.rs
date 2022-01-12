@@ -140,7 +140,7 @@ fn rust_ymd(x: Robj) -> Robj {
             })
             .collect(),
         _ => {
-            panic!("x must be integerable or string vector");
+            panic!("x must be numeric or string vector");
         }
     };
     make_rdate(value)
