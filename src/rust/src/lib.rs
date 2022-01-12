@@ -1,5 +1,7 @@
-use chrono::{Datelike, NaiveDate};
+use chrono::{NaiveDate};
 use extendr_api::prelude::*;
+mod rdate;
+use rdate::ToRDate;
 mod period;
 
 // short_year: when true, 980102 will be converted to 19980102; when false
@@ -47,119 +49,49 @@ fn str2date(x: &str) -> Option<NaiveDate> {
     }
 }
 
-// The days from 1970-1-1 (R's first date) to CE (1-1-0)
-const R_DATE_FROM_CE: i32 = 719163;
-
-fn robj2date(x: Robj) -> Vec<Option<NaiveDate>> {
-    if !x.inherits("Date") {
-        return vec![None; x.len()];
-    }
-    match x.rtype() {
-        RType::Real => x
-            .as_real_iter()
-            .unwrap()
-            .map(|d| {
-                if d.is_na() {
-                    None
-                } else {
-                    NaiveDate::from_num_days_from_ce_opt(d as i32 + R_DATE_FROM_CE)
-                }
-            })
-            .collect(),
-        RType::Integer => x
-            .as_integer_iter()
-            .unwrap()
-            .map(|d| {
-                if d.is_na() {
-                    None
-                } else {
-                    NaiveDate::from_num_days_from_ce_opt(d + R_DATE_FROM_CE)
-                }
-            })
-            .collect(),
-        _ => {
-            vec![None; x.len()]
-        }
-    }
-}
-
-fn to_rdate(x: &Option<NaiveDate>) -> Option<f64> {
-    match x {
-        Some(v) => Some((v.num_days_from_ce() - R_DATE_FROM_CE) as f64),
-        None => None,
-    }
-}
-
-fn make_rdate(x: Vec<Option<f64>>) -> Robj {
-    r!(x).set_class(&["Date"]).unwrap()
-}
-
-fn make_rdate2(x: Vec<Option<NaiveDate>>) -> Robj {
-    let v: Vec<Option<f64>> = x.iter().map(to_rdate).collect();
-    make_rdate(v)
-}
-
 #[extendr]
 fn rust_ymd(x: Robj) -> Robj {
     if x.inherits("Date") {
         return x;
     }
-    let value: Vec<Option<f64>> = match x.rtype() {
+    let value: Vec<Option<NaiveDate>> = match x.rtype() {
         RType::Integer => x
             .as_integer_iter()
             .unwrap()
-            .map(|i| {
-                if i.is_na() {
-                    None
-                } else {
-                    to_rdate(&int2date(i, true))
-                }
-            })
+            .map(|i| if i.is_na() { None } else { int2date(i, true) })
             .collect(),
         RType::Real => x
             .as_real_iter()
             .unwrap()
-            .map(|i| {
-                if i.is_na() {
-                    None
-                } else {
-                    to_rdate(&dbl2date(i))
-                }
-            })
+            .map(|i| if i.is_na() { None } else { dbl2date(i) })
             .collect(),
         RType::String => x
             .as_str_vector()
             .unwrap()
             .iter()
-            .map(|i| {
-                if i.is_na() {
-                    None
-                } else {
-                    to_rdate(&str2date(i))
-                }
-            })
+            .map(|i| if i.is_na() { None } else { str2date(i) })
             .collect(),
         _ => {
             panic!("x must be numeric or string vector");
         }
     };
-    make_rdate(value)
+    value.to_rdate()
 }
 
 fn beop(x: Robj, unit: &str, fun: fn(&NaiveDate, period::Period) -> NaiveDate) -> Robj {
     let p = match period::to_period(unit) {
         Some(i) => i,
-        None => return make_rdate(vec![None; x.len()]),
+        None => return (vec![None; x.len()]).to_rdate(),
     };
-    let x = robj2date(rust_ymd(x));
-    let out = x
+    let x = rdate::robj2date(rust_ymd(x), "x").unwrap();
+    let out: Vec<Option<NaiveDate>> = x
         .iter()
         .map(|v| match v {
             Some(date) => Some(fun(date, p)),
             None => None,
         })
         .collect();
-    make_rdate2(out)
+    out.to_rdate()
 }
 
 #[extendr]
@@ -187,14 +119,15 @@ fn period_end(x: Robj, unit: &str) -> Robj {
 /// @export
 #[extendr]
 fn edate(ref_date: Robj, months: i32) -> Robj {
-    let out = robj2date(rust_ymd(ref_date))
+    let out: Vec<Option<NaiveDate>> = rdate::robj2date(rust_ymd(ref_date), "ref_date")
+        .unwrap()
         .iter()
         .map(|v| match v {
             Some(date) => Some(period::add_months(date, months)),
             None => None,
         })
         .collect();
-    make_rdate2(out)
+    out.to_rdate()
 }
 
 #[cfg(test)]
@@ -310,7 +243,7 @@ mod test {
     fn to_date() {
         test! {
             let x: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap();
-            assert_eq!(robj2date(x), [Some(NaiveDate::from_ymd(2021, 12, 29)), Some(NaiveDate::from_ymd(2021, 12, 30))]);
+            assert_eq!(rdate::robj2date(x, "x").unwrap(), [Some(NaiveDate::from_ymd(2021, 12, 29)), Some(NaiveDate::from_ymd(2021, 12, 30))]);
         }
     }
 }
