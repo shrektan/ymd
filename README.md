@@ -3,7 +3,7 @@
 # ymd
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/shrektan/ymd/workflows/R-CMD-check/badge.svg)](https://github.com/shrektan/ymd/actions) [![CRAN status](https://www.r-pkg.org/badges/version/ymd)](https://CRAN.R-project.org/package=ymd) [![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/ymd)](https://cran.r-project.org/package=ymd) <!-- badges: end -->
+[![R-CMD-check](https://github.com/shrektan/ymd/workflows/R-CMD-check/badge.svg)](https://github.com/shrektan/ymd/actions) [![CRAN status](https://www.r-pkg.org/badges/version/ymd)](https://CRAN.R-project.org/package=ymd) [![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/ymd)](https://cran.r-project.org/package=ymd) [![Rust Code Coverage](https://coveralls.io/repos/github/shrektan/ymd/badge.svg?branch=main)](https://coveralls.io/github/shrektan/ymd?branch=main) <!-- badges: end -->
 
 Convert 'YMD' format number or string to Date efficiently, e.g., `211225` to `as.Date("2021-12-25")`, using Rust's standard library. It also provides helper functions to handle Date, e.g., quick finding the beginning or ending of the given period, adding months to Date, etc.
 
@@ -66,8 +66,8 @@ bench::mark(
 
 | expression        |     min|  median|  itr.sec| mem\_alloc |  gc.sec|  n\_itr|  n\_gc|  total\_time|
 |:------------------|-------:|-------:|--------:|:-----------|-------:|-------:|------:|------------:|
-| ymd::ymd(x)       |    43.5|    44.9|  21741.3| 214.34KB   |     0.0|   10000|      0|     459953.4|
-| lubridate::ymd(x) |  1537.7|  1580.4|    628.9| 8.23MB     |    15.2|     290|      7|     461145.0|
+| ymd::ymd(x)       |    44.2|    44.9|  21975.6| 219.95KB   |     0.0|   10000|      0|     455049.8|
+| lubridate::ymd(x) |  1539.5|  1579.0|    631.2| 8.23MB     |    17.5|     289|      8|     457833.8|
 
 ``` r
 
@@ -81,8 +81,8 @@ bench::mark(
 
 | expression        |     min|  median|  itr.sec| mem\_alloc |  gc.sec|  n\_itr|  n\_gc|  total\_time|
 |:------------------|-------:|-------:|--------:|:-----------|-------:|-------:|------:|------------:|
-| ymd::ymd(x)       |    11.8|    12.3|  79023.1| 3.17KB     |     0.0|   10000|      0|     126545.2|
-| lubridate::ymd(x) |  1685.6|  1712.4|    580.6| 373.41KB   |    19.6|     267|      9|     459892.4|
+| ymd::ymd(x)       |    11.9|    12.5|  78291.3| 3.17KB     |     0.0|   10000|      0|     127728.0|
+| lubridate::ymd(x) |  1696.3|  1732.2|    573.8| 373.41KB   |    19.6|     264|      9|     460098.1|
 
 ``` r
 
@@ -97,9 +97,9 @@ bench::mark(
 
 | expression        |    min|  median|  itr.sec| mem\_alloc |  gc.sec|  n\_itr|  n\_gc|  total\_time|
 |:------------------|------:|-------:|--------:|:-----------|-------:|-------:|------:|------------:|
-| ymd::ymd(x)       |   31.9|    32.6|  30322.0| 2.39KB     |     0.0|   10000|      0|     329794.0|
-| lubridate::ymd(x) |  782.9|   797.6|   1243.3| 201.1KB    |    21.6|     575|     10|     462486.3|
-| as.Date(x)        |  664.3|   673.3|   1473.2| 87.54KB    |     0.0|     737|      0|     500261.1|
+| ymd::ymd(x)       |   32.5|    33.3|  29578.5| 2.39KB     |     0.0|   10000|      0|     338082.9|
+| lubridate::ymd(x) |  783.8|   805.4|   1228.8| 201.1KB    |    21.9|     562|     10|     457341.8|
+| as.Date(x)        |  663.5|   674.0|   1473.2| 87.54KB    |     0.0|     737|      0|     500287.8|
 
 ``` r
 
@@ -112,8 +112,8 @@ bench::mark(
 
 | expression                               |   min|  median|   itr.sec| mem\_alloc |  gc.sec|  n\_itr|  n\_gc|  total\_time|
 |:-----------------------------------------|-----:|-------:|---------:|:-----------|-------:|-------:|------:|------------:|
-| ymd::eop$tm(x)                           |   5.5|     5.9|  163533.7| 19.3KB     |    16.4|    9999|      1|      61143.4|
-| lubridate::ceiling\_date(x, "month") - 1 |  93.6|    99.0|    9951.5| 255.1KB    |    35.2|    4518|     16|     454003.5|
+| ymd::eop$tm(x)                           |   5.5|     5.9|  164688.1| 19.3KB     |    16.5|    9999|      1|      60714.8|
+| lubridate::ceiling\_date(x, "month") - 1 |  94.5|    99.5|    9868.7| 255.1KB    |    35.4|    4462|     16|     452137.0|
 
 ``` r
 
@@ -128,8 +128,8 @@ bench::mark(
 
 | expression       |    min|  median|  itr.sec| mem\_alloc |  gc.sec|  n\_itr|  n\_gc|  total\_time|
 |:-----------------|------:|-------:|--------:|:-----------|-------:|-------:|------:|------------:|
-| ymd::edate(x, 2) |   13.2|    13.9|  70519.6| 6.2KB      |     7.1|    9999|      1|     141790.4|
-| x %m+% months(2) |  294.8|   307.2|   3227.5| 424.6KB    |    23.5|    1511|     11|     468162.7|
+| ymd::edate(x, 2) |   13.3|    13.9|  70065.3| 6.2KB      |     0.0|   10000|      0|     142724.0|
+| x %m+% months(2) |  295.2|   307.7|   3230.1| 424.6KB    |    23.5|    1513|     11|     468403.5|
 
 ``` r
 bench::mark(
@@ -140,5 +140,5 @@ bench::mark(
 
 | expression         |    min|  median|  itr.sec| mem\_alloc |  gc.sec|  n\_itr|  n\_gc|  total\_time|
 |:-------------------|------:|-------:|--------:|:-----------|-------:|-------:|------:|------------:|
-| ymd::edate(x, -12) |   13.3|    14.0|  70151.2| 3.95KB     |     0.0|   10000|      0|     142549.2|
-| x %m+% months(-12) |  791.5|   820.9|   1210.4| 317.19KB   |    35.1|     518|     15|     427950.4|
+| ymd::edate(x, -12) |   13.4|    14.1|  69528.6| 3.95KB     |     0.0|   10000|      0|     143825.7|
+| x %m+% months(-12) |  805.4|   838.2|   1152.7| 317.19KB   |    32.9|     491|     14|     425964.9|
