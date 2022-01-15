@@ -29,3 +29,15 @@ period_end <- function(x, unit) .Call(wrap__period_end, x, unit)
 #' @export
 edate <- function(ref_date, months) .Call(wrap__edate, ref_date, months)
 
+#' @export
+year <- function(ref_date) .Call(wrap__year, ref_date)
+
+#' @export
+month <- function(ref_date) .Call(wrap__month, ref_date)
+
+#' @export
+quarter <- function(ref_date) .Call(wrap__quarter, ref_date)
+
+#' @export
+mday <- function(ref_date) .Call(wrap__mday, ref_date)
+
