@@ -5,7 +5,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/shrektan/ymd/workflows/R-CMD-check/badge.svg)](https://github.com/shrektan/ymd/actions) [![CRAN status](https://www.r-pkg.org/badges/version/ymd)](https://CRAN.R-project.org/package=ymd) [![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/ymd)](https://cran.r-project.org/package=ymd) [![Rust Code Coverage](https://coveralls.io/repos/github/shrektan/ymd/badge.svg?branch=main)](https://coveralls.io/github/shrektan/ymd?branch=main) <!-- badges: end -->
 
-Convert 'YMD' format number or string to Date efficiently, e.g., `211225` to `as.Date("2021-12-25")`, using Rust's standard library. It also provides helper functions to handle Date, e.g., quick finding the beginning or ending of the given period, adding months to Date, etc.
+Convert 'YMD' format number or string to Date efficiently, e.g., `211225` to `as.Date("2021-12-25")`, using Rust's standard library. It also provides helper functions to handle Date, e.g., quick finding the beginning or end of the given period, adding months to Date, etc.
 
 It's similar to the `lubridate` package but is much lighter and focuses only on Date objects.
 

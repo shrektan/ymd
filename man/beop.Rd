@@ -5,7 +5,7 @@
 \alias{beop}
 \alias{eop}
 \alias{bop}
-\title{Find the Beginning or Ending of Period}
+\title{Find the Beginning or End of Period}
 \description{
 Each of \code{bop} and \code{eop} contains a list of functions, whose names all
 consist of two letters, the first of which stands for \strong{l}ast, \strong{t}his, \strong{n}ext

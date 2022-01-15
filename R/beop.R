@@ -1,4 +1,4 @@
-#' Find the Beginning or Ending of Period
+#' Find the Beginning or End of Period
 #'
 #' Each of `bop` and `eop` contains a list of functions, whose names all
 #' consist of two letters, the first of which stands for **l**ast, **t**his, **n**ext

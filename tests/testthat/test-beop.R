@@ -18,7 +18,7 @@ test_that("period_begin returns right begining date", {
 
 })
 
-test_that("period_end returns right ending date", {
+test_that("period_end returns right end date", {
 
   dates <- seq.Date(from = as.Date("2016-03-07") - 1, to = as.Date("2016-03-13") + 1, by = "1 day")
   out <- period_end(dates, unit = "week") == as.Date("2016-03-13")

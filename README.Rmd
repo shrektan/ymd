@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 Convert 'YMD' format number or string to Date efficiently, e.g., `211225` to `as.Date("2021-12-25")`, using Rust's standard library.
-It also provides helper functions to handle Date, e.g., quick finding the beginning or ending of the given period, adding months to Date, etc.
+It also provides helper functions to handle Date, e.g., quick finding the beginning or end of the given period, adding months to Date, etc.
 
 It's similar to the `lubridate` package but is much lighter and focuses only on Date objects.
 

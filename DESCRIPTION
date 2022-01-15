@@ -10,7 +10,7 @@ Authors@R: c(
 Maintainer: Xianying Tan <shrektan@126.com>
 Description: Convert 'YMD' format number or string to Date efficiently, using Rust's
     standard library. It also provides helper functions to handle Date, e.g., quick
-    finding the beginning or ending of the given period, adding months to Date, etc.
+    finding the beginning or end of the given period, adding months to Date, etc.
 License: MIT + file LICENSE
 URL: https://shrektan.github.io/ymd/, https://github.com/shrektan/ymd
 BugReports: https://github.com/shrektan/ymd/issues
