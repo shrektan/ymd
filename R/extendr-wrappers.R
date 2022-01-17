@@ -29,24 +29,31 @@ period_end <- function(x, unit) .Call(wrap__period_end, x, unit)
 #' @export
 edate <- function(ref_date, months) .Call(wrap__edate, ref_date, months)
 
+#' @rdname date_part
 #' @export
 year <- function(ref_date) .Call(wrap__year, ref_date)
 
+#' @rdname date_part
 #' @export
 month <- function(ref_date) .Call(wrap__month, ref_date)
 
+#' @rdname date_part
 #' @export
 quarter <- function(ref_date) .Call(wrap__quarter, ref_date)
 
+#' @rdname date_part
 #' @export
 iso_week <- function(ref_date) .Call(wrap__iso_week, ref_date)
 
+#' @rdname date_part
 #' @export
 mday <- function(ref_date) .Call(wrap__mday, ref_date)
 
+#' @rdname date_part
 #' @export
 wday <- function(ref_date) .Call(wrap__wday, ref_date)
 
+#' @rdname date_part
 #' @export
 yday <- function(ref_date) .Call(wrap__yday, ref_date)
 

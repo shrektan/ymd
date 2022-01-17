@@ -133,6 +133,7 @@ fn edate(ref_date: Robj, months: i32) -> Robj {
 
 macro_rules! make_date_part_fun {
     ($fn_name:ident, $method:expr) => {
+        /// @rdname date_part
         /// @export
         #[extendr]
         fn $fn_name(ref_date: Robj) -> Robj {
