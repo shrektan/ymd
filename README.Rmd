@@ -76,7 +76,7 @@ print_bmk <- function(x) {
   x[[1]] <- format(x[[1]])
   x[[5]] <- format(x[[5]])
   rnd <- \(v) if (is.numeric(v)) round(v, 1) else v
-  x[, 1:9] |> lapply(rnd) |> as.data.frame() |> knitr::kable() |> print()
+  x[, 1:8] |> lapply(rnd) |> as.data.frame() |> knitr::kable() |> print()
 }
 run_bmk <- function(..., time_unit = "us") {
   bench::mark(..., time_unit = time_unit) |> print_bmk()
@@ -139,6 +139,7 @@ set.seed(373L)
 x = data.table::as.IDate(sample(seq(-25000, 45000), 1e7, TRUE))
 run_bmk(
   data.table::wday(x),
+  lubridate::wday(x),
   {
     out <- ymd::wday(x)
     data.table::fifelse(out == 7L, 1L, out + 1L)
@@ -147,39 +148,46 @@ run_bmk(
 
 run_bmk(
   data.table::mday(x),
+  lubridate::mday(x),
   ymd::mday(x)
 )
 
 run_bmk(
   data.table::isoweek(x |> head(1e6)),
+  lubridate::isoweek(x |> head(1e6)),
   ymd::iso_week(x |> head(1e6))
 )
 
 run_bmk(
   data.table::month(x),
+  lubridate::month(x),
   ymd::month(x)
 )
 
 run_bmk(
   data.table::quarter(x),
+  lubridate::quarter(x),
   ymd::quarter(x)
 )
 
 run_bmk(
   data.table::year(x),
-  ymd::year(x),
-  funchir::quick_year(x)
+  lubridate::year(x),
+  funchir::quick_year(x),
+  ymd::year(x)
 )
 
 run_bmk(
   data.table::mday(x),
-  ymd::mday(x),
-  funchir::quick_mday(x)
+  lubridate::mday(x),
+  funchir::quick_mday(x),
+  ymd::mday(x)
 )
 
 run_bmk(
   data.table::yday(x),
-  ymd::yday(x),
-  funchir::quick_yday(x)
+  lubridate::yday(x),
+  funchir::quick_yday(x),
+  ymd::yday(x)
 )
 ```
