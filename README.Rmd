@@ -69,52 +69,117 @@ After that, you can build the package via:
 remotes::install_github("ymd")
 ```
 
-## Some use cases and benchmarks
+## Use Cases and Benchmarks
 
-```{r benchmark, results='asis'}
+```{r setup}
 print_bmk <- function(x) {
   x[[1]] <- format(x[[1]])
   x[[5]] <- format(x[[5]])
   rnd <- \(v) if (is.numeric(v)) round(v, 1) else v
   x[, 1:9] |> lapply(rnd) |> as.data.frame() |> knitr::kable() |> print()
 }
+run_bmk <- function(..., time_unit = "us") {
+  bench::mark(..., time_unit = time_unit) |> print_bmk()
+}
+```
+
+### ymd
+
+```{r ymd, results='asis'}
 x <- c("210101", "21/02/03", "89-1-03", "1989.03.05", "01 02 03")
 x <- rep(x, 100)
-bench::mark(
+run_bmk(
   ymd::ymd(x),
-  lubridate::ymd(x), time_unit = "us"
-) |> print_bmk()
+  lubridate::ymd(x)
+)
 
 x <- c(210101, 210224, 211231, 19890103)
 x <- rep(x, 100)
-bench::mark(
+run_bmk(
   ymd::ymd(x),
-  lubridate::ymd(x), time_unit = "us"
-) |> print_bmk()
+  lubridate::ymd(x)
+)
 
 x <- c("2021-01-01", "2022-12-31", "1995-03-22")
 x <- rep(x, 100)
-bench::mark(
+run_bmk(
   ymd::ymd(x),
-  lubridate::ymd(x), time_unit = "us",
+  lubridate::ymd(x),
   as.Date(x)
-) |> print_bmk()
+)
 
 x <- ymd::ymd(210515) + 1:100
-bench::mark(
+run_bmk(
   ymd::eop$tm(x),
-  lubridate::ceiling_date(x, "month") - 1, time_unit = "us"
-) |> print_bmk()
+  lubridate::ceiling_date(x, "month") - 1
+)
+```
 
+### edate
+
+```{r edate, results='asis'}
 `%m+%` <- lubridate::`%m+%`
 x <- ymd::ymd(c(200115, 200131, 200229, 200331, 200401))
 x <- rep(x, 100)
-bench::mark(
+run_bmk(
   ymd::edate(x, 2),
-  x %m+% months(2), time_unit = "us"
-) |> print_bmk()
-bench::mark(
+  x %m+% months(2)
+)
+run_bmk(
   ymd::edate(x, -12),
-  x %m+% months(-12), time_unit = "us"
-) |> print_bmk()
+  x %m+% months(-12)
+)
+```
+
+### date part
+
+```{r date-part, results='asis'}
+# tweak from https://github.com/Rdatatable/data.table/pull/5300
+set.seed(373L)
+x = data.table::as.IDate(sample(seq(-25000, 45000), 1e7, TRUE))
+run_bmk(
+  data.table::wday(x),
+  {
+    out <- ymd::wday(x)
+    data.table::fifelse(out == 7L, 1L, out + 1L)
+  }
+)
+
+run_bmk(
+  data.table::mday(x),
+  ymd::mday(x)
+)
+
+run_bmk(
+  data.table::isoweek(x |> head(1e6)),
+  ymd::iso_week(x |> head(1e6))
+)
+
+run_bmk(
+  data.table::month(x),
+  ymd::month(x)
+)
+
+run_bmk(
+  data.table::quarter(x),
+  ymd::quarter(x)
+)
+
+run_bmk(
+  data.table::year(x),
+  ymd::year(x),
+  funchir::quick_year(x)
+)
+
+run_bmk(
+  data.table::mday(x),
+  ymd::mday(x),
+  funchir::quick_mday(x)
+)
+
+run_bmk(
+  data.table::yday(x),
+  ymd::yday(x),
+  funchir::quick_yday(x)
+)
 ```
