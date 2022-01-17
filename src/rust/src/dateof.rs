@@ -1,56 +1,42 @@
-use chrono::{Datelike, NaiveDate, Weekday};
+use chrono::{Datelike, NaiveDate};
 
-pub fn year_frac(d1: &NaiveDate, d0: &NaiveDate) -> f64 {
-  (d1.year() - d0.year()) as f64
-  // must be as f64 first, otherwise u32 - u32 may overflow (when negative)
-      + (d1.month() as f64 - d0.month() as f64) / 12.0
-      + (d1.day() as f64 - d0.day() as f64) / 365.0
-}
-
-pub fn year(x: &[Option<NaiveDate>]) -> Vec<Option<i32>> {
-  x.iter().map(|date: &Option<NaiveDate>| {
-    match date {
-      Some(date) => Some(date.year()),
-      None => None,
+fn to_quarter(month: u32) -> i32 {
+    match month {
+        1..=3 => 1,
+        4..=6 => 2,
+        7..=9 => 3,
+        10..=12 => 4,
+        _ => {
+            panic!("month must be 1..=12");
+        }
     }
-  }).collect()
 }
 
-pub fn month(x: &[Option<NaiveDate>]) -> Vec<Option<i32>> {
-  x.iter().map(|date: &Option<NaiveDate>| {
-    match date {
-      Some(date) => Some(date.month() as i32),
-      None => None,
-    }
-  }).collect()
+macro_rules! make_fun {
+    ($fn_name:ident, $method:expr) => {
+        pub fn $fn_name(x: &[Option<NaiveDate>]) -> Vec<Option<i32>> {
+            x.iter()
+                .map(|date: &Option<NaiveDate>| match date {
+                    Some(date) => Some($method(date)),
+                    None => None,
+                })
+                .collect()
+        }
+    };
 }
 
-fn month2quarter(x: u32) -> i32 {
-  match x {
-    1..=3 => 1,
-    4..=6 => 2,
-    7..=9 => 3,
-    10..=12 => 4,
-    _ => {
-      panic!("x must be 1..=12");
-    }
-  }
-}
+make_fun!(year, |date: &NaiveDate| -> i32 { date.year() as i32 });
 
-pub fn quarter(x: &[Option<NaiveDate>]) -> Vec<Option<i32>> {
-  x.iter().map(|date: &Option<NaiveDate>| {
-    match date {
-      Some(date) => Some(month2quarter(date.month())),
-      None => None,
-    }
-  }).collect()
-}
+make_fun!(month, |date: &NaiveDate| -> i32 { date.month() as i32 });
 
-pub fn mday(x: &[Option<NaiveDate>]) -> Vec<Option<i32>> {
-  x.iter().map(|date: &Option<NaiveDate>| {
-    match date {
-      Some(date) => Some(date.day() as i32),
-      None => None,
-    }
-  }).collect()
-}
+make_fun!(quarter, |date: &NaiveDate| -> i32 {
+    to_quarter(date.month())
+});
+
+make_fun!(mday, |date: &NaiveDate| -> i32 { date.day() as i32 });
+
+make_fun!(yday, |date: &NaiveDate| -> i32 { date.ordinal() as i32 });
+
+make_fun!(wday, |date: &NaiveDate| -> i32 { date.weekday() as i32 });
+
+// yday wday week yearmon yearqtr
