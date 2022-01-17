@@ -1,7 +1,7 @@
-use chrono::{NaiveDate};
+use chrono::NaiveDate;
 use extendr_api::prelude::*;
-mod rdate;
 mod dateof;
+mod rdate;
 use rdate::ToRDate;
 mod period;
 
@@ -138,7 +138,6 @@ fn year(ref_date: Robj) -> Robj {
     r!(dateof::year(&ref_date))
 }
 
-
 /// @export
 #[extendr]
 fn month(ref_date: Robj) -> Robj {
@@ -146,16 +145,12 @@ fn month(ref_date: Robj) -> Robj {
     r!(dateof::month(&ref_date))
 }
 
-
-
 /// @export
 #[extendr]
 fn mday(ref_date: Robj) -> Robj {
     let ref_date = rdate::robj2date(rust_ymd(ref_date), "ref_date").unwrap();
     r!(dateof::mday(&ref_date))
 }
-
-
 
 /// @export
 #[extendr]
