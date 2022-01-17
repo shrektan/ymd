@@ -131,33 +131,24 @@ fn edate(ref_date: Robj, months: i32) -> Robj {
     out.to_rdate()
 }
 
-/// @export
-#[extendr]
-fn year(ref_date: Robj) -> Robj {
-    let ref_date = rdate::robj2date(rust_ymd(ref_date), "ref_date").unwrap();
-    r!(dateof::year(&ref_date))
+macro_rules! make_date_part_fun {
+    ($fn_name:ident, $method:expr) => {
+        /// @export
+        #[extendr]
+        fn $fn_name(ref_date: Robj) -> Robj {
+            let ref_date = rdate::robj2date(rust_ymd(ref_date), "ref_date").unwrap();
+            r!($method(&ref_date))
+        }
+    };
 }
 
-/// @export
-#[extendr]
-fn month(ref_date: Robj) -> Robj {
-    let ref_date = rdate::robj2date(rust_ymd(ref_date), "ref_date").unwrap();
-    r!(dateof::month(&ref_date))
-}
-
-/// @export
-#[extendr]
-fn mday(ref_date: Robj) -> Robj {
-    let ref_date = rdate::robj2date(rust_ymd(ref_date), "ref_date").unwrap();
-    r!(dateof::mday(&ref_date))
-}
-
-/// @export
-#[extendr]
-fn quarter(ref_date: Robj) -> Robj {
-    let ref_date = rdate::robj2date(rust_ymd(ref_date), "ref_date").unwrap();
-    r!(dateof::quarter(&ref_date))
-}
+make_date_part_fun!(year, dateof::year);
+make_date_part_fun!(month, dateof::month);
+make_date_part_fun!(quarter, dateof::quarter);
+make_date_part_fun!(iso_week, dateof::iso_week);
+make_date_part_fun!(mday, dateof::mday);
+make_date_part_fun!(yday, dateof::yday);
+make_date_part_fun!(wday, dateof::wday);
 
 #[cfg(test)]
 mod test {
@@ -289,5 +280,8 @@ extendr_module! {
     fn year;
     fn month;
     fn quarter;
+    fn iso_week;
     fn mday;
+    fn wday;
+    fn yday;
 }

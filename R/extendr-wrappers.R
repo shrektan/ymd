@@ -39,5 +39,14 @@ month <- function(ref_date) .Call(wrap__month, ref_date)
 quarter <- function(ref_date) .Call(wrap__quarter, ref_date)
 
 #' @export
+iso_week <- function(ref_date) .Call(wrap__iso_week, ref_date)
+
+#' @export
 mday <- function(ref_date) .Call(wrap__mday, ref_date)
+
+#' @export
+wday <- function(ref_date) .Call(wrap__wday, ref_date)
+
+#' @export
+yday <- function(ref_date) .Call(wrap__yday, ref_date)
 
