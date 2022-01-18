@@ -7,9 +7,9 @@
 \alias{quarter}
 \alias{iso_week}
 \alias{mday}
-\alias{wday}
+\alias{iso_wday}
 \alias{yday}
-\title{Extract Date Part}
+\title{Fast Date Part Extracting}
 \usage{
 year(ref_date)
 
@@ -21,7 +21,7 @@ iso_week(ref_date)
 
 mday(ref_date)
 
-wday(ref_date)
+iso_wday(ref_date)
 
 yday(ref_date)
 }
@@ -33,16 +33,17 @@ if the input is not a Date.}
 an integer vector
 }
 \description{
-Extract Date Part
+These date helper functions provide the same functionalities like in \code{data.table} or
+\code{lubridate} package, but
 }
 \section{Detailed explanation}{
 
 \itemize{
 \item year, month, quarter: get the year, month, quarter part
-\item iso_week: ISO 8601 week starting from 1
 \item mday: the day of month starting from 1
 \item yday: the day of year starting from 1
-\item wday: the day of week (ISO 8601 weekday number, Monday is 1)
+\item iso_week: ISO 8601 week starting from 1
+\item iso_wday: the day of week (ISO 8601 weekday number, Monday is 1)
 }
 }
 

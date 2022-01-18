@@ -41,7 +41,7 @@ make_fun!(mday, |date: &NaiveDate| -> i32 { date.day() as i32 });
 
 make_fun!(yday, |date: &NaiveDate| -> i32 { date.ordinal() as i32 });
 
-make_fun!(wday, |date: &NaiveDate| -> i32 {
+make_fun!(iso_wday, |date: &NaiveDate| -> i32 {
     date.weekday().number_from_monday() as i32
 });
 

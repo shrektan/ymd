@@ -51,7 +51,7 @@ mday <- function(ref_date) .Call(wrap__mday, ref_date)
 
 #' @rdname date_part
 #' @export
-wday <- function(ref_date) .Call(wrap__wday, ref_date)
+iso_wday <- function(ref_date) .Call(wrap__iso_wday, ref_date)
 
 #' @rdname date_part
 #' @export

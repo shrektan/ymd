@@ -136,12 +136,12 @@ run_bmk(
 ```{r date-part, results='asis'}
 # tweak from https://github.com/Rdatatable/data.table/pull/5300
 set.seed(373L)
-x = data.table::as.IDate(sample(seq(-25000, 45000), 1e7, TRUE))
+x = data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE))
 run_bmk(
   data.table::wday(x),
   lubridate::wday(x),
   {
-    out <- ymd::wday(x)
+    out <- ymd::iso_wday(x)
     data.table::fifelse(out == 7L, 1L, out + 1L)
   }
 )
@@ -153,9 +153,9 @@ run_bmk(
 )
 
 run_bmk(
-  data.table::isoweek(x |> head(1e6)),
-  lubridate::isoweek(x |> head(1e6)),
-  ymd::iso_week(x |> head(1e6))
+  data.table::isoweek(x),
+  lubridate::isoweek(x),
+  ymd::iso_week(x)
 )
 
 run_bmk(
