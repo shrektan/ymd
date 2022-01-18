@@ -140,10 +140,7 @@ x = data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE))
 run_bmk(
   data.table::wday(x),
   lubridate::wday(x),
-  {
-    out <- ymd::iso_wday(x)
-    data.table::fifelse(out == 7L, 1L, out + 1L)
-  }
+  ymd::wday(x)
 )
 
 run_bmk(

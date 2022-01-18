@@ -146,6 +146,7 @@ macro_rules! make_date_part_fun {
 make_date_part_fun!(year, dateof::year);
 make_date_part_fun!(month, dateof::month);
 make_date_part_fun!(quarter, dateof::quarter);
+make_date_part_fun!(wday, dateof::wday);
 make_date_part_fun!(mday, dateof::mday);
 make_date_part_fun!(yday, dateof::yday);
 make_date_part_fun!(iso_week, dateof::iso_week);
@@ -282,7 +283,8 @@ extendr_module! {
     fn month;
     fn quarter;
     fn iso_week;
-    fn mday;
     fn iso_wday;
+    fn wday;
+    fn mday;
     fn yday;
 }

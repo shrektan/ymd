@@ -37,6 +37,10 @@ make_fun!(iso_week, |date: &NaiveDate| -> i32 {
     date.iso_week().week() as i32
 });
 
+make_fun!(wday, |date: &NaiveDate| -> i32 {
+    date.weekday().number_from_sunday() as i32
+});
+
 make_fun!(mday, |date: &NaiveDate| -> i32 { date.day() as i32 });
 
 make_fun!(yday, |date: &NaiveDate| -> i32 { date.ordinal() as i32 });
@@ -46,3 +50,23 @@ make_fun!(iso_wday, |date: &NaiveDate| -> i32 {
 });
 
 // yday wday week yearmon yearqtr
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use chrono::NaiveDate;
+    #[test]
+    fn wday_works() {
+        let date0 = NaiveDate::from_ymd(2022, 1, 17);
+        let dates: Vec<Option<NaiveDate>> = (0..=6)
+            .map(|i| {
+                let date = NaiveDate::from_num_days_from_ce(date0.num_days_from_ce() + i);
+                Some(date)
+            })
+            .collect();
+        let iso_wday_expect = vec![Some(1), Some(2), Some(3), Some(4), Some(5), Some(6), Some(7)];
+        assert_eq!(iso_wday(&dates), iso_wday_expect);
+        let wday_expect = vec![Some(2), Some(3), Some(4), Some(5), Some(6), Some(7), Some(1)];
+        assert_eq!(wday(&dates), wday_expect);
+    }
+}

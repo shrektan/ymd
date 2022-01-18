@@ -8,6 +8,7 @@
 #' @return an integer vector
 #' @section Detailed explanation:
 #'   * year, month, quarter: get the year, month, quarter part
+#'   * wday: the day of the week (Sunday is 1)
 #'   * mday: the day of month starting from 1
 #'   * yday: the day of year starting from 1
 #'   * iso_week: ISO 8601 week starting from 1

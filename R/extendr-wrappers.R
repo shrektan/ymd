@@ -47,11 +47,15 @@ iso_week <- function(ref_date) .Call(wrap__iso_week, ref_date)
 
 #' @rdname date_part
 #' @export
-mday <- function(ref_date) .Call(wrap__mday, ref_date)
+iso_wday <- function(ref_date) .Call(wrap__iso_wday, ref_date)
 
 #' @rdname date_part
 #' @export
-iso_wday <- function(ref_date) .Call(wrap__iso_wday, ref_date)
+wday <- function(ref_date) .Call(wrap__wday, ref_date)
+
+#' @rdname date_part
+#' @export
+mday <- function(ref_date) .Call(wrap__mday, ref_date)
 
 #' @rdname date_part
 #' @export

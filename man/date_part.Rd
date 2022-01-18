@@ -6,8 +6,9 @@
 \alias{month}
 \alias{quarter}
 \alias{iso_week}
-\alias{mday}
 \alias{iso_wday}
+\alias{wday}
+\alias{mday}
 \alias{yday}
 \title{Fast Date Part Extracting}
 \usage{
@@ -19,9 +20,11 @@ quarter(ref_date)
 
 iso_week(ref_date)
 
-mday(ref_date)
-
 iso_wday(ref_date)
+
+wday(ref_date)
+
+mday(ref_date)
 
 yday(ref_date)
 }
@@ -40,6 +43,7 @@ These date helper functions provide the same functionalities like in \code{data.
 
 \itemize{
 \item year, month, quarter: get the year, month, quarter part
+\item wday: the day of the week (Sunday is 1)
 \item mday: the day of month starting from 1
 \item yday: the day of year starting from 1
 \item iso_week: ISO 8601 week starting from 1
