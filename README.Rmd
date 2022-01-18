@@ -131,41 +131,12 @@ run_bmk(
 )
 ```
 
-### date part
+### Extract Date Part
 
 ```{r date-part, results='asis'}
 # tweak from https://github.com/Rdatatable/data.table/pull/5300
 set.seed(373L)
-x = data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE))
-run_bmk(
-  data.table::wday(x),
-  lubridate::wday(x),
-  ymd::wday(x)
-)
-
-run_bmk(
-  data.table::mday(x),
-  lubridate::mday(x),
-  ymd::mday(x)
-)
-
-run_bmk(
-  data.table::isoweek(x),
-  lubridate::isoweek(x),
-  ymd::iso_week(x)
-)
-
-run_bmk(
-  data.table::month(x),
-  lubridate::month(x),
-  ymd::month(x)
-)
-
-run_bmk(
-  data.table::quarter(x),
-  lubridate::quarter(x),
-  ymd::quarter(x)
-)
+x = as.Date(data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE)))
 
 run_bmk(
   data.table::year(x),
@@ -173,18 +144,42 @@ run_bmk(
   funchir::quick_year(x),
   ymd::year(x)
 )
-
 run_bmk(
-  data.table::mday(x),
-  lubridate::mday(x),
-  funchir::quick_mday(x),
-  ymd::mday(x)
+  data.table::month(x),
+  lubridate::month(x),
+  ymd::month(x)
 )
-
+run_bmk(
+  data.table::quarter(x),
+  lubridate::quarter(x),
+  ymd::quarter(x)
+)
 run_bmk(
   data.table::yday(x),
   lubridate::yday(x),
   funchir::quick_yday(x),
   ymd::yday(x)
 )
+run_bmk(
+  data.table::mday(x),
+  lubridate::mday(x),
+  funchir::quick_mday(x),
+  ymd::mday(x)
+)
+run_bmk(
+  data.table::wday(x),
+  lubridate::wday(x),
+  ymd::wday(x)
+)
+run_bmk(
+  data.table::isoweek(x),
+  lubridate::isoweek(x),
+  ymd::iso_week(x)
+)
+```
+
+## Session Info
+
+```{r session-info}
+xfun::session_info()
 ```
