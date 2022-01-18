@@ -1,17 +1,31 @@
 #' Fast Date Part Extracting
 #'
 #' These date helper functions provide the same functionalities like in `data.table` or
-#' `lubridate` package, but
+#' `lubridate` package. They are implemented by the Rust Lang's standard library and very
+#' fast.
 #'
 #' @param ref_date, a Date vector. It will try to convert the input to date via [ymd()],
 #'   if the input is not a Date.
 #' @return an integer vector
-#' @section Detailed explanation:
+#' @details
 #'   * year, month, quarter: get the year, month, quarter part
+#'   * yday: the day of year
+#'   * mday: the day of month
 #'   * wday: the day of the week (Sunday is 1)
-#'   * mday: the day of month starting from 1
-#'   * yday: the day of year starting from 1
-#'   * iso_week: ISO 8601 week starting from 1
+#'   * iso_week: ISO 8601 week
 #'   * iso_wday: the day of week (ISO 8601 weekday number, Monday is 1)
+#' @references
+#' ISO week day, https://en.wikipedia.org/wiki/ISO_week_date
+#' ISO 8601, https://en.wikipedia.org/wiki/ISO_8601
+#' @examples
+#' year(210205)
+#' month(210205)
+#' quarter(210205)
+#' yday(210205)
+#' mday(210205)
+#' wday(210117)
+#' iso_wday(210117)
+#' iso_week(210101)
+#'
 #' @name date_part
 NULL

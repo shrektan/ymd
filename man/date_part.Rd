@@ -37,17 +37,31 @@ an integer vector
 }
 \description{
 These date helper functions provide the same functionalities like in \code{data.table} or
-\code{lubridate} package, but
+\code{lubridate} package. They are implemented by the Rust Lang's standard library and very
+fast.
 }
-\section{Detailed explanation}{
-
+\details{
 \itemize{
 \item year, month, quarter: get the year, month, quarter part
+\item yday: the day of year
+\item mday: the day of month
 \item wday: the day of the week (Sunday is 1)
-\item mday: the day of month starting from 1
-\item yday: the day of year starting from 1
-\item iso_week: ISO 8601 week starting from 1
+\item iso_week: ISO 8601 week
 \item iso_wday: the day of week (ISO 8601 weekday number, Monday is 1)
 }
 }
+\examples{
+year(210205)
+month(210205)
+quarter(210205)
+yday(210205)
+mday(210205)
+wday(210117)
+iso_wday(210117)
+iso_week(210101)
 
+}
+\references{
+ISO week day, https://en.wikipedia.org/wiki/ISO_week_date
+ISO 8601, https://en.wikipedia.org/wiki/ISO_8601
+}
