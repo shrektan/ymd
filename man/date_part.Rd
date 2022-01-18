@@ -36,7 +36,7 @@ if the input is not a Date.}
 an integer vector
 }
 \description{
-These date helper functions provide the same functionalities like in \code{data.table} or
+These date helper functions provide the similar functionalities like in \code{data.table} or
 \code{lubridate} package. They are implemented by the Rust Lang's standard library and very
 fast.
 }

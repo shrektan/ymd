@@ -1,6 +1,6 @@
 #' Fast Date Part Extracting
 #'
-#' These date helper functions provide the same functionalities like in `data.table` or
+#' These date helper functions provide the similar functionalities like in `data.table` or
 #' `lubridate` package. They are implemented by the Rust Lang's standard library and very
 #' fast.
 #'
