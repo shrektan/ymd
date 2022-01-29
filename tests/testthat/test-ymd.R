@@ -42,3 +42,9 @@ test_that("parse short year dates correctly", {
 test_that("ymd ... works", {
   expect_equal(ymd(210101, 220101), ymd(c(210101, 220101)))
 })
+
+test_that("panic hook works", {
+  expect_error(ymd(list(1)))
+  out <- capture.output(try(ymd(list(1)), silent = TRUE), type = "message", file = NULL)
+  expect_match(out, "x must be numeric or string vector")
+})

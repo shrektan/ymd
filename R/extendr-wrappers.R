@@ -61,3 +61,12 @@ mday <- function(ref_date) .Call(wrap__mday, ref_date)
 #' @export
 yday <- function(ref_date) .Call(wrap__yday, ref_date)
 
+#' Set The Panic Hook
+#'
+#' At the current version of extendr, when panic occurs, the
+#'
+#' @references
+#' extendr discussion: https://github.com/extendr/extendr/issues/278#
+#' @noRd
+set_panic_hook <- function() invisible(.Call(wrap__set_panic_hook))
+

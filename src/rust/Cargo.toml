@@ -9,4 +9,5 @@ crate-type = [ 'staticlib' ]
 [dependencies]
 extendr-api = '*'
 extendr-engine = "*"
+libR-sys = "*"
 chrono = "0.4.19"

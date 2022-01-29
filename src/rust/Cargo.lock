@@ -174,4 +174,5 @@ dependencies = [
  "chrono",
  "extendr-api",
  "extendr-engine",
+ "libR-sys",
 ]
