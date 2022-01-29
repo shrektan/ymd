@@ -294,8 +294,10 @@ fn set_panic_hook() {
             Some(s) => format!("Rust error msg: {:?}", s),
             None => "".to_string()
         };
-        let msg: String = format!("{}, {:?}\n", msg_main, msg_loc);
+        use std::ffi::CString;
+        let msg = format!("{}, {:?}\n", msg_main, msg_loc);
         if msg.len() > 0 {
+            let msg: CString = CString::new(msg).unwrap();
             unsafe {
                 libR_sys::REprintf(msg.as_ptr() as *const std::os::raw::c_char);
             }
