@@ -33,7 +33,7 @@ make_fun!(quarter, |date: &NaiveDate| -> i32 {
     to_quarter(date.month())
 });
 
-make_fun!(iso_week, |date: &NaiveDate| -> i32 {
+make_fun!(isoweek, |date: &NaiveDate| -> i32 {
     date.iso_week().week() as i32
 });
 
@@ -45,7 +45,7 @@ make_fun!(mday, |date: &NaiveDate| -> i32 { date.day() as i32 });
 
 make_fun!(yday, |date: &NaiveDate| -> i32 { date.ordinal() as i32 });
 
-make_fun!(iso_wday, |date: &NaiveDate| -> i32 {
+make_fun!(isowday, |date: &NaiveDate| -> i32 {
     date.weekday().number_from_monday() as i32
 });
 
@@ -64,8 +64,8 @@ mod test {
                 Some(date)
             })
             .collect();
-        let iso_wday_expect = vec![Some(1), Some(2), Some(3), Some(4), Some(5), Some(6), Some(7)];
-        assert_eq!(iso_wday(&dates), iso_wday_expect);
+        let isowday_expect = vec![Some(1), Some(2), Some(3), Some(4), Some(5), Some(6), Some(7)];
+        assert_eq!(isowday(&dates), isowday_expect);
         let wday_expect = vec![Some(2), Some(3), Some(4), Some(5), Some(6), Some(7), Some(1)];
         assert_eq!(wday(&dates), wday_expect);
     }

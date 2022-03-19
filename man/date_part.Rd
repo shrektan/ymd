@@ -5,8 +5,8 @@
 \alias{year}
 \alias{month}
 \alias{quarter}
-\alias{iso_week}
-\alias{iso_wday}
+\alias{isoweek}
+\alias{isowday}
 \alias{wday}
 \alias{mday}
 \alias{yday}
@@ -18,9 +18,9 @@ month(ref_date)
 
 quarter(ref_date)
 
-iso_week(ref_date)
+isoweek(ref_date)
 
-iso_wday(ref_date)
+isowday(ref_date)
 
 wday(ref_date)
 
@@ -46,8 +46,8 @@ fast.
 \item yday: the day of year
 \item mday: the day of month
 \item wday: the day of the week (Sunday is 1)
-\item iso_week: ISO 8601 week
-\item iso_wday: the day of week (ISO 8601 weekday number, Monday is 1)
+\item isoweek: ISO 8601 week
+\item isowday: the day of week (ISO 8601 weekday number, Monday is 1)
 }
 }
 \examples{
@@ -57,8 +57,8 @@ quarter(210205)
 yday(210205)
 mday(210205)
 wday(210117)
-iso_wday(210117)
-iso_week(210101)
+isowday(210117)
+isoweek(210101)
 
 }
 \references{

@@ -12,8 +12,8 @@
 #'   * yday: the day of year
 #'   * mday: the day of month
 #'   * wday: the day of the week (Sunday is 1)
-#'   * iso_week: ISO 8601 week
-#'   * iso_wday: the day of week (ISO 8601 weekday number, Monday is 1)
+#'   * isoweek: ISO 8601 week
+#'   * isowday: the day of week (ISO 8601 weekday number, Monday is 1)
 #' @references
 #' ISO week day, https://en.wikipedia.org/wiki/ISO_week_date
 #' ISO 8601, https://en.wikipedia.org/wiki/ISO_8601
@@ -24,8 +24,8 @@
 #' yday(210205)
 #' mday(210205)
 #' wday(210117)
-#' iso_wday(210117)
-#' iso_week(210101)
+#' isowday(210117)
+#' isoweek(210101)
 #'
 #' @name date_part
 NULL

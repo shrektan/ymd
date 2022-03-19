@@ -149,8 +149,8 @@ make_date_part_fun!(quarter, dateof::quarter);
 make_date_part_fun!(wday, dateof::wday);
 make_date_part_fun!(mday, dateof::mday);
 make_date_part_fun!(yday, dateof::yday);
-make_date_part_fun!(iso_week, dateof::iso_week);
-make_date_part_fun!(iso_wday, dateof::iso_wday);
+make_date_part_fun!(isoweek, dateof::isoweek);
+make_date_part_fun!(isowday, dateof::isowday);
 
 #[cfg(test)]
 mod test {
@@ -317,8 +317,8 @@ extendr_module! {
     fn year;
     fn month;
     fn quarter;
-    fn iso_week;
-    fn iso_wday;
+    fn isoweek;
+    fn isowday;
     fn wday;
     fn mday;
     fn yday;

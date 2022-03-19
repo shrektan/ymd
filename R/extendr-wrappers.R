@@ -43,11 +43,11 @@ quarter <- function(ref_date) .Call(wrap__quarter, ref_date)
 
 #' @rdname date_part
 #' @export
-iso_week <- function(ref_date) .Call(wrap__iso_week, ref_date)
+isoweek <- function(ref_date) .Call(wrap__isoweek, ref_date)
 
 #' @rdname date_part
 #' @export
-iso_wday <- function(ref_date) .Call(wrap__iso_wday, ref_date)
+isowday <- function(ref_date) .Call(wrap__isowday, ref_date)
 
 #' @rdname date_part
 #' @export

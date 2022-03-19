@@ -174,7 +174,7 @@ run_bmk(
 run_bmk(
   data.table::isoweek(x),
   lubridate::isoweek(x),
-  ymd::iso_week(x)
+  ymd::isoweek(x)
 )
 ```
 
