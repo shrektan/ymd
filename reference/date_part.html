@@ -14,7 +14,7 @@ fast."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathj
     
     <a class="navbar-brand me-2" href="../index.html">ymd</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,9 +63,9 @@ fast.</p>
 
 <span class="fu">quarter</span><span class="op">(</span><span class="va">ref_date</span><span class="op">)</span>
 
-<span class="fu">iso_week</span><span class="op">(</span><span class="va">ref_date</span><span class="op">)</span>
+<span class="fu">isoweek</span><span class="op">(</span><span class="va">ref_date</span><span class="op">)</span>
 
-<span class="fu">iso_wday</span><span class="op">(</span><span class="va">ref_date</span><span class="op">)</span>
+<span class="fu">isowday</span><span class="op">(</span><span class="va">ref_date</span><span class="op">)</span>
 
 <span class="fu">wday</span><span class="op">(</span><span class="va">ref_date</span><span class="op">)</span>
 
@@ -91,8 +91,8 @@ if the input is not a Date.</p></dd>
 <li><p>yday: the day of year</p></li>
 <li><p>mday: the day of month</p></li>
 <li><p>wday: the day of the week (Sunday is 1)</p></li>
-<li><p>iso_week: ISO 8601 week</p></li>
-<li><p>iso_wday: the day of week (ISO 8601 weekday number, Monday is 1)</p></li>
+<li><p>isoweek: ISO 8601 week</p></li>
+<li><p>isowday: the day of week (ISO 8601 weekday number, Monday is 1)</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -114,9 +114,9 @@ ISO 8601, https://en.wikipedia.org/wiki/ISO_8601</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-in"><span class="fu">wday</span><span class="op">(</span><span class="fl">210117</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
-<span class="r-in"><span class="fu">iso_wday</span><span class="op">(</span><span class="fl">210117</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">isowday</span><span class="op">(</span><span class="fl">210117</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7</span>
-<span class="r-in"><span class="fu">iso_week</span><span class="op">(</span><span class="fl">210101</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">isoweek</span><span class="op">(</span><span class="fl">210101</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 53</span>
 <span class="r-in"></span>
 </code></pre></div>
