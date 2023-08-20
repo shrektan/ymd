@@ -14,7 +14,7 @@ Description: Convert 'YMD' format number or string to Date efficiently, using Ru
 License: MIT + file LICENSE
 URL: https://shrektan.github.io/ymd/, https://github.com/shrektan/ymd
 BugReports: https://github.com/shrektan/ymd/issues
-SystemRequirements: Cargo (rustc package manager)
+SystemRequirements: Cargo (Rust's package manager), rustc
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
