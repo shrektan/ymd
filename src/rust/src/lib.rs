@@ -284,15 +284,16 @@ mod test {
 fn set_panic_hook() {
     std::panic::set_hook(Box::new(|panic_info| {
         let msg_loc = match panic_info.location() {
-            Some(location) => format!("panic occurred in file '{}' at line {}",
+            Some(location) => format!(
+                "panic occurred in file '{}' at line {}",
                 location.file(),
                 location.line(),
             ),
-            None => "".to_string()
+            None => "".to_string(),
         };
         let msg_main = match panic_info.payload().downcast_ref::<&str>() {
             Some(s) => format!("Rust error msg: {:?}", s),
-            None => "".to_string()
+            None => "".to_string(),
         };
         use std::ffi::CString;
         let msg = format!("{}, {:?}\n", msg_main, msg_loc);

@@ -64,9 +64,25 @@ mod test {
                 Some(date)
             })
             .collect();
-        let isowday_expect = vec![Some(1), Some(2), Some(3), Some(4), Some(5), Some(6), Some(7)];
+        let isowday_expect = vec![
+            Some(1),
+            Some(2),
+            Some(3),
+            Some(4),
+            Some(5),
+            Some(6),
+            Some(7),
+        ];
         assert_eq!(isowday(&dates), isowday_expect);
-        let wday_expect = vec![Some(2), Some(3), Some(4), Some(5), Some(6), Some(7), Some(1)];
+        let wday_expect = vec![
+            Some(2),
+            Some(3),
+            Some(4),
+            Some(5),
+            Some(6),
+            Some(7),
+            Some(1),
+        ];
         assert_eq!(wday(&dates), wday_expect);
     }
 }
