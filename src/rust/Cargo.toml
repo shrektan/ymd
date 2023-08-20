@@ -4,10 +4,10 @@ version = '0.1.0'
 edition = '2018'
 
 [lib]
-crate-type = [ 'staticlib' ]
+crate-type = ['staticlib']
 
 [dependencies]
 extendr-api = '*'
 extendr-engine = "*"
 libR-sys = "*"
-chrono = "0.4.19"
+chrono = "*"
