@@ -1,7 +1,7 @@
 use chrono::{Datelike, NaiveDate, Weekday};
 
 pub fn add_days(ref_date: &NaiveDate, days: i32) -> NaiveDate {
-    NaiveDate::from_num_days_from_ce(ref_date.num_days_from_ce() + days)
+    NaiveDate::from_num_days_from_ce_opt(ref_date.num_days_from_ce() + days).unwrap()
 }
 
 pub fn add_months(ref_date: &NaiveDate, months: i32) -> NaiveDate {
@@ -10,17 +10,22 @@ pub fn add_months(ref_date: &NaiveDate, months: i32) -> NaiveDate {
     let month = (num_of_months - 1) % 12 + 1;
     let since = NaiveDate::signed_duration_since;
     let nxt_month = if month == 12 {
-        NaiveDate::from_ymd(year + 1, 1 as u32, 1)
+        NaiveDate::from_ymd_opt(year + 1, 1 as u32, 1).unwrap()
     } else {
-        NaiveDate::from_ymd(year, (month + 1) as u32, 1)
+        NaiveDate::from_ymd_opt(year, (month + 1) as u32, 1).unwrap()
     };
-    let max_day = since(nxt_month, NaiveDate::from_ymd(year, month as u32, 1)).num_days() as u32;
+    let max_day = since(
+        nxt_month,
+        NaiveDate::from_ymd_opt(year, month as u32, 1).unwrap(),
+    )
+    .num_days() as u32;
     let day = ref_date.day();
-    NaiveDate::from_ymd(
+    NaiveDate::from_ymd_opt(
         year,
         month as u32,
         if day > max_day { max_day } else { day },
     )
+    .unwrap()
 }
 
 #[derive(Copy, Clone)]
@@ -45,13 +50,13 @@ pub fn to_period(x: &str) -> Option<Period> {
 
 pub fn bop(x: &NaiveDate, p: Period) -> NaiveDate {
     match p {
-        Period::Year => NaiveDate::from_ymd(x.year(), 1, 1),
+        Period::Year => NaiveDate::from_ymd_opt(x.year(), 1, 1).unwrap(),
         Period::Semiannual => {
             let month = match x.month() {
                 1..=6 => 1,
                 _ => 7,
             };
-            NaiveDate::from_ymd(x.year(), month, 1)
+            NaiveDate::from_ymd_opt(x.year(), month, 1).unwrap()
         }
         Period::Quarter => {
             let month = match x.month() {
@@ -60,11 +65,12 @@ pub fn bop(x: &NaiveDate, p: Period) -> NaiveDate {
                 7..=9 => 7,
                 _ => 10,
             };
-            NaiveDate::from_ymd(x.year(), month, 1)
+            NaiveDate::from_ymd_opt(x.year(), month, 1).unwrap()
         }
-        Period::Month => NaiveDate::from_ymd(x.year(), x.month(), 1),
+        Period::Month => NaiveDate::from_ymd_opt(x.year(), x.month(), 1).unwrap(),
         Period::Week => {
-            NaiveDate::from_isoywd(x.iso_week().year(), x.iso_week().week(), Weekday::Mon)
+            NaiveDate::from_isoywd_opt(x.iso_week().year(), x.iso_week().week(), Weekday::Mon)
+                .unwrap()
         }
     }
 }
