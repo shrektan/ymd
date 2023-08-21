@@ -106,63 +106,81 @@ mod tests {
     #[test]
     fn test_add_days() {
         let fromymd = NaiveDate::from_ymd_opt;
-        assert_eq!(add_days(&fromymd(2021, 1, 1), -1), fromymd(2020, 12, 31));
-        assert_eq!(add_days(&fromymd(2021, 1, 31), 1), fromymd(2021, 2, 1));
-        assert_eq!(add_days(&fromymd(2021, 12, 31), 1), fromymd(2022, 1, 1));
+        assert_eq!(
+            add_days(&fromymd(2021, 1, 1).unwrap(), -1),
+            fromymd(2020, 12, 31).unwrap()
+        );
+        assert_eq!(
+            add_days(&fromymd(2021, 1, 31).unwrap(), 1),
+            fromymd(2021, 2, 1).unwrap()
+        );
+        assert_eq!(
+            add_days(&fromymd(2021, 12, 31).unwrap(), 1),
+            fromymd(2022, 1, 1).unwrap()
+        );
     }
     #[test]
     fn test_add_months() {
-        let fromymd = NaiveDate::from_ymd;
-        assert_eq!(add_months(&fromymd(2021, 1, 1), -1), fromymd(2020, 12, 1));
-        assert_eq!(add_months(&fromymd(2021, 1, 31), 1), fromymd(2021, 2, 28));
+        let fromymd = NaiveDate::from_ymd_opt;
         assert_eq!(
-            add_months(&fromymd(2021, 12, 31), 12),
-            fromymd(2022, 12, 31)
+            add_months(&fromymd(2021, 1, 1).unwrap(), -1),
+            fromymd(2020, 12, 1).unwrap()
+        );
+        assert_eq!(
+            add_months(&fromymd(2021, 1, 31).unwrap(), 1),
+            fromymd(2021, 2, 28).unwrap()
+        );
+        assert_eq!(
+            add_months(&fromymd(2021, 12, 31).unwrap(), 12),
+            fromymd(2022, 12, 31).unwrap()
         );
     }
     #[test]
     fn test_bop() {
-        let fromymd = NaiveDate::from_ymd;
+        let fromymd = NaiveDate::from_ymd_opt;
         assert_eq!(
-            bop(&fromymd(2021, 1, 15), Period::Year),
-            fromymd(2021, 1, 1)
+            bop(&fromymd(2021, 1, 15).unwrap(), Period::Year),
+            fromymd(2021, 1, 1).unwrap()
         );
         assert_eq!(
-            bop(&fromymd(2021, 12, 15), Period::Semiannual),
-            fromymd(2021, 7, 1)
+            bop(&fromymd(2021, 12, 15).unwrap(), Period::Semiannual),
+            fromymd(2021, 7, 1).unwrap()
         );
         assert_eq!(
-            bop(&fromymd(2021, 5, 15), Period::Quarter),
-            fromymd(2021, 4, 1)
+            bop(&fromymd(2021, 5, 15).unwrap(), Period::Quarter),
+            fromymd(2021, 4, 1).unwrap()
         );
         assert_eq!(
-            bop(&fromymd(2021, 8, 31), Period::Month),
-            fromymd(2021, 8, 1)
+            bop(&fromymd(2021, 8, 31).unwrap(), Period::Month),
+            fromymd(2021, 8, 1).unwrap()
         );
         assert_eq!(
-            bop(&fromymd(2022, 1, 1), Period::Week),
-            fromymd(2021, 12, 27)
+            bop(&fromymd(2022, 1, 1).unwrap(), Period::Week),
+            fromymd(2021, 12, 27).unwrap()
         );
     }
     #[test]
     fn test_eop() {
-        let fromymd = NaiveDate::from_ymd;
+        let fromymd = NaiveDate::from_ymd_opt;
         assert_eq!(
-            eop(&fromymd(2021, 1, 15), Period::Year),
-            fromymd(2021, 12, 31)
+            eop(&fromymd(2021, 1, 15).unwrap(), Period::Year),
+            fromymd(2021, 12, 31).unwrap()
         );
         assert_eq!(
-            eop(&fromymd(2021, 1, 15), Period::Semiannual),
-            fromymd(2021, 6, 30)
+            eop(&fromymd(2021, 1, 15).unwrap(), Period::Semiannual),
+            fromymd(2021, 6, 30).unwrap()
         );
         assert_eq!(
-            eop(&fromymd(2021, 5, 15), Period::Quarter),
-            fromymd(2021, 6, 30)
+            eop(&fromymd(2021, 5, 15).unwrap(), Period::Quarter),
+            fromymd(2021, 6, 30).unwrap()
         );
         assert_eq!(
-            eop(&fromymd(2021, 2, 12), Period::Month),
-            fromymd(2021, 2, 28)
+            eop(&fromymd(2021, 2, 12).unwrap(), Period::Month),
+            fromymd(2021, 2, 28).unwrap()
         );
-        assert_eq!(eop(&fromymd(2022, 1, 1), Period::Week), fromymd(2022, 1, 2));
+        assert_eq!(
+            eop(&fromymd(2022, 1, 1).unwrap(), Period::Week),
+            fromymd(2022, 1, 2).unwrap()
+        );
     }
 }

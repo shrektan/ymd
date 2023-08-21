@@ -57,10 +57,11 @@ mod test {
     use chrono::NaiveDate;
     #[test]
     fn wday_works() {
-        let date0 = NaiveDate::from_ymd(2022, 1, 17);
+        let date0 = NaiveDate::from_ymd_opt(2022, 1, 17).unwrap();
         let dates: Vec<Option<NaiveDate>> = (0..=6)
             .map(|i| {
-                let date = NaiveDate::from_num_days_from_ce(date0.num_days_from_ce() + i);
+                let date =
+                    NaiveDate::from_num_days_from_ce_opt(date0.num_days_from_ce() + i).unwrap();
                 Some(date)
             })
             .collect();
