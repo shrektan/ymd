@@ -160,44 +160,50 @@ mod test {
     fn integers() {
         assert_eq!(
             int2date(980308, true).unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             int2date(980308, false).unwrap(),
-            NaiveDate::from_ymd(0098, 3, 8)
+            NaiveDate::from_ymd_opt(0098, 3, 8).unwrap()
         );
         assert_eq!(
             int2date(050308, true).unwrap(),
-            NaiveDate::from_ymd(2005, 3, 8)
+            NaiveDate::from_ymd_opt(2005, 3, 8).unwrap()
         );
         assert_eq!(
             int2date(19980308, true).unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             int2date(21050308, true).unwrap(),
-            NaiveDate::from_ymd(2105, 3, 8)
+            NaiveDate::from_ymd_opt(2105, 3, 8).unwrap()
         );
         assert_eq!(int2date(980230, true), None);
         assert_eq!(int2date(19980230, true), None);
         assert_eq!(int2date(22, true), None);
         assert_eq!(
             int2date(2201010, true).unwrap(),
-            NaiveDate::from_ymd(0220, 10, 10)
+            NaiveDate::from_ymd_opt(0220, 10, 10).unwrap()
         );
     }
 
     #[test]
     fn doubles() {
-        assert_eq!(dbl2date(980308.).unwrap(), NaiveDate::from_ymd(1998, 3, 8));
-        assert_eq!(dbl2date(050308.).unwrap(), NaiveDate::from_ymd(2005, 3, 8));
+        assert_eq!(
+            dbl2date(980308.).unwrap(),
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
+        );
+        assert_eq!(
+            dbl2date(050308.).unwrap(),
+            NaiveDate::from_ymd_opt(2005, 3, 8).unwrap()
+        );
         assert_eq!(
             dbl2date(19980308.).unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             dbl2date(21050308.).unwrap(),
-            NaiveDate::from_ymd(2105, 3, 8)
+            NaiveDate::from_ymd_opt(2105, 3, 8).unwrap()
         );
         assert_eq!(dbl2date(980230.), None);
         assert_eq!(dbl2date(19980230.), None);
@@ -207,54 +213,63 @@ mod test {
     }
     #[test]
     fn strings() {
-        assert_eq!(str2date("980308").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
+        assert_eq!(
+            str2date("980308").unwrap(),
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
+        );
         assert_eq!(
             str2date("98.3.08").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
-        assert_eq!(str2date("98.3.8").unwrap(), NaiveDate::from_ymd(1998, 3, 8));
+        assert_eq!(
+            str2date("98.3.8").unwrap(),
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
+        );
         assert_eq!(
             str2date("98.03.08").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             str2date("98/03/08").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             str2date("98-03-08").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
 
-        assert_eq!(str2date("220102").unwrap(), NaiveDate::from_ymd(2022, 1, 2));
+        assert_eq!(
+            str2date("220102").unwrap(),
+            NaiveDate::from_ymd_opt(2022, 1, 2).unwrap()
+        );
         assert_eq!(
             str2date("22.01.02").unwrap(),
-            NaiveDate::from_ymd(2022, 1, 2)
+            NaiveDate::from_ymd_opt(2022, 1, 2).unwrap()
         );
         assert_eq!(
             str2date("22/01/02").unwrap(),
-            NaiveDate::from_ymd(2022, 1, 2)
+            NaiveDate::from_ymd_opt(2022, 1, 2).unwrap()
         );
         assert_eq!(
             str2date("22-01-02").unwrap(),
-            NaiveDate::from_ymd(2022, 1, 2)
+            NaiveDate::from_ymd_opt(2022, 1, 2).unwrap()
         );
 
         assert_eq!(
             str2date("19980308").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             str2date("1998.03.08").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             str2date("1998/03/08").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
         assert_eq!(
             str2date("1998-03-08").unwrap(),
-            NaiveDate::from_ymd(1998, 3, 8)
+            NaiveDate::from_ymd_opt(1998, 3, 8).unwrap()
         );
 
         assert_eq!(str2date("98308"), None);
@@ -265,7 +280,7 @@ mod test {
     fn to_date() {
         test! {
             let x: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap();
-            assert_eq!(rdate::robj2date(x, "x").unwrap(), [Some(NaiveDate::from_ymd(2021, 12, 29)), Some(NaiveDate::from_ymd(2021, 12, 30))]);
+            assert_eq!(rdate::robj2date(x, "x").unwrap(), [Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())]);
         }
     }
 }
