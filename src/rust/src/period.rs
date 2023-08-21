@@ -77,23 +77,24 @@ pub fn bop(x: &NaiveDate, p: Period) -> NaiveDate {
 
 pub fn eop(x: &NaiveDate, p: Period) -> NaiveDate {
     match p {
-        Period::Year => NaiveDate::from_ymd(x.year(), 12, 31),
+        Period::Year => NaiveDate::from_ymd_opt(x.year(), 12, 31).unwrap(),
         Period::Semiannual => match x.month() {
-            1..=6 => NaiveDate::from_ymd(x.year(), 6, 30),
-            _ => NaiveDate::from_ymd(x.year(), 12, 31),
+            1..=6 => NaiveDate::from_ymd_opt(x.year(), 6, 30).unwrap(),
+            _ => NaiveDate::from_ymd_opt(x.year(), 12, 31).unwrap(),
         },
         Period::Quarter => match x.month() {
-            1..=3 => NaiveDate::from_ymd(x.year(), 3, 31),
-            4..=6 => NaiveDate::from_ymd(x.year(), 6, 30),
-            7..=9 => NaiveDate::from_ymd(x.year(), 9, 30),
-            _ => NaiveDate::from_ymd(x.year(), 12, 31),
+            1..=3 => NaiveDate::from_ymd_opt(x.year(), 3, 31).unwrap(),
+            4..=6 => NaiveDate::from_ymd_opt(x.year(), 6, 30).unwrap(),
+            7..=9 => NaiveDate::from_ymd_opt(x.year(), 9, 30).unwrap(),
+            _ => NaiveDate::from_ymd_opt(x.year(), 12, 31).unwrap(),
         },
         Period::Month => {
-            let bop = NaiveDate::from_ymd(x.year(), x.month(), 1);
+            let bop = NaiveDate::from_ymd_opt(x.year(), x.month(), 1).unwrap();
             add_days(&add_months(&bop, 1), -1)
         }
         Period::Week => {
-            NaiveDate::from_isoywd(x.iso_week().year(), x.iso_week().week(), Weekday::Sun)
+            NaiveDate::from_isoywd_opt(x.iso_week().year(), x.iso_week().week(), Weekday::Sun)
+                .unwrap()
         }
     }
 }
@@ -104,7 +105,7 @@ mod tests {
     use chrono::NaiveDate;
     #[test]
     fn test_add_days() {
-        let fromymd = NaiveDate::from_ymd;
+        let fromymd = NaiveDate::from_ymd_opt;
         assert_eq!(add_days(&fromymd(2021, 1, 1), -1), fromymd(2020, 12, 31));
         assert_eq!(add_days(&fromymd(2021, 1, 31), 1), fromymd(2021, 2, 1));
         assert_eq!(add_days(&fromymd(2021, 12, 31), 1), fromymd(2022, 1, 1));
