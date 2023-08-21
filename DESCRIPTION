@@ -34,3 +34,4 @@ Config/ymd/binary_sha256sum:
         `x86_64-apple-darwin-libymd.a`        = "4e4bfa69b22c0611d212fd6e09f32c6066c3af61d2f8c16e29327782308b98d4",
         `x86_64-pc-windows-gnu-libymd.a`      = "063862240340b93ad5eb96138e42a5392c3f3c77241468f2d8e5bb39815cc2ee"
     )
+Config/rextendr/version: 0.3.1
