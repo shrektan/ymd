@@ -9,25 +9,25 @@ pub fn robj2date(x: Robj, var: &str) -> Result<Vec<Option<NaiveDate>>> {
         return Err(Error::Other(format!("{} is not a Date", var)));
     }
     let out = match x.rtype() {
-        RType::Real => x
+        Rtype::Doubles => x
             .as_real_iter()
             .unwrap()
             .map(|d| {
                 if d.is_na() {
                     None
                 } else {
-                    NaiveDate::from_num_days_from_ce_opt(d as i32 + R_DATE_FROM_CE)
+                    NaiveDate::from_num_days_from_ce_opt(*d as i32 + R_DATE_FROM_CE)
                 }
             })
             .collect(),
-        RType::Integer => x
-            .as_integer_iter()
+        Rtype::Integers => x
+            .as_real_iter()
             .unwrap()
             .map(|d| {
                 if d.is_na() {
                     None
                 } else {
-                    NaiveDate::from_num_days_from_ce_opt(d + R_DATE_FROM_CE)
+                    NaiveDate::from_num_days_from_ce_opt(*d as i32 + R_DATE_FROM_CE)
                 }
             })
             .collect(),
@@ -96,14 +96,14 @@ mod tests {
         test! {
             single_threaded(|| {
                 let r_dates: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap();
-                let rust_dates = [Some(NaiveDate::from_ymd(2021, 12, 29)), Some(NaiveDate::from_ymd(2021, 12, 30))];
+                let rust_dates = [Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())];
                 assert_eq!(robj2date(r_dates.clone(), "r_dates").unwrap(), rust_dates);
                 assert_eq!(rust_dates.to_rdate(), r_dates);
-                let rust_dates = vec![Some(NaiveDate::from_ymd(2021, 12, 29)), Some(NaiveDate::from_ymd(2021, 12, 30))];
+                let rust_dates = vec![Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())];
                 assert_eq!(rust_dates.to_rdate(), r_dates);
-                let rust_dates = [NaiveDate::from_ymd(2021, 12, 29), NaiveDate::from_ymd(2021, 12, 30)];
+                let rust_dates = [NaiveDate::from_ymd_opt(2021, 12, 29).unwrap(), NaiveDate::from_ymd_opt(2021, 12, 30).unwrap()];
                 assert_eq!(rust_dates.to_rdate(), r_dates);
-                let rust_dates = vec![NaiveDate::from_ymd(2021, 12, 29), NaiveDate::from_ymd(2021, 12, 30)];
+                let rust_dates = vec![NaiveDate::from_ymd_opt(2021, 12, 29).unwrap(), NaiveDate::from_ymd_opt(2021, 12, 30).unwrap()];
                 assert_eq!(rust_dates.to_rdate(), r_dates);
             });
         }
