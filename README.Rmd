@@ -76,7 +76,11 @@ print_bmk <- function(x) {
   x[[1]] <- format(x[[1]])
   x[[5]] <- format(x[[5]])
   rnd <- \(v) if (is.numeric(v)) round(v, 1) else v
-  x[, 1:8] |> lapply(rnd) |> as.data.frame() |> knitr::kable() |> print()
+  x[, 1:8] |>
+    lapply(rnd) |>
+    as.data.frame() |>
+    knitr::kable() |>
+    print()
 }
 run_bmk <- function(..., time_unit = "us") {
   bench::mark(..., time_unit = time_unit) |> print_bmk()
@@ -136,7 +140,7 @@ run_bmk(
 ```{r date-part, results='asis'}
 # tweak from https://github.com/Rdatatable/data.table/pull/5300
 set.seed(373L)
-x = as.Date(data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE)))
+x <- as.Date(data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE)))
 
 run_bmk(
   data.table::year(x),
