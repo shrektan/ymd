@@ -9,3 +9,5 @@
 ^src/.cargo
 ^src/rust/target
 ^CRAN-SUBMISSION$
+^\.vscode$
+^\.Rproj\.user$
