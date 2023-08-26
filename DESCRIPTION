@@ -5,7 +5,10 @@ Authors@R: c(
     person("Xianying", "Tan", , "shrektan@126.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6072-3521")),
     person("Hiroaki", "Yutani", , "yutani.ini@gmail.com", role = c("ctb"),
-           comment = c(ORCID = "0000-0002-3385-7233", "configure, configure.win, tools/configure.R"))
+           comment = c(ORCID = "0000-0002-3385-7233", "configure, configure.win, tools/configure.R")),
+    person(given = "The authors of the dependency Rust crates",
+           role = c("ctb"),
+           comment = "see inst/AUTHORS file for details")
     )
 Maintainer: Xianying Tan <shrektan@126.com>
 Description: Convert 'YMD' format number or string to Date efficiently, using Rust's
