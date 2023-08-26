@@ -1,5 +1,17 @@
 {
     "rust-analyzer.linkedProjects": [
         "./src/rust/Cargo.toml"
+    ],
+    "grammarly.selectors": [
+        {
+            "language": "markdown",
+            "scheme": "file",
+            "pattern": "NEWS.md"
+        },
+        {
+            "language": "rmd",
+            "scheme": "file",
+            "pattern": "README.Rmd"
+        }
     ]
 }
