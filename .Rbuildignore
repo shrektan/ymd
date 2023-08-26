@@ -11,3 +11,4 @@
 ^CRAN-SUBMISSION$
 ^\.vscode$
 ^\.Rproj\.user$
+^src/rust/vendor
