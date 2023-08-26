@@ -80,7 +80,7 @@ check_cargo <- function() {
   res_version <- safe_system2(cargo_cmd, cargo_args)
 
   if (!isTRUE(res_version$success)) {
-    stop(errorCondition("cargo command is not available", class = c("string2path_error_cargo_check", "error")))
+    stop(errorCondition("cargo command is not available", class = c("error_cargo_check", "error")))
   }
 
   ### Check the version ###
@@ -96,12 +96,12 @@ check_cargo <- function() {
     m <- regmatches(version, regexec(ptn, version))[[1]]
 
     if (length(m) != 2) {
-      stop(errorCondition("cargo version returned unexpected result", class = c("string2path_error_cargo_check", "error")))
+      stop(errorCondition("cargo version returned unexpected result", class = c("error_cargo_check", "error")))
     }
 
     if (package_version(m[2]) < package_version(msrv)) {
       msg <- sprintf("The installed version of cargo (%s) is older than the requirement (%s)", m[2], msrv)
-      stop(errorCondition(msg, class = c("string2path_error_cargo_check", "error")))
+      stop(errorCondition(msg, class = c("error_cargo_check", "error")))
     }
   }
 
@@ -120,7 +120,7 @@ check_cargo <- function() {
 
     if (!isTRUE("x86_64-pc-windows-gnu" %in% targets$output)) {
       msg <- "The required target x86_64-pc-windows-gnu is not installed"
-      stop(errorCondition(msg, class = c("string2path_error_cargo_check", "error")))
+      stop(errorCondition(msg, class = c("error_cargo_check", "error")))
     }
   }
 
@@ -134,7 +134,7 @@ check_cargo <- function() {
 cargo_check_result <- tryCatch(
   check_cargo(),
   # Defer errors if it's raised by functions here
-  string2path_error_cargo_check = function(e) e$message
+  error_cargo_check = function(e) e$message
 )
 
 # If cargo is confirmed fine, exit here. But, even if the cargo is not available

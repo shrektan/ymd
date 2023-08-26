@@ -5,3 +5,4 @@ target
 Makevars
 Makevars.win
 vendor
+rust/.cargo/config.toml
