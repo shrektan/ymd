@@ -1,11 +1,14 @@
-# WIN is used in the usual rwinlib Makevars, but it seems WIN envvar is not
-# available when configure.win is used. So, R_ARCH is chosen here.
-TARGET = $(subst /x64,x86_64,$(subst /i386,i686,$(R_ARCH)))-pc-windows-gnu
+TARGET = x86_64-pc-windows-gnu
 
-TOOLCHAIN = stable-msvc
+# Rtools42 doesn't have the linker in the location that cargo expects, so we
+# need to overwrite it via configuration.
+CARGO_LINKER = x86_64-w64-mingw32.static.posix-gcc.exe
+
+# TODO
+VENDORING = yes
 
 LIBDIR = ./rust/target/$(TARGET)/release
-PKG_LIBS = -L$(LIBDIR) -lymd -lws2_32 -ladvapi32 -luserenv -lbcrypt
+PKG_LIBS = -L$(LIBDIR) -lymd -lws2_32 -ladvapi32 -luserenv -lbcrypt -lntdll
 STATLIB = $(LIBDIR)/libymd.a
 
 all: C_clean
@@ -13,13 +16,23 @@ all: C_clean
 $(SHLIB): $(STATLIB)
 
 $(STATLIB):
-	@BEFORE_CARGO_BUILD@ cargo +$(TOOLCHAIN) build --target=$(TARGET) --lib --release --manifest-path=./rust/Cargo.toml
+	mkdir -p $(LIBDIR)/libgcc_mock && touch $(LIBDIR)/libgcc_mock/libgcc_eh.a
+
+	# vendoring (Note: to avoid NOTE of "Found the following hidden files and
+	# directories", .cargo needs to be created here)
+	if [ "$(VENDORING)" = "yes" ]; then \
+	  $(TAR) --extract --xz -f ./rust/vendor.tar.xz -C ./rust && \
+	    mkdir -p ./rust/.cargo && \
+	    cp ./cargo_vendor_config.toml ./rust/.cargo/config.toml; \
+	fi
+
+	@BEFORE_CARGO_BUILD@ cd ./rust && cargo build --target=$(TARGET) --lib --release --offline --jobs=1
 	@AFTER_CARGO_BUILD@
 
 C_clean:
-	rm -Rf $(SHLIB) $(OBJECTS) @CLEAN_EXTRA@
+	rm -Rf $(SHLIB) $(OBJECTS) ./rust/.cargo $(STATLIB)
 
 clean:
-	rm -Rf $(SHLIB) $(OBJECTS) $(STATLIB) rust/target
+	rm -Rf $(SHLIB) $(OBJECTS) $(STATLIB) ./rust/.cargo ./rust/vendor ./rust/target
 
 .PHONY: all C_clean clean
