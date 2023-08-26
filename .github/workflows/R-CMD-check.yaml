@@ -50,3 +50,32 @@ jobs:
 
       - name: debug
         run: cat ./check/*.Rcheck/00install.out
+
+  Coverage:
+    needs: R-CMD-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.config.rust }}
+
+      - name: Install cargo-tarpaulin
+        uses: dtolnay/rust-toolchain@master
+        with:
+          crate: cargo-tarpaulin
+          version: latest
+          use-tool-cache: true
+
+      - name: Coverage with tarpaulin
+        run: cargo tarpaulin --all --all-features --timeout 600 --out Lcov -- --test-threads 1
+        working-directory: ./src/rust
+
+      - name: Upload coverage
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./src/rust/lcov.info
