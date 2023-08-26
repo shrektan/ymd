@@ -1,13 +1,13 @@
 [package]
 name = 'ymd'
 version = '0.1.0'
-edition = '2018'
+edition = '2021'
 
 [lib]
 crate-type = ['staticlib']
 
 [dependencies]
-extendr-api = '*'
-extendr-engine = "*"
-libR-sys = "*"
-chrono = "*"
+extendr-api = '0.4.0'
+libR-sys = "0.4.0"
+chrono = "0.4.26"
+extendr-engine = "0.4.0"
