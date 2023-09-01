@@ -64,7 +64,7 @@ jobs:
           toolchain: stable
 
       - name: Install cargo-tarpaulin
-        uses: dtolnay/rust-toolchain@master
+        uses: actions-rs/install@v0.1
         with:
           crate: cargo-tarpaulin
           version: latest
