@@ -63,12 +63,14 @@ jobs:
         with:
           toolchain: stable
           override: true
-      - uses: actions-rs/tarpaulin@v0.1
+      - name: Install cargo-tarpaulin
+        uses: actions-rs/install@v0.1
         with:
-          args: "-- --ignore-tests --out Lcov --test-threads 1"
+          crate: cargo-tarpaulin
           version: "0.15.0"
-          # out-type: Html
-          # upload-to-coveralls: true
+          use-tool-cache: true
+      - run: "cargo tarpaulin --out Xml -- --ignore-tests --out Lcov --test-threads 1"
+        working-directory: "./src/rust"
       - name: upload to Coveralls
         uses: coverallsapp/github-action@master
         with:
