@@ -54,28 +54,22 @@ jobs:
   Coverage:
     needs: R-CMD-check
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/rust
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Rust
-        uses: dtolnay/rust-toolchain@master
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-
-      - name: Install cargo-tarpaulin
-        uses: actions-rs/install@v0.1
+          override: true
+      - uses: actions-rs/tarpaulin@v0.1
         with:
-          crate: cargo-tarpaulin
-          version: latest
-          use-tool-cache: true
-
-      - name: Coverage with tarpaulin
-        run: cargo tarpaulin --all --all-features --timeout 600 --out Lcov -- --test-threads 1
-        working-directory: ./src/rust
-
-      - name: Upload coverage
+          args: "--ignore-tests --out Lcov --test-threads 1"
+          # out-type: Html
+          # upload-to-coveralls: true
+      - name: upload to Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./src/rust/lcov.info
+          path-to-lcov: "./lcov.info"
