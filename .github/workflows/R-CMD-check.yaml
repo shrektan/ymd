@@ -54,11 +54,11 @@ jobs:
   Coverage:
     needs: R-CMD-check
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src/rust
+
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: ./src/rust
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
