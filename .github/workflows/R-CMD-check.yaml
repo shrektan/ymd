@@ -65,7 +65,8 @@ jobs:
           override: true
       - uses: actions-rs/tarpaulin@v0.1
         with:
-          args: "--ignore-tests --out Lcov --test-threads 1"
+          args: "-- --ignore-tests --out Lcov --test-threads 1"
+          version: "0.15.0"
           # out-type: Html
           # upload-to-coveralls: true
       - name: upload to Coveralls
