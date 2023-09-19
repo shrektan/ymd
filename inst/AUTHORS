@@ -24,6 +24,9 @@ chrono (version 0.4.26):
 core-foundation-sys (version 0.8.4):
   The Servo Project Developers
 
+ctor (version 0.2.4):
+  Matt Mastracci
+
 extendr-api (version 0.4.0):
   andy-thomason
   Thomas Down
@@ -60,13 +63,10 @@ iana-time-zone (version 0.1.57):
 js-sys (version 0.3.64):
   The wasm-bindgen Developers
 
-lazy_static (version 1.4.0):
-  Marvin Löbel
-
 libc (version 0.2.147):
   The Rust Project Developers
 
-libR-sys (version 0.4.0):
+libR-sys (version 0.6.0):
   andy-thomason
   Thomas Down
   Mossa Merhi Reimert

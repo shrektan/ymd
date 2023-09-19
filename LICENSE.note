@@ -71,6 +71,13 @@ License: MIT / Apache-2.0
 
 ------------------------------
 
+Name:    ctor
+Files:   vendor/ctor/*
+Authors: Matt Mastracci
+License: Apache-2.0 OR MIT
+
+------------------------------
+
 Name:    extendr-api
 Files:   vendor/extendr-api/*
 Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
@@ -109,13 +116,6 @@ License: MIT OR Apache-2.0
 Name:    js-sys
 Files:   vendor/js-sys/*
 Authors: The wasm-bindgen Developers
-License: MIT/Apache-2.0
-
-------------------------------
-
-Name:    lazy_static
-Files:   vendor/lazy_static/*
-Authors: Marvin Löbel
 License: MIT/Apache-2.0
 
 ------------------------------
