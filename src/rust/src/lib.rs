@@ -79,7 +79,7 @@ fn rust_ymd(x: Robj) -> Robj {
             .map(|i| if i.is_na() { None } else { str2date(i) })
             .collect(),
         _ => {
-            panic!("x must be numeric or string vector");
+            throw_r_error("x must be numeric or string vector");
         }
     };
     value.to_rdate()
@@ -291,42 +291,6 @@ mod test {
     }
 }
 
-/// Set The Panic Hook
-///
-/// At the current version of extendr, when panic occurs, the error message won't
-/// be redirected to R's stderr stream. This hook will hack and correct the behavior.
-/// However, since the R's error throwing can only be changed in the macro level.
-/// This hack is not very elegent but at least it's better than before.
-/// TODO: Remove this when extendr fixes this issue.
-/// @references
-/// extendr discussion: https://github.com/extendr/extendr/issues/278#
-/// @noRd
-#[extendr]
-fn set_panic_hook() {
-    std::panic::set_hook(Box::new(|panic_info| {
-        let msg_loc = match panic_info.location() {
-            Some(location) => format!(
-                "panic occurred in file '{}' at line {}",
-                location.file(),
-                location.line(),
-            ),
-            None => "".to_string(),
-        };
-        let msg_main = match panic_info.payload().downcast_ref::<&str>() {
-            Some(s) => format!("Rust error msg: {:?}", s),
-            None => "".to_string(),
-        };
-        use std::ffi::CString;
-        let msg = format!("{}, {:?}\n", msg_main, msg_loc);
-        if msg.len() > 0 {
-            let msg: CString = CString::new(msg).unwrap();
-            unsafe {
-                libR_sys::REprintf(msg.as_ptr() as *const std::os::raw::c_char);
-            }
-        }
-    }));
-}
-
 // Macro to generate exports.
 // This ensures exported functions are registered with R.
 // See corresponding C code in `entrypoint.c`.
@@ -344,5 +308,4 @@ extendr_module! {
     fn wday;
     fn mday;
     fn yday;
-    fn set_panic_hook;
 }

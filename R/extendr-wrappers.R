@@ -64,17 +64,5 @@ mday <- function(ref_date) .Call(wrap__mday, ref_date)
 #' @export
 yday <- function(ref_date) .Call(wrap__yday, ref_date)
 
-#' Set The Panic Hook
-#'
-#' At the current version of extendr, when panic occurs, the error message won't
-#' be redirected to R's stderr stream. This hook will hack and correct the behavior.
-#' However, since the R's error throwing can only be changed in the macro level.
-#' This hack is not very elegent but at least it's better than before.
-#' TODO: Remove this when extendr fixes this issue.
-#' @references
-#' extendr discussion: https://github.com/extendr/extendr/issues/278#
-#' @noRd
-set_panic_hook <- function() invisible(.Call(wrap__set_panic_hook))
-
 
 # nolint end
