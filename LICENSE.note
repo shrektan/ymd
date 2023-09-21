@@ -39,7 +39,7 @@ License: Apache-2.0 OR MIT
 Name:    bumpalo
 Files:   vendor/bumpalo/*
 Authors: Nick Fitzgerald
-License: MIT/Apache-2.0
+License: MIT OR Apache-2.0
 
 ------------------------------
 
@@ -60,7 +60,7 @@ License: MIT/Apache-2.0
 Name:    chrono
 Files:   vendor/chrono/*
 Authors: 
-License: MIT/Apache-2.0
+License: MIT OR Apache-2.0
 
 ------------------------------
 
@@ -190,24 +190,10 @@ License: MIT OR Apache-2.0
 
 ------------------------------
 
-Name:    time
-Files:   vendor/time/*
-Authors: The Rust Project Developers
-License: MIT/Apache-2.0
-
-------------------------------
-
 Name:    unicode-ident
 Files:   vendor/unicode-ident/*
 Authors: David Tolnay
 License: (MIT OR Apache-2.0) AND Unicode-DFS-2016
-
-------------------------------
-
-Name:    wasi
-Files:   vendor/wasi/*
-Authors: The Cranelift Project Developers
-License: Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 
 ------------------------------
 
@@ -242,27 +228,6 @@ License: MIT/Apache-2.0
 Name:    wasm-bindgen
 Files:   vendor/wasm-bindgen/*
 Authors: The wasm-bindgen Developers
-License: MIT/Apache-2.0
-
-------------------------------
-
-Name:    winapi-i686-pc-windows-gnu
-Files:   vendor/winapi-i686-pc-windows-gnu/*
-Authors: Peter Atashian
-License: MIT/Apache-2.0
-
-------------------------------
-
-Name:    winapi-x86_64-pc-windows-gnu
-Files:   vendor/winapi-x86_64-pc-windows-gnu/*
-Authors: Peter Atashian
-License: MIT/Apache-2.0
-
-------------------------------
-
-Name:    winapi
-Files:   vendor/winapi/*
-Authors: Peter Atashian
 License: MIT/Apache-2.0
 
 ------------------------------

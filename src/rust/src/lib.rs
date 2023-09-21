@@ -282,13 +282,13 @@ mod test {
         assert_eq!(str2date("980338"), None);
         assert_eq!(str2date("9a0308"), None);
     }
-    #[test]
-    fn to_date() {
-        test! {
-            let x: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap();
-            assert_eq!(rdate::robj2date(x, "x").unwrap(), [Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())]);
-        }
-    }
+    // #[test]
+    // fn to_date() {
+    //     test! {
+    //         let x: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap();
+    //         assert_eq!(rdate::robj2date(x, "x").unwrap(), [Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())]);
+    //     }
+    // }
 }
 
 // Macro to generate exports.

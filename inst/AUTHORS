@@ -9,7 +9,7 @@ android-tzdata (version 0.1.1):
 autocfg (version 1.1.0):
   Josh Stone
 
-bumpalo (version 3.13.0):
+bumpalo (version 3.14.0):
   Nick Fitzgerald
 
 cc (version 1.0.83):
@@ -18,7 +18,7 @@ cc (version 1.0.83):
 cfg-if (version 1.0.0):
   Alex Crichton
 
-chrono (version 0.4.26):
+chrono (version 0.4.31):
   
 
 core-foundation-sys (version 0.8.4):
@@ -63,7 +63,7 @@ iana-time-zone (version 0.1.57):
 js-sys (version 0.3.64):
   The wasm-bindgen Developers
 
-libc (version 0.2.147):
+libc (version 0.2.148):
   The Rust Project Developers
 
 libR-sys (version 0.6.0):
@@ -86,7 +86,7 @@ once_cell (version 1.18.0):
 paste (version 1.0.14):
   David Tolnay
 
-proc-macro2 (version 1.0.66):
+proc-macro2 (version 1.0.67):
   David Tolnay
   Alex Crichton
 
@@ -96,17 +96,11 @@ quote (version 1.0.33):
 syn (version 1.0.109):
   David Tolnay
 
-syn (version 2.0.29):
+syn (version 2.0.37):
   David Tolnay
 
-time (version 0.1.45):
-  The Rust Project Developers
-
-unicode-ident (version 1.0.11):
+unicode-ident (version 1.0.12):
   David Tolnay
-
-wasi (version 0.10.0+wasi-snapshot-preview1):
-  The Cranelift Project Developers
 
 wasm-bindgen-backend (version 0.2.87):
   The wasm-bindgen Developers
@@ -122,15 +116,6 @@ wasm-bindgen-shared (version 0.2.87):
 
 wasm-bindgen (version 0.2.87):
   The wasm-bindgen Developers
-
-winapi-i686-pc-windows-gnu (version 0.4.0):
-  Peter Atashian
-
-winapi-x86_64-pc-windows-gnu (version 0.4.0):
-  Peter Atashian
-
-winapi (version 0.3.9):
-  Peter Atashian
 
 windows_aarch64_gnullvm (version 0.48.5):
   Microsoft
