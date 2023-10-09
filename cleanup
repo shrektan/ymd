@@ -1,1 +1,4 @@
+# for NON CRAN use
+# rm -Rf src/Makevars src/Makevars.win
+# must clean up the temp files
 rm -Rf src/Makevars src/Makevars.win src/rust/.cargo src/rust/target src/rust/vendor

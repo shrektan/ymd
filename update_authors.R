@@ -6,18 +6,33 @@ library(RcppTOML)
 ## Update inst/AUTHORS
 
 VENDOR_PATH <- "src/rust/vendor"
-manifests <- list.files(VENDOR_PATH, pattern = "Cargo.toml", recursive = TRUE)
+crates <- list.dirs(VENDOR_PATH, FALSE, FALSE)
 
-l <- lapply(manifests, \(x) RcppTOML::parseTOML(file.path(VENDOR_PATH, x))$package)
+l <- lapply(crates, \(x) RcppTOML::parseTOML(file.path(VENDOR_PATH, x, "Cargo.toml"))$package)
 
 names <- vapply(l, \(x) x[["name"]], FUN.VALUE = character(1L))
 versions <- vapply(l, \(x) x[["version"]], FUN.VALUE = character(1L))
 
-authors <- vapply(l, \(x) {
+cargo_authors <- lapply(l, \(x) {
     # Remove email addresses
     authors <- stringr::str_remove(x[["authors"]], "\\s+<.+>")
-    paste(authors, collapse = ", ")
-}, FUN.VALUE = character(1L))
+    authors
+})
+citation_author <- lapply(crates, \(x) {
+    path <- file.path(VENDOR_PATH, x, "CITATION.cff")
+    if (!file.exists(path)) {
+        return(NULL)
+    }
+    cite <- yaml::read_yaml(path)
+    if (is.null(cite$authors)) {
+        return(NULL)
+    }
+    authors <- cite$authors
+    vapply(authors, \(author) {
+        paste(author[["given-names"]], author[["family-names"]])
+    }, "")
+}) |> unname()
+authors <- mapply(\(x1, x2) paste0(c(x1, x2) |> unique(), collapse = ", "), cargo_authors, citation_author)
 
 licenses <- vapply(l, \(x) x[["license"]], FUN.VALUE = character(1L))
 
