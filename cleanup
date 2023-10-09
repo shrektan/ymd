@@ -1,1 +1,1 @@
-rm -f src/Makevars src/Makevars.win src/rust/.cargo/config.toml
+rm -Rf src/Makevars src/Makevars.win src/rust/.cargo src/rust/target src/rust/vendor
