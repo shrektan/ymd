@@ -1,5 +1,6 @@
 rlang::check_installed("RcppTOML")
 rlang::check_installed("stringr")
+rlang::check_installed("yaml")
 
 library(RcppTOML)
 
