@@ -47,6 +47,9 @@ authors_flattened <- vapply(stringr::str_split(authors, ",\\s+"), \(x) {
     paste(x, collapse = "\n  ")
 }, FUN.VALUE = character(1L))
 
+no_author <- names[!nzchar(authors_flattened)]
+if (length(no_author)) stop(paste0("find no author crates: ", toString(no_author)))
+
 cat(paste(
     names, " (version ", versions, "):\n  ",
     authors_flattened,
