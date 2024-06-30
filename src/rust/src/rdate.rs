@@ -71,20 +71,20 @@ impl ToRDate for [NaiveDate] {
 
 impl ToRDate for Vec<Option<f64>> {
     fn to_rdate(&self) -> Robj {
-        r!(self.clone()).set_class(&["Date"]).unwrap()
+        r!(self.clone()).set_class(&["Date"]).unwrap().clone()
     }
 }
 
 impl ToRDate for [f64] {
     fn to_rdate(&self) -> Robj {
-        r!(self).set_class(&["Date"]).unwrap()
+        r!(self).set_class(&["Date"]).unwrap().clone()
     }
 }
 
 impl ToRDate for [i32] {
     fn to_rdate(&self) -> Robj {
         let out: Vec<f64> = self.iter().map(|v| *v as f64).collect();
-        r!(out).set_class(&["Date"]).unwrap()
+        r!(out).set_class(&["Date"]).unwrap().clone()
     }
 }
 
@@ -95,7 +95,7 @@ mod tests {
     fn to_date() {
         test! {
             single_threaded(|| {
-                let r_dates: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap();
+                let r_dates: Robj = r!([18990.0, 18991.0]).set_class(&["Date"]).unwrap().clone();
                 let rust_dates = [Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())];
                 assert_eq!(robj2date(r_dates.clone(), "r_dates").unwrap(), rust_dates);
                 assert_eq!(rust_dates.to_rdate(), r_dates);

@@ -66,18 +66,19 @@ checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
 
 [[package]]
 name = "ctor"
-version = "0.2.4"
+version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1f34ba9a9bcb8645379e9de8cb3ecfcf4d1c85ba66d90deb3259206fa5aa193b"
+checksum = "edb49164822f3ee45b17acd4a208cfc1251410cf0cad9a833234c9890774dd9f"
 dependencies = [
  "quote",
- "syn 2.0.37",
+ "syn",
 ]
 
 [[package]]
 name = "extendr-api"
-version = "0.4.0"
-source = "git+https://github.com/extendr/extendr?rev=refs/pull/627/head#ab1a319e6916995fc10ea3841ecec1ddaf54c9d0"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b0701db497d091675e50bb10ba870999742cd1e9a9d94cf3fb52f3ea9a7629c0"
 dependencies = [
  "extendr-macros",
  "libR-sys",
@@ -87,8 +88,9 @@ dependencies = [
 
 [[package]]
 name = "extendr-engine"
-version = "0.4.0"
-source = "git+https://github.com/extendr/extendr?rev=refs/pull/627/head#ab1a319e6916995fc10ea3841ecec1ddaf54c9d0"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ae890e2fffb0973f3c106eabf72a49112022b724a56d34e1511d13b8e9a6039"
 dependencies = [
  "ctor",
  "libR-sys",
@@ -96,12 +98,13 @@ dependencies = [
 
 [[package]]
 name = "extendr-macros"
-version = "0.4.0"
-source = "git+https://github.com/extendr/extendr?rev=refs/pull/627/head#ab1a319e6916995fc10ea3841ecec1ddaf54c9d0"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "33d6b806beee182ab3e1105c822df137913b894847a13ec29dfbff9abfb6d1d2"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn",
 ]
 
 [[package]]
@@ -138,9 +141,9 @@ dependencies = [
 
 [[package]]
 name = "libR-sys"
-version = "0.6.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a34aaa68a201f71eab5df5a67d1326add8aaf029434e939353bcab0534919ff1"
+checksum = "44f2e4b6f402557010b557dd181842168db92da2c0d747bd091bd175941c570d"
 
 [[package]]
 name = "libc"
@@ -195,17 +198,6 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "1.0.109"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72b64191b275b66ffe2469e8af2c1cfe3bafa67b529ead792a6d0160888b4237"
-dependencies = [
- "proc-macro2",
- "quote",
- "unicode-ident",
-]
-
-[[package]]
-name = "syn"
 version = "2.0.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7303ef2c05cd654186cb250d29049a24840ca25d2747c25c0381c8d9e2f582e8"
@@ -242,7 +234,7 @@ dependencies = [
  "once_cell",
  "proc-macro2",
  "quote",
- "syn 2.0.37",
+ "syn",
  "wasm-bindgen-shared",
 ]
 
@@ -264,7 +256,7 @@ checksum = "54681b18a46765f095758388f2d0cf16eb8d4169b639ab575a8f5693af210c7b"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.37",
+ "syn",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]
@@ -348,5 +340,4 @@ dependencies = [
  "chrono",
  "extendr-api",
  "extendr-engine",
- "libR-sys",
 ]
