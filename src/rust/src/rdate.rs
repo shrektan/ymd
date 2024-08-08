@@ -71,7 +71,7 @@ impl ToRDate for [NaiveDate] {
 
 impl ToRDate for Vec<Option<f64>> {
     fn to_rdate(&self) -> Robj {
-        r!(self).set_class(&["Date"]).unwrap().clone()
+        r!(self.clone()).set_class(&["Date"]).unwrap().clone()
     }
 }
 
