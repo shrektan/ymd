@@ -1,3 +1,7 @@
+# ymd 0.1.1
+
+* Fix the calling non-API entry points issue.
+
 # ymd 0.1.0
 
 * `ymd()` now supports `...` arguments, which is convenient for interactive use, e.g., `ymd(210101, 220201)`.
