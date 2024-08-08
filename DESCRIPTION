@@ -20,7 +20,7 @@ BugReports: https://github.com/shrektan/ymd/issues
 SystemRequirements: Cargo (Rust's package manager), rustc
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Biarch: true
 Suggests:
     testthat (>= 3.0.0)
