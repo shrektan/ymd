@@ -1,15 +1,15 @@
 [package]
 name = 'ymd'
-version = '0.1.0'
+version = '0.1.1'
 edition = '2021'
 
 [lib]
 crate-type = ['staticlib']
 
 [dependencies]
-extendr-api = { package = "extendr-api", git = "https://github.com/extendr/extendr", rev = "refs/pull/627/head" }
-chrono = "0.4.26"
+chrono = "0.4.38"
+extendr-api = "0.7.0"
 
 [dev-dependencies]
-extendr-engine = { package = "extendr-engine", git = "https://github.com/extendr/extendr", rev = "refs/pull/627/head" }
-libR-sys = "0.6.0"
+extendr-engine = "0.7.0"
+libR-sys = "0.7.0"

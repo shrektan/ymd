@@ -6,7 +6,6 @@
 # This file was created with the following call:
 #   .Call("wrap__make_ymd_wrappers", use_symbols = TRUE, package_name = "ymd")
 
-#' @docType package
 #' @usage NULL
 #' @useDynLib ymd, .registration = TRUE
 NULL
