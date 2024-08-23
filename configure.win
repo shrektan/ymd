@@ -5,11 +5,19 @@ LIBRSYS_R_VERSION=$("${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "./tools/print_r_ve
 BEFORE_CARGO_BUILD="export LIBRSYS_R_VERSION=\"${LIBRSYS_R_VERSION}\" \\&\\&"
 AFTER_CARGO_BUILD=''
 
+# Check for rustc and report its version
+if command -v rustc >/dev/null 2>&1; then
+    echo "Using system rustc version: $(rustc --version)"
+elif [ -x "$USERPROFILE/.cargo/bin/rustc" ]; then
+    echo "Using user-installed rustc version: $($USERPROFILE/.cargo/bin/rustc --version)"
+else
+    echo "Error: rustc not found. Please install Rust from https://rustup.rs/"
+    exit 1
+fi
+
 # Check the Rust installation, and abort if not available
 "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "./tools/configure.R"
-
 ret=$?
-
 if [ $ret -ne 0 ]; then
   exit $ret
 fi

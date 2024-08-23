@@ -15,11 +15,19 @@ if [ -e "${HOME}/.cargo/env" ]; then
   BEFORE_CARGO_BUILD="${BEFORE_CARGO_BUILD} . \"${HOME}/.cargo/env\" \\&\\&"
 fi
 
+# Check for rustc and report its version
+if command -v rustc >/dev/null 2>&1; then
+    echo "Using system rustc version: $(rustc --version)"
+elif [ -x "$HOME/.cargo/bin/rustc" ]; then
+    echo "Using user-installed rustc version: $($HOME/.cargo/bin/rustc --version)"
+else
+    echo "Error: rustc not found. Please install Rust using your system's package manager or from https://rustup.rs/"
+    exit 1
+fi
+
 # Check the Rust installation, and abort if not available
 "${R_HOME}/bin/Rscript" "./tools/configure.R"
-
 ret=$?
-
 if [ $ret -ne 0 ]; then
   exit $ret
 fi

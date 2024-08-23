@@ -2,26 +2,9 @@
 
 0 errors | 0 warnings | 2 note
 
-* This is a new release.
+* Added rustc version reporting in the installation log as per CRAN policy.
 
 ## Note 1
-
-* checking CRAN incoming feasibility ... NOTE
-Maintainer: 'Xianying Tan <shrektan@126.com>'
-
-New submission
-
-Package was archived on CRAN
-
-CRAN repository db overrides:
-  X-CRAN-Comment: Archived on 2024-07-31 as check problems were not
-    corrected despite reminders.
-
-The package was archived on CRAN due to the underlying Rust code
-calling non-API entry points in R. This issue has now been resolved.
-We apologize for not addressing this before the July 31, 2024 deadline.
-
-## Note 2
 
 * checking installed package size ... NOTE
   installed size is  7.7Mb
@@ -31,3 +14,13 @@ We apologize for not addressing this before the July 31, 2024 deadline.
 The size of the package can't be reduced further as it has to bundle
 all the Rust cates dependencies to avoid the downloading during
 installation issue.
+
+## Note2
+
+* checking CRAN incoming feasibility ... [12s] NOTE
+Maintainer: 'Xianying Tan <shrektan@126.com>'
+
+Days since last update: 6
+
+This recent update is to address CRAN's request to report the rustc version
+in the installation log, as per the policy for Rust packages on CRAN.

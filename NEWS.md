@@ -1,3 +1,7 @@
+# ymd 0.1.2
+
+* Added rustc version reporting in the installation log as per CRAN policy.
+
 # ymd 0.1.1
 
 * Fix the calling non-API entry points issue.
