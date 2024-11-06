@@ -1,3 +1,7 @@
+# ymd 0.1.3
+
+* Fix the bug inside of `period_begin()` function to support both integer and double dates.
+
 # ymd 0.1.2
 
 * Added rustc version reporting in the installation log as per CRAN policy.
