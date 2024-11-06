@@ -176,6 +176,13 @@ License: MIT OR Apache-2.0
 
 ------------------------------
 
+Name:    shlex
+Files:   vendor/shlex/*
+Authors: comex, Fenhl, Adrian Taylor, Alex Touchet, Daniel Parks, Garrett Berg
+License: MIT OR Apache-2.0
+
+------------------------------
+
 Name:    syn
 Files:   vendor/syn/*
 Authors: David Tolnay
