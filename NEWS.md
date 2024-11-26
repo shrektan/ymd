@@ -1,3 +1,7 @@
+# ymd 0.1.4
+
+* Fix the issue that `period_begin()` function returns only the first element for integer vectors, like `c(20240101, 20240102)`.
+
 # ymd 0.1.3
 
 * Fix the bug inside of `period_begin()` function to support both integer and double dates.

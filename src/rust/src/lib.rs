@@ -57,14 +57,10 @@ fn rust_ymd(x: Robj) -> Robj {
     }
     let value: Vec<Option<NaiveDate>> = match x.rtype() {
         Rtype::Integers => x
-            .as_integer_slice()
-            .map(|i: &[i32]| {
-                if i[0].is_na() {
-                    None
-                } else {
-                    int2date(i[0], true)
-                }
-            })
+            .as_integer_vector()
+            .unwrap()
+            .iter()
+            .map(|i| if i.is_na() { None } else { int2date(*i, true) })
             .into_iter()
             .collect(),
         Rtype::Doubles => x
