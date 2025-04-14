@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-11-26T05:07Z
+last_built: 2025-04-14T09:52Z
 urls:
   reference: https://shrektan.github.io/ymd/reference
   article: https://shrektan.github.io/ymd/articles
