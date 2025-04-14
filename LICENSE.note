@@ -36,6 +36,13 @@ License: Apache-2.0 OR MIT
 
 ------------------------------
 
+Name:    build-print
+Files:   vendor/build-print/*
+Authors: sam0x17
+License: MIT
+
+------------------------------
+
 Name:    bumpalo
 Files:   vendor/bumpalo/*
 Authors: Nick Fitzgerald
@@ -80,21 +87,28 @@ License: Apache-2.0 OR MIT
 
 Name:    extendr-api
 Files:   vendor/extendr-api/*
-Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
+Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
 License: MIT
 
 ------------------------------
 
 Name:    extendr-engine
 Files:   vendor/extendr-engine/*
-Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
+Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
+License: MIT
+
+------------------------------
+
+Name:    extendr-ffi
+Files:   vendor/extendr-ffi/*
+Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
 License: MIT
 
 ------------------------------
 
 Name:    extendr-macros
 Files:   vendor/extendr-macros/*
-Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
+Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
 License: MIT
 
 ------------------------------
@@ -124,13 +138,6 @@ Name:    libc
 Files:   vendor/libc/*
 Authors: The Rust Project Developers
 License: MIT OR Apache-2.0
-
-------------------------------
-
-Name:    libR-sys
-Files:   vendor/libR-sys/*
-Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Claus O. Wilke, Ilia A. Kosenkov, Hiroaki Yutani
-License: MIT
 
 ------------------------------
 
@@ -290,6 +297,13 @@ License: MIT OR Apache-2.0
 
 Name:    windows-core
 Files:   vendor/windows-core/*
+Authors: Microsoft
+License: MIT OR Apache-2.0
+
+------------------------------
+
+Name:    windows-link
+Files:   vendor/windows-link/*
 Authors: Microsoft
 License: MIT OR Apache-2.0
 
