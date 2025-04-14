@@ -2,8 +2,8 @@
 
 0 errors | 0 warnings | 1 note
 
-* Fix the bug in the rust code that causes the `period_begin()` function
-  to fail when the input is an integer vector of dates.
+* Fix the calling non-API entry points issue by upgrading the rust crates.
+
 
 ## Note 1
 
