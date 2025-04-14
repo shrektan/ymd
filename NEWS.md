@@ -1,3 +1,7 @@
+# ymd 0.1.5
+
+* Fix the calling non-API entry points issue by upgrading the rust crates.
+
 # ymd 0.1.4
 
 * Fix the issue that `period_begin()` function returns only the first element for integer vectors, like `c(20240101, 20240102)`.
