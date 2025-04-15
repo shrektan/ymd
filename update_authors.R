@@ -4,67 +4,84 @@ rlang::check_installed("yaml")
 
 library(RcppTOML)
 
-## Update inst/AUTHORS
-
-VENDOR_PATH <- "src/rust/vendor"
-crates <- list.dirs(VENDOR_PATH, FALSE, FALSE)
-
-l <- lapply(crates, \(x) RcppTOML::parseTOML(file.path(VENDOR_PATH, x, "Cargo.toml"))$package)
-
-names <- vapply(l, \(x) x[["name"]], FUN.VALUE = character(1L))
-versions <- vapply(l, \(x) x[["version"]], FUN.VALUE = character(1L))
-
-cargo_authors <- lapply(l, \(x) {
-    # Remove email addresses
-    authors <- stringr::str_remove(x[["authors"]], "\\s+<.+>")
-    authors
-})
-citation_author <- lapply(crates, \(x) {
-    path <- file.path(VENDOR_PATH, x, "CITATION.cff")
-    if (!file.exists(path)) {
-        return(NULL)
+update_authors <- function() {
+    ## Define the archive path and check existence
+    archive_path <- "src/rust/vendor.tar.xz"
+    if (!file.exists(archive_path)) {
+        stop("Error: ", archive_path, " not found.")
     }
-    cite <- yaml::read_yaml(path)
-    if (is.null(cite$authors)) {
-        return(NULL)
-    }
-    authors <- cite$authors
-    vapply(authors, \(author) {
-        paste(author[["given-names"]], author[["family-names"]])
-    }, "")
-}) |> unname()
-authors <- mapply(\(x1, x2) paste0(c(x1, x2) |> unique(), collapse = ", "), cargo_authors, citation_author)
 
-licenses <- vapply(l, \(x) x[["license"]], FUN.VALUE = character(1L))
+    ## Create a temporary directory for extraction
+    temp_vendor_dir <- tempfile("vendor_")
+    dir.create(temp_vendor_dir)
 
-dir.create("inst", showWarnings = FALSE)
+    ## Ensure the temporary directory is removed on exit
+    on.exit(unlink(temp_vendor_dir, recursive = TRUE, force = TRUE), add = TRUE)
 
-cat("The authors of the dependency Rust crates:
+    ## Extract the archive
+    message("Extracting ", archive_path, " to ", temp_vendor_dir)
+    untar(archive_path, exdir = temp_vendor_dir)
+
+    ## Update inst/AUTHORS using the extracted content
+    VENDOR_PATH <- file.path(temp_vendor_dir, "vendor") # Use the temporary directory
+    crates <- list.dirs(VENDOR_PATH, FALSE, FALSE)
+
+    l <- lapply(crates, \(x) RcppTOML::parseTOML(file.path(VENDOR_PATH, x, "Cargo.toml"))$package)
+
+    names <- vapply(l, \(x) x[["name"]], FUN.VALUE = character(1L))
+    versions <- vapply(l, \(x) x[["version"]], FUN.VALUE = character(1L))
+
+    cargo_authors <- lapply(l, \(x) {
+        # Remove email addresses
+        authors <- stringr::str_remove(x[["authors"]], "\\s+<.+>")
+        authors
+    })
+    citation_author <- lapply(crates, \(x) {
+        path <- file.path(VENDOR_PATH, x, "CITATION.cff")
+        if (!file.exists(path)) {
+            return(NULL)
+        }
+        cite <- yaml::read_yaml(path)
+        if (is.null(cite$authors)) {
+            return(NULL)
+        }
+        authors <- cite$authors
+        vapply(authors, \(author) {
+            paste(author[["given-names"]], author[["family-names"]])
+        }, "")
+    }) |> unname()
+    authors <- mapply(\(x1, x2) paste0(c(x1, x2) |> unique(), collapse = ", "), cargo_authors, citation_author)
+
+    licenses <- vapply(l, \(x) x[["license"]], FUN.VALUE = character(1L))
+
+    dir.create("inst", showWarnings = FALSE)
+
+    cat("The authors of the dependency Rust crates:
 
 ", file = "inst/AUTHORS")
 
-authors_flattened <- vapply(stringr::str_split(authors, ",\\s+"), \(x) {
-    paste(x, collapse = "\n  ")
-}, FUN.VALUE = character(1L))
+    authors_flattened <- vapply(stringr::str_split(authors, ",\\s+"), \(x) {
+        paste(x, collapse = "\n  ")
+    }, FUN.VALUE = character(1L))
 
-no_author <- names[!nzchar(authors_flattened)]
-if (length(no_author)) stop(paste0("find no author crates: ", toString(no_author)))
+    no_author <- names[!nzchar(authors_flattened)]
+    if (length(no_author)) stop(paste0("find no author crates: ", toString(no_author)))
 
-cat(paste(
-    names, " (version ", versions, "):\n  ",
-    authors_flattened,
-    "\n",
-    sep = "",
-    collapse = "\n"
-), file = "inst/AUTHORS", append = TRUE)
+    cat(paste(
+        names, " (version ", versions, "):\n  ",
+        authors_flattened,
+        "\n",
+        sep = "",
+        collapse = "\n"
+    ), file = "inst/AUTHORS", append = TRUE)
 
-## Update LICENSE.note
+    ## Update LICENSE.note
 
-cat("This package contains the Rust source code of the dependencies in src/rust/vendor.tar.xz
+    cat("This package contains the Rust source code of the dependencies in src/rust/vendor.tar.xz
 The authorships and the licenses are listed below. In summary, all libraries are
 distributed either under the MIT license or under MIT/Apache-2.0 dual license [1].
 
-Note that, when Cargo (Rust’s build system and package manager) is not installed
+Note that, when Cargo (Rust's build system and package manager) is not installed
 on the machine, the pre-compiled binary will be downloaded on building this
 package. The binary is compiled using the same Rust code, so the authorships and
 the licenses are the same as listed here.
@@ -79,11 +96,13 @@ the licenses are the same as listed here.
 
 ", file = "LICENSE.note")
 
-cat(paste(
-    "Name:    ", names, "\n",
-    "Files:   vendor/", names, "/*\n",
-    "Authors: ", authors, "\n",
-    "License: ", licenses, "\n",
-    sep = "",
-    collapse = "\n------------------------------\n\n"
-), file = "LICENSE.note", append = TRUE)
+    cat(paste(
+        "Name:    ", names, "\n",
+        "Files:   vendor/", names, "/*\n",
+        "Authors: ", authors, "\n",
+        "License: ", licenses, "\n",
+        sep = "",
+        collapse = "\n------------------------------\n\n"
+    ), file = "LICENSE.note", append = TRUE)
+}
+update_authors()
