@@ -1,30 +1,46 @@
-# TODO
-VENDORING = yes
-
-LIBDIR = ./rust/target/release
-PKG_LIBS = -L$(LIBDIR) -lymd
+TARGET_DIR = ./rust/target
+LIBDIR = $(TARGET_DIR)/@LIBDIR@
 STATLIB = $(LIBDIR)/libymd.a
+PKG_LIBS = -L$(LIBDIR) -lymd
 
-all: C_clean
+all: $(SHLIB) rust_clean
+
+.PHONY: $(STATLIB)
 
 $(SHLIB): $(STATLIB)
 
+CARGOTMP = $(CURDIR)/.cargo
+VENDOR_DIR = $(CURDIR)/vendor
+
+
+# RUSTFLAGS appends --print=native-static-libs to ensure that 
+# the correct linkers are used. Use this for debugging if need. 
+#
+# CRAN note: Cargo and Rustc versions are reported during
+# configure via tools/msrv.R.
+#
+# When the NOT_CRAN flag is *not* set, the vendor.tar.xz, if present,
+# is unzipped and used for offline compilation.
 $(STATLIB):
-	# vendoring (Note: to avoid NOTE of "Found the following hidden files and
-	# directories", .cargo needs to be created here)
-	if [ "$(VENDORING)" = "yes" ]; then \
-	  $(TAR) --extract --xz -f ./rust/vendor.tar.xz -C ./rust && \
-	    mkdir -p ./rust/.cargo && \
-	    cp ./cargo_vendor_config.toml ./rust/.cargo/config.toml; \
+
+	# Check if NOT_CRAN is false and unzip vendor.tar.xz if so
+	if [ "$(NOT_CRAN)" != "true" ]; then \
+		if [ -f ./rust/vendor.tar.xz ]; then \
+			tar xf rust/vendor.tar.xz && \
+			mkdir -p $(CARGOTMP) && \
+			cp rust/vendor-config.toml $(CARGOTMP)/config.toml; \
+		fi; \
 	fi
 
-	@BEFORE_CARGO_BUILD@ cd ./rust && cargo build --lib --release --offline --jobs=1
-	@AFTER_CARGO_BUILD@ rm -Rf ./rust/vendor ./rust/.cargo
+	export CARGO_HOME=$(CARGOTMP) && \
+	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
+	RUSTFLAGS="$(RUSTFLAGS) --print=native-static-libs" cargo build @CRAN_FLAGS@ --lib @PROFILE@ --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR)
 
-C_clean:
-	rm -Rf $(SHLIB) $(OBJECTS) ./rust/.cargo $(STATLIB)
+	# Always clean up CARGOTMP
+	rm -Rf $(CARGOTMP);
+
+rust_clean: $(SHLIB)
+	rm -Rf $(CARGOTMP) $(VENDOR_DIR) @CLEAN_TARGET@
 
 clean:
-	rm -Rf $(SHLIB) $(OBJECTS) $(STATLIB) ./rust/.cargo ./rust/vendor ./rust/target
-
-.PHONY: all C_clean clean
+	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) $(TARGET_DIR)
