@@ -9,7 +9,7 @@ crate-type = ['staticlib']
 
 [dependencies]
 chrono = "0.4.40"
-extendr-api = "0.8.0"
+extendr-api = "0.8.2"
 
 [dev-dependencies]
-extendr-engine = "0.8.0"
+extendr-engine = "0.8.2"
