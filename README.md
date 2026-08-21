@@ -10,8 +10,6 @@
 status](https://www.r-pkg.org/badges/version/ymd)](https://CRAN.R-project.org/package=ymd)
 [![Downloads from the RStudio CRAN
 mirror](https://cranlogs.r-pkg.org/badges/ymd)](https://cran.r-project.org/package=ymd)
-[![Rust Code
-Coverage](https://coveralls.io/repos/github/shrektan/ymd/badge.svg?branch=main)](https://coveralls.io/github/shrektan/ymd?branch=main)
 <!-- badges: end -->
 
 Convert ‘YMD’ format number or string to Date efficiently, e.g.,
