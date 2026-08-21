@@ -31,7 +31,6 @@ pub fn robj2date(x: Robj, var: &str) -> extendr_api::Result<Vec<Option<NaiveDate
                     NaiveDate::from_num_days_from_ce_opt(d + R_DATE_FROM_CE)
                 }
             })
-            .into_iter()
             .collect(),
         _ => {
             return Err(Error::Other(format!(
@@ -53,20 +52,14 @@ pub trait ToRDate {
 
 impl ToRDate for [Option<NaiveDate>] {
     fn to_rdate(&self) -> Robj {
-        let out: Vec<Option<f64>> = self
-            .iter()
-            .map(|v| match v {
-                Some(v) => Some(date2rnum(v)),
-                None => None,
-            })
-            .collect();
+        let out: Vec<Option<f64>> = self.iter().map(|v| v.as_ref().map(date2rnum)).collect();
         out.to_rdate()
     }
 }
 
 impl ToRDate for [NaiveDate] {
     fn to_rdate(&self) -> Robj {
-        let out: Vec<f64> = self.iter().map(|v| date2rnum(v)).collect();
+        let out: Vec<f64> = self.iter().map(date2rnum).collect();
         out.to_rdate()
     }
 }
@@ -101,11 +94,11 @@ mod tests {
                 let rust_dates = [Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())];
                 assert_eq!(robj2date(r_dates.clone(), "r_dates").unwrap(), rust_dates);
                 assert_eq!(rust_dates.to_rdate(), r_dates);
-                let rust_dates = vec![Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())];
+                let rust_dates = Vec::from([Some(NaiveDate::from_ymd_opt(2021, 12, 29).unwrap()), Some(NaiveDate::from_ymd_opt(2021, 12, 30).unwrap())]);
                 assert_eq!(rust_dates.to_rdate(), r_dates);
                 let rust_dates = [NaiveDate::from_ymd_opt(2021, 12, 29).unwrap(), NaiveDate::from_ymd_opt(2021, 12, 30).unwrap()];
                 assert_eq!(rust_dates.to_rdate(), r_dates);
-                let rust_dates = vec![NaiveDate::from_ymd_opt(2021, 12, 29).unwrap(), NaiveDate::from_ymd_opt(2021, 12, 30).unwrap()];
+                let rust_dates = Vec::from([NaiveDate::from_ymd_opt(2021, 12, 29).unwrap(), NaiveDate::from_ymd_opt(2021, 12, 30).unwrap()]);
                 assert_eq!(rust_dates.to_rdate(), r_dates);
             });
         }

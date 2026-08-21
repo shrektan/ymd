@@ -25,7 +25,7 @@ macro_rules! make_fun {
     };
 }
 
-make_fun!(year, |date: &NaiveDate| -> i32 { date.year() as i32 });
+make_fun!(year, |date: &NaiveDate| -> i32 { date.year() });
 
 make_fun!(month, |date: &NaiveDate| -> i32 { date.month() as i32 });
 

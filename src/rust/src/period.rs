@@ -5,12 +5,12 @@ pub fn add_days(ref_date: &NaiveDate, days: i32) -> NaiveDate {
 }
 
 pub fn add_months(ref_date: &NaiveDate, months: i32) -> NaiveDate {
-    let num_of_months = ref_date.year() * 12 + ref_date.month() as i32 + months as i32;
+    let num_of_months = ref_date.year() * 12 + ref_date.month() as i32 + months;
     let year = (num_of_months - 1) / 12;
     let month = (num_of_months - 1) % 12 + 1;
     let since = NaiveDate::signed_duration_since;
     let nxt_month = if month == 12 {
-        NaiveDate::from_ymd_opt(year + 1, 1 as u32, 1).unwrap()
+        NaiveDate::from_ymd_opt(year + 1, 1, 1).unwrap()
     } else {
         NaiveDate::from_ymd_opt(year, (month + 1) as u32, 1).unwrap()
     };

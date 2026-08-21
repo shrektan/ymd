@@ -61,7 +61,6 @@ fn rust_ymd(x: Robj) -> Robj {
             .unwrap()
             .iter()
             .map(|i| if i.is_na() { None } else { int2date(*i, true) })
-            .into_iter()
             .collect(),
         Rtype::Doubles => x
             .as_real_iter()
@@ -89,10 +88,7 @@ fn beop(x: Robj, unit: &str, fun: fn(&NaiveDate, period::Period) -> NaiveDate) -
     let x = rdate::robj2date(rust_ymd(x), "x").unwrap();
     let out: Vec<Option<NaiveDate>> = x
         .iter()
-        .map(|v| match v {
-            Some(date) => Some(fun(date, p)),
-            None => None,
-        })
+        .map(|v| v.as_ref().map(|date| fun(date, p)))
         .collect();
     out.to_rdate()
 }
@@ -125,10 +121,7 @@ fn edate(ref_date: Robj, months: i32) -> Robj {
     let out: Vec<Option<NaiveDate>> = rdate::robj2date(rust_ymd(ref_date), "ref_date")
         .unwrap()
         .iter()
-        .map(|v| match v {
-            Some(date) => Some(period::add_months(date, months)),
-            None => None,
-        })
+        .map(|v| v.as_ref().map(|date| period::add_months(date, months)))
         .collect();
     out.to_rdate()
 }
@@ -166,10 +159,10 @@ mod test {
         );
         assert_eq!(
             int2date(980308, false).unwrap(),
-            NaiveDate::from_ymd_opt(0098, 3, 8).unwrap()
+            NaiveDate::from_ymd_opt(98, 3, 8).unwrap()
         );
         assert_eq!(
-            int2date(050308, true).unwrap(),
+            int2date(50308, true).unwrap(),
             NaiveDate::from_ymd_opt(2005, 3, 8).unwrap()
         );
         assert_eq!(
@@ -185,7 +178,7 @@ mod test {
         assert_eq!(int2date(22, true), None);
         assert_eq!(
             int2date(2201010, true).unwrap(),
-            NaiveDate::from_ymd_opt(0220, 10, 10).unwrap()
+            NaiveDate::from_ymd_opt(220, 10, 10).unwrap()
         );
     }
 
