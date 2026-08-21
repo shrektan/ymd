@@ -19,6 +19,7 @@ URL: https://shrektan.github.io/ymd/, https://github.com/shrektan/ymd
 BugReports: https://github.com/shrektan/ymd/issues
 SystemRequirements: Cargo (Rust's package manager), rustc (>= 1.71), xz
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE)
 Biarch: true
 Suggests:
