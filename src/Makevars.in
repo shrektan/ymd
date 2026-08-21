@@ -23,13 +23,11 @@ VENDOR_DIR = $(CURDIR)/vendor
 # is unzipped and used for offline compilation.
 $(STATLIB):
 
-	# Check if NOT_CRAN is false and unzip vendor.tar.xz if so
-	if [ "$(NOT_CRAN)" != "true" ]; then \
-		if [ -f ./rust/vendor.tar.xz ]; then \
-			tar xf rust/vendor.tar.xz && \
-			mkdir -p $(CARGOTMP) && \
-			cp rust/vendor-config.toml $(CARGOTMP)/config.toml; \
-		fi; \
+	# Use bundled crates whenever they are available.
+	if [ -f ./rust/vendor.tar.xz ]; then \
+		tar xf rust/vendor.tar.xz && \
+		mkdir -p $(CARGOTMP) && \
+		cp rust/vendor-config.toml $(CARGOTMP)/config.toml; \
 	fi
 
 	export CARGO_HOME=$(CARGOTMP) && \

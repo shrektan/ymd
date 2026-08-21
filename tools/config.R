@@ -22,10 +22,11 @@ if (!is_not_cran) {
   message("Building for CRAN.")
 }
 
-# we set cran flags only if NOT_CRAN is empty and if
-# the vendored crates are present.
+# Use the bundled crates whenever they are present. R CMD check --as-cran sets
+# NOT_CRAN=true, so that variable must not control whether installation downloads
+# dependencies.
 .cran_flags <- ifelse(
-  !is_not_cran && vendor_exists,
+  vendor_exists,
   "-j 2 --offline",
   ""
 )
