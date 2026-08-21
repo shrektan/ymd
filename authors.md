@@ -1,0 +1,205 @@
+# Authors and Citation
+
+## Authors
+
+- **Xianying Tan**. Author, maintainer.
+  [](https://orcid.org/0000-0002-6072-3521)
+
+- **Hiroaki Yutani**. Contributor.
+  [](https://orcid.org/0000-0002-3385-7233)  
+  configure, configure.win, tools/configure.R
+
+- **The authors of the dependency Rust crates**. Contributor.  
+  see inst/AUTHORS file for details
+
+## Citation
+
+Source:
+[`DESCRIPTION`](https://github.com/shrektan/ymd/blob/main/DESCRIPTION)
+
+Tan X (2026). *ymd: Parse 'YMD' Format Number or String to Date*. R
+package version 0.1.6, <https://shrektan.github.io/ymd/>.
+
+    @Manual{,
+      title = {ymd: Parse 'YMD' Format Number or String to Date},
+      author = {Xianying Tan},
+      year = {2026},
+      note = {R package version 0.1.6},
+      url = {https://shrektan.github.io/ymd/},
+    }
+
+## Additional details
+
+    The authors of the dependency Rust crates:
+
+    android_system_properties (version 0.1.5):
+      Nicolas Silva
+
+    android-tzdata (version 0.1.1):
+      RumovZ
+
+    autocfg (version 1.4.0):
+      Josh Stone
+
+    bumpalo (version 3.17.0):
+      Nick Fitzgerald
+
+    cc (version 1.2.19):
+      Alex Crichton
+
+    cfg-if (version 1.0.0):
+      Alex Crichton
+
+    chrono (version 0.4.40):
+      Brandon W. Maister
+      Dirkjan Ochtman
+      Kang Seonghoon
+      Eric Sheppard
+      Paul Dicker
+
+    core-foundation-sys (version 0.8.7):
+      The Servo Project Developers
+
+    ctor (version 0.6.3):
+      Matt Mastracci
+
+    ctor-proc-macro (version 0.0.7):
+      Matt Mastracci
+
+    dtor (version 0.1.1):
+      Matt Mastracci
+
+    dtor-proc-macro (version 0.0.6):
+      Matt Mastracci
+
+    extendr-api (version 0.9.0):
+      andy-thomason
+      Thomas Down
+      Mossa Merhi Reimert
+      Josiah Parry
+      Claus O. Wilke
+      Hiroaki Yutani
+      Ilia A. Kosenkov
+      Michael Milton
+
+    extendr-engine (version 0.9.0):
+      andy-thomason
+      Thomas Down
+      Mossa Merhi Reimert
+      Josiah Parry
+      Claus O. Wilke
+      Hiroaki Yutani
+      Ilia A. Kosenkov
+      Michael Milton
+
+    extendr-ffi (version 0.9.0):
+      andy-thomason
+      Thomas Down
+      Mossa Merhi Reimert
+      Josiah Parry
+      Claus O. Wilke
+      Hiroaki Yutani
+      Ilia A. Kosenkov
+      Michael Milton
+
+    extendr-macros (version 0.9.0):
+      andy-thomason
+      Thomas Down
+      Mossa Merhi Reimert
+      Josiah Parry
+      Claus O. Wilke
+      Hiroaki Yutani
+      Ilia A. Kosenkov
+      Michael Milton
+
+    iana-time-zone (version 0.1.63):
+      Andrew Straw
+      René Kijewski
+      Ryan Lopopolo
+
+    iana-time-zone-haiku (version 0.1.2):
+      René Kijewski
+
+    js-sys (version 0.3.77):
+      The wasm-bindgen Developers
+
+    lazy_static (version 1.5.0):
+      Marvin Löbel
+
+    libc (version 0.2.171):
+      The Rust Project Developers
+
+    log (version 0.4.27):
+      The Rust Project Developers
+
+    num-traits (version 0.2.19):
+      The Rust Project Developers
+
+    once_cell (version 1.21.3):
+      Aleksey Kladov
+
+    paste (version 1.0.15):
+      David Tolnay
+
+    proc-macro2 (version 1.0.107):
+      David Tolnay
+      Alex Crichton
+
+    quote (version 1.0.47):
+      David Tolnay
+
+    readonly (version 0.2.14):
+      David Tolnay
+
+    rustversion (version 1.0.20):
+      David Tolnay
+
+    shlex (version 1.3.0):
+      comex
+      Fenhl
+      Adrian Taylor
+      Alex Touchet
+      Daniel Parks
+      Garrett Berg
+
+    syn (version 2.0.119):
+      David Tolnay
+
+    syn (version 3.0.3):
+      David Tolnay
+
+    unicode-ident (version 1.0.18):
+      David Tolnay
+
+    wasm-bindgen (version 0.2.100):
+      The wasm-bindgen Developers
+
+    wasm-bindgen-backend (version 0.2.100):
+      The wasm-bindgen Developers
+
+    wasm-bindgen-macro (version 0.2.100):
+      The wasm-bindgen Developers
+
+    wasm-bindgen-macro-support (version 0.2.100):
+      The wasm-bindgen Developers
+
+    wasm-bindgen-shared (version 0.2.100):
+      The wasm-bindgen Developers
+
+    windows-core (version 0.61.0):
+      Microsoft
+
+    windows-implement (version 0.60.0):
+      Microsoft
+
+    windows-interface (version 0.59.1):
+      Microsoft
+
+    windows-link (version 0.1.1):
+      Microsoft
+
+    windows-result (version 0.3.2):
+      Microsoft
+
+    windows-strings (version 0.4.0):
+      Microsoft
