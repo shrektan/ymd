@@ -106,6 +106,7 @@ fn period_end(x: Robj, unit: &str) -> Robj {
 /// Calculate the date before / after months
 /// @param ref_date a Date vector
 /// @param months the number of months that's added to `ref_date`
+/// @return A Date vector with `months` added to `ref_date`.
 /// @note The function name is the same as the Excel function `EDATE()` and
 ///   does the same. It returns the date that is the indicated number of months
 ///   before or after the ref date.

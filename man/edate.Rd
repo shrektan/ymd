@@ -11,6 +11,9 @@ edate(ref_date, months)
 
 \item{months}{the number of months that's added to \code{ref_date}}
 }
+\value{
+A Date vector with \code{months} added to \code{ref_date}.
+}
 \description{
 Calculate the date before / after months
 }

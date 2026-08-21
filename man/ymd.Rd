@@ -11,7 +11,7 @@ ymd(x, ...)
 values without the decimal part are allowed.}
 
 \item{...}{The same as \code{x}. It will be merged into one vector with \code{x}.
-It's convinient for interactive use.}
+It's convenient for interactive use.}
 }
 \value{
 A Date object. When the parse fails for certain input,

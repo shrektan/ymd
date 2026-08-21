@@ -7,7 +7,7 @@
 #' @param x An integer or string vector in 'YMD' format. Double
 #'   values without the decimal part are allowed.
 #' @param ... The same as `x`. It will be merged into one vector with `x`.
-#'   It's convinient for interactive use.
+#'   It's convenient for interactive use.
 #'
 #' @return A Date object. When the parse fails for certain input,
 #'   the value returned would be `NA`, silently.

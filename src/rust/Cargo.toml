@@ -1,11 +1,17 @@
 [package]
 name = 'ymd'
+publish = false
 version = '0.1.6'
 edition = '2021'
 rust-version = "1.71.0"
 
 [lib]
-crate-type = ['staticlib']
+crate-type = ['rlib', 'staticlib']
+name = 'ymd'
+
+[[bin]]
+name = 'document'
+path = 'document.rs'
 
 [dependencies]
 chrono = "0.4.40"
