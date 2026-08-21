@@ -1,3 +1,8 @@
+# ymd 0.1.6
+
+* Fix the CRAN compiled-code NOTE about the non-API `R_NamespaceRegistry`
+  entry point by upgrading the extendr Rust crates to version 0.9.0.
+
 # ymd 0.1.5
 
 * Fix the calling non-API entry points issue by upgrading the rust crates.

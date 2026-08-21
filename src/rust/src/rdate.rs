@@ -4,7 +4,7 @@ use extendr_api::prelude::*;
 // The days from 1970-1-1 (R's first date) to CE (1-1-0)
 const R_DATE_FROM_CE: i32 = 719163;
 
-pub fn robj2date(x: Robj, var: &str) -> Result<Vec<Option<NaiveDate>>> {
+pub fn robj2date(x: Robj, var: &str) -> extendr_api::Result<Vec<Option<NaiveDate>>> {
     if !x.inherits("Date") {
         return Err(Error::Other(format!("{} is not a Date", var)));
     }

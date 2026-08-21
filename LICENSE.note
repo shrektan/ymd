@@ -16,272 +16,307 @@ the licenses are the same as listed here.
 ===============================
 
 Name:    android_system_properties
-Files:   vendor/android_system_properties/*
+Files:   vendor/android_system_properties-0.1.5/*
 Authors: Nicolas Silva
 License: MIT/Apache-2.0
 
 ------------------------------
 
 Name:    android-tzdata
-Files:   vendor/android-tzdata/*
+Files:   vendor/android-tzdata-0.1.1/*
 Authors: RumovZ
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    autocfg
-Files:   vendor/autocfg/*
+Files:   vendor/autocfg-1.4.0/*
 Authors: Josh Stone
 License: Apache-2.0 OR MIT
 
 ------------------------------
 
-Name:    build-print
-Files:   vendor/build-print/*
-Authors: sam0x17
-License: MIT
-
-------------------------------
-
 Name:    bumpalo
-Files:   vendor/bumpalo/*
+Files:   vendor/bumpalo-3.17.0/*
 Authors: Nick Fitzgerald
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    cc
-Files:   vendor/cc/*
+Files:   vendor/cc-1.2.19/*
 Authors: Alex Crichton
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    cfg-if
-Files:   vendor/cfg-if/*
+Files:   vendor/cfg-if-1.0.0/*
 Authors: Alex Crichton
 License: MIT/Apache-2.0
 
 ------------------------------
 
 Name:    chrono
-Files:   vendor/chrono/*
+Files:   vendor/chrono-0.4.40/*
 Authors: Brandon W. Maister, Dirkjan Ochtman, Kang Seonghoon, Eric Sheppard, Paul Dicker
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    core-foundation-sys
-Files:   vendor/core-foundation-sys/*
+Files:   vendor/core-foundation-sys-0.8.7/*
 Authors: The Servo Project Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    ctor
-Files:   vendor/ctor/*
+Files:   vendor/ctor-0.6.3/*
+Authors: Matt Mastracci
+License: Apache-2.0 OR MIT
+
+------------------------------
+
+Name:    ctor-proc-macro
+Files:   vendor/ctor-proc-macro-0.0.7/*
+Authors: Matt Mastracci
+License: Apache-2.0 OR MIT
+
+------------------------------
+
+Name:    dtor
+Files:   vendor/dtor-0.1.1/*
+Authors: Matt Mastracci
+License: Apache-2.0 OR MIT
+
+------------------------------
+
+Name:    dtor-proc-macro
+Files:   vendor/dtor-proc-macro-0.0.6/*
 Authors: Matt Mastracci
 License: Apache-2.0 OR MIT
 
 ------------------------------
 
 Name:    extendr-api
-Files:   vendor/extendr-api/*
+Files:   vendor/extendr-api-0.9.0/*
 Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
 License: MIT
 
 ------------------------------
 
 Name:    extendr-engine
-Files:   vendor/extendr-engine/*
+Files:   vendor/extendr-engine-0.9.0/*
 Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
 License: MIT
 
 ------------------------------
 
 Name:    extendr-ffi
-Files:   vendor/extendr-ffi/*
+Files:   vendor/extendr-ffi-0.9.0/*
 Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
 License: MIT
 
 ------------------------------
 
 Name:    extendr-macros
-Files:   vendor/extendr-macros/*
+Files:   vendor/extendr-macros-0.9.0/*
 Authors: andy-thomason, Thomas Down, Mossa Merhi Reimert, Josiah Parry, Claus O. Wilke, Hiroaki Yutani, Ilia A. Kosenkov, Michael Milton
 License: MIT
 
 ------------------------------
 
 Name:    iana-time-zone
-Files:   vendor/iana-time-zone/*
+Files:   vendor/iana-time-zone-0.1.63/*
 Authors: Andrew Straw, René Kijewski, Ryan Lopopolo
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    iana-time-zone-haiku
-Files:   vendor/iana-time-zone-haiku/*
+Files:   vendor/iana-time-zone-haiku-0.1.2/*
 Authors: René Kijewski
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    js-sys
-Files:   vendor/js-sys/*
+Files:   vendor/js-sys-0.3.77/*
 Authors: The wasm-bindgen Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
+Name:    lazy_static
+Files:   vendor/lazy_static-1.5.0/*
+Authors: Marvin Löbel
+License: MIT OR Apache-2.0
+
+------------------------------
+
 Name:    libc
-Files:   vendor/libc/*
+Files:   vendor/libc-0.2.171/*
 Authors: The Rust Project Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    log
-Files:   vendor/log/*
+Files:   vendor/log-0.4.27/*
 Authors: The Rust Project Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    num-traits
-Files:   vendor/num-traits/*
+Files:   vendor/num-traits-0.2.19/*
 Authors: The Rust Project Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    once_cell
-Files:   vendor/once_cell/*
+Files:   vendor/once_cell-1.21.3/*
 Authors: Aleksey Kladov
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    paste
-Files:   vendor/paste/*
+Files:   vendor/paste-1.0.15/*
 Authors: David Tolnay
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    proc-macro2
-Files:   vendor/proc-macro2/*
+Files:   vendor/proc-macro2-1.0.107/*
 Authors: David Tolnay, Alex Crichton
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    quote
-Files:   vendor/quote/*
+Files:   vendor/quote-1.0.47/*
+Authors: David Tolnay
+License: MIT OR Apache-2.0
+
+------------------------------
+
+Name:    readonly
+Files:   vendor/readonly-0.2.14/*
 Authors: David Tolnay
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    rustversion
-Files:   vendor/rustversion/*
+Files:   vendor/rustversion-1.0.20/*
 Authors: David Tolnay
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    shlex
-Files:   vendor/shlex/*
+Files:   vendor/shlex-1.3.0/*
 Authors: comex, Fenhl, Adrian Taylor, Alex Touchet, Daniel Parks, Garrett Berg
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    syn
-Files:   vendor/syn/*
+Files:   vendor/syn-2.0.119/*
+Authors: David Tolnay
+License: MIT OR Apache-2.0
+
+------------------------------
+
+Name:    syn
+Files:   vendor/syn-3.0.3/*
 Authors: David Tolnay
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    unicode-ident
-Files:   vendor/unicode-ident/*
+Files:   vendor/unicode-ident-1.0.18/*
 Authors: David Tolnay
 License: (MIT OR Apache-2.0) AND Unicode-3.0
 
 ------------------------------
 
 Name:    wasm-bindgen
-Files:   vendor/wasm-bindgen/*
+Files:   vendor/wasm-bindgen-0.2.100/*
 Authors: The wasm-bindgen Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    wasm-bindgen-backend
-Files:   vendor/wasm-bindgen-backend/*
+Files:   vendor/wasm-bindgen-backend-0.2.100/*
 Authors: The wasm-bindgen Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    wasm-bindgen-macro
-Files:   vendor/wasm-bindgen-macro/*
+Files:   vendor/wasm-bindgen-macro-0.2.100/*
 Authors: The wasm-bindgen Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    wasm-bindgen-macro-support
-Files:   vendor/wasm-bindgen-macro-support/*
+Files:   vendor/wasm-bindgen-macro-support-0.2.100/*
 Authors: The wasm-bindgen Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    wasm-bindgen-shared
-Files:   vendor/wasm-bindgen-shared/*
+Files:   vendor/wasm-bindgen-shared-0.2.100/*
 Authors: The wasm-bindgen Developers
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    windows-core
-Files:   vendor/windows-core/*
+Files:   vendor/windows-core-0.61.0/*
 Authors: Microsoft
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    windows-implement
-Files:   vendor/windows-implement/*
+Files:   vendor/windows-implement-0.60.0/*
 Authors: Microsoft
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    windows-interface
-Files:   vendor/windows-interface/*
+Files:   vendor/windows-interface-0.59.1/*
 Authors: Microsoft
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    windows-link
-Files:   vendor/windows-link/*
+Files:   vendor/windows-link-0.1.1/*
 Authors: Microsoft
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    windows-result
-Files:   vendor/windows-result/*
+Files:   vendor/windows-result-0.3.2/*
 Authors: Microsoft
 License: MIT OR Apache-2.0
 
 ------------------------------
 
 Name:    windows-strings
-Files:   vendor/windows-strings/*
+Files:   vendor/windows-strings-0.4.0/*
 Authors: Microsoft
 License: MIT OR Apache-2.0

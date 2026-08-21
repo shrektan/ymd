@@ -31,9 +31,24 @@ update_authors <- function() {
     names <- vapply(l, \(x) x[["name"]], FUN.VALUE = character(1L))
     versions <- vapply(l, \(x) x[["version"]], FUN.VALUE = character(1L))
 
+    extendr_authors <- c(
+        "andy-thomason",
+        "Thomas Down",
+        "Mossa Merhi Reimert",
+        "Josiah Parry",
+        "Claus O. Wilke",
+        "Hiroaki Yutani",
+        "Ilia A. Kosenkov",
+        "Michael Milton"
+    )
+
     cargo_authors <- lapply(l, \(x) {
+        authors <- x[["authors"]]
+        if (is.null(authors) && startsWith(x[["name"]], "extendr-")) {
+            return(extendr_authors)
+        }
         # Remove email addresses
-        authors <- stringr::str_remove(x[["authors"]], "\\s+<.+>")
+        authors <- stringr::str_remove(authors, "\\s+<.+>")
         authors
     })
     citation_author <- lapply(crates, \(x) {
@@ -98,7 +113,7 @@ the licenses are the same as listed here.
 
     cat(paste(
         "Name:    ", names, "\n",
-        "Files:   vendor/", names, "/*\n",
+        "Files:   vendor/", crates, "/*\n",
         "Authors: ", authors, "\n",
         "License: ", licenses, "\n",
         sep = "",

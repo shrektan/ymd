@@ -9,9 +9,6 @@ android-tzdata (version 0.1.1):
 autocfg (version 1.4.0):
   Josh Stone
 
-build-print (version 0.1.1):
-  sam0x17
-
 bumpalo (version 3.17.0):
   Nick Fitzgerald
 
@@ -31,10 +28,19 @@ chrono (version 0.4.40):
 core-foundation-sys (version 0.8.7):
   The Servo Project Developers
 
-ctor (version 0.2.9):
+ctor (version 0.6.3):
   Matt Mastracci
 
-extendr-api (version 0.8.0):
+ctor-proc-macro (version 0.0.7):
+  Matt Mastracci
+
+dtor (version 0.1.1):
+  Matt Mastracci
+
+dtor-proc-macro (version 0.0.6):
+  Matt Mastracci
+
+extendr-api (version 0.9.0):
   andy-thomason
   Thomas Down
   Mossa Merhi Reimert
@@ -44,7 +50,7 @@ extendr-api (version 0.8.0):
   Ilia A. Kosenkov
   Michael Milton
 
-extendr-engine (version 0.8.0):
+extendr-engine (version 0.9.0):
   andy-thomason
   Thomas Down
   Mossa Merhi Reimert
@@ -54,7 +60,7 @@ extendr-engine (version 0.8.0):
   Ilia A. Kosenkov
   Michael Milton
 
-extendr-ffi (version 0.8.0):
+extendr-ffi (version 0.9.0):
   andy-thomason
   Thomas Down
   Mossa Merhi Reimert
@@ -64,7 +70,7 @@ extendr-ffi (version 0.8.0):
   Ilia A. Kosenkov
   Michael Milton
 
-extendr-macros (version 0.8.0):
+extendr-macros (version 0.9.0):
   andy-thomason
   Thomas Down
   Mossa Merhi Reimert
@@ -85,6 +91,9 @@ iana-time-zone-haiku (version 0.1.2):
 js-sys (version 0.3.77):
   The wasm-bindgen Developers
 
+lazy_static (version 1.5.0):
+  Marvin Löbel
+
 libc (version 0.2.171):
   The Rust Project Developers
 
@@ -100,11 +109,14 @@ once_cell (version 1.21.3):
 paste (version 1.0.15):
   David Tolnay
 
-proc-macro2 (version 1.0.94):
+proc-macro2 (version 1.0.107):
   David Tolnay
   Alex Crichton
 
-quote (version 1.0.40):
+quote (version 1.0.47):
+  David Tolnay
+
+readonly (version 0.2.14):
   David Tolnay
 
 rustversion (version 1.0.20):
@@ -118,7 +130,10 @@ shlex (version 1.3.0):
   Daniel Parks
   Garrett Berg
 
-syn (version 2.0.100):
+syn (version 2.0.119):
+  David Tolnay
+
+syn (version 3.0.3):
   David Tolnay
 
 unicode-ident (version 1.0.18):
