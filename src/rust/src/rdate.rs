@@ -115,4 +115,34 @@ mod tests {
             });
         }
     }
+
+    #[test]
+    fn floor_fractional_days() {
+        assert_eq!(
+            real_days_since_epoch_to_date(-1.5),
+            NaiveDate::from_ymd_opt(1969, 12, 30)
+        );
+        assert_eq!(
+            real_days_since_epoch_to_date(-0.5),
+            NaiveDate::from_ymd_opt(1969, 12, 31)
+        );
+        assert_eq!(
+            real_days_since_epoch_to_date(0.5),
+            NaiveDate::from_ymd_opt(1970, 1, 1)
+        );
+        assert_eq!(
+            real_days_since_epoch_to_date(1.5),
+            NaiveDate::from_ymd_opt(1970, 1, 2)
+        );
+    }
+
+    #[test]
+    fn non_finite_and_out_of_range_days() {
+        assert_eq!(real_days_since_epoch_to_date(f64::NAN), None);
+        assert_eq!(real_days_since_epoch_to_date(f64::INFINITY), None);
+        assert_eq!(real_days_since_epoch_to_date(f64::NEG_INFINITY), None);
+        assert_eq!(real_days_since_epoch_to_date(1e20), None);
+        assert_eq!(real_days_since_epoch_to_date(-1e20), None);
+        assert_eq!(days_since_epoch_to_date(i32::MAX), None);
+    }
 }

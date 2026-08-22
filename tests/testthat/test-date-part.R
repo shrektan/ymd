@@ -23,4 +23,12 @@ test_that("non-finite Dates return missing date parts", {
   dates <- .Date(c(NA_real_, NaN, Inf, -Inf))
 
   expect_equal(mday(dates), rep(NA_integer_, 4L))
+  expect_equal(edate(dates, 0L), .Date(rep(NA_real_, 4L)))
+})
+
+test_that("out-of-range Dates return missing date parts", {
+  dates <- .Date(c(1e20, -1e20))
+
+  expect_equal(mday(dates), rep(NA_integer_, 2L))
+  expect_equal(edate(dates, 0L), .Date(rep(NA_real_, 2L)))
 })
