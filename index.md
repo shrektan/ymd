@@ -40,7 +40,7 @@ After that, you can build the package via:
 
 ``` r
 
-remotes::install_github("ymd")
+remotes::install_github("shrektan/ymd")
 ```
 
 ## Use Cases and Benchmarks
