@@ -1,5 +1,6 @@
 CMD
 PBC
+README
 RSPM
 RStudio
 YMD’
@@ -11,6 +12,7 @@ extendr
 funchir
 gc
 https
+iso
 isowday
 isoweek
 itr
