@@ -34,7 +34,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.6" id="ymd-016">ymd 0.1.6<a class="anchor" aria-label="anchor" href="#ymd-016"></a></h2>
-<ul><li>Fix the CRAN compiled-code NOTE about the non-API <code>R_NamespaceRegistry</code> entry point by upgrading the extendr Rust crates to version 0.9.0.</li>
+<ul><li>Follow R’s flooring semantics for fractional <code>Date</code> values, including dates before the Unix epoch, across date-part and period helpers (<a href="https://github.com/shrektan/ymd/issues/9" class="external-link">#9</a>).</li>
+<li>Fix the CRAN compiled-code NOTE about the non-API <code>R_NamespaceRegistry</code> entry point by upgrading the extendr Rust crates to version 0.9.0.</li>
 <li>Build bundled Rust dependencies offline and refresh their authorship and license metadata.</li>
 <li>Add Rust target selection and continuous-integration coverage for Windows ARM64.</li>
 <li>Avoid rebuilding the Rust crate to generate wrappers during normal package installation; wrapper generation now runs only during package documentation.</li>
