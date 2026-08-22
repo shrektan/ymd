@@ -93,6 +93,7 @@ x <- c("2021-01-01", "2022-12-31", "1995-03-22")
 x <- rep(x, 100)
 run_bmk(
   ymd::ymd(x),
+  clock::as_date(clock::year_month_day_parse(x)),
   lubridate::ymd(x),
   as.Date(x)
 )
