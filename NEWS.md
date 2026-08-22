@@ -6,6 +6,8 @@
   license metadata.
 * Add Rust target selection and continuous-integration coverage for Windows
   ARM64.
+* Avoid rebuilding the Rust crate to generate wrappers during normal package
+  installation; wrapper generation now runs only during package documentation.
 
 # ymd 0.1.5
 
