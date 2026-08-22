@@ -4,7 +4,7 @@
 
 Tested on:
 
-* macOS (local), R 4.5.1
+* macOS (local), R 4.6.1
 * macOS, R-release 4.6.1 (GitHub Actions)
 * Windows x86_64, R-devel 4.7.0 (2026-08-21 r90440, win-builder)
 * Windows x86_64, R-release 4.6.1 and R-devel 4.7.0 (GitHub Actions)
@@ -22,6 +22,10 @@ The Windows installation path was additionally updated so that the committed
 Rust-generated R wrappers are not regenerated during a normal package install.
 This avoids a second host/target Cargo build; the official R-devel win-builder
 check now completes with `Status: OK`.
+
+The vendored Rust dependencies are packaged in a deterministic archive without
+macOS extended attributes. Installation remains fully offline, and extracting
+the archive no longer emits repeated provenance-header messages on Windows.
 
 # Reverse dependencies
 
