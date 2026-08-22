@@ -101,6 +101,7 @@ run_bmk(
 x <- ymd::ymd(210515) + 1:100
 run_bmk(
   ymd::eop$tm(x),
+  clock::as_date(clock::calendar_end(clock::as_year_month_day(x), "month")),
   lubridate::ceiling_date(x, "month") - 1
 )
 ```
@@ -114,10 +115,12 @@ x <- ymd::ymd(c(200115, 200131, 200229, 200331, 200401))
 x <- rep(x, 100)
 run_bmk(
   ymd::edate(x, 2),
+  clock::add_months(x, 2, invalid = "previous"),
   x %m+% months(2)
 )
 run_bmk(
   ymd::edate(x, -12),
+  clock::add_months(x, -12, invalid = "previous"),
   x %m+% months(-12)
 )
 ```
@@ -131,39 +134,46 @@ x <- as.Date(data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE)))
 
 run_bmk(
   data.table::year(x),
+  clock::get_year(x),
   lubridate::year(x),
   funchir::quick_year(x),
   ymd::year(x)
 )
 run_bmk(
   data.table::month(x),
+  clock::get_month(x),
   lubridate::month(x),
   ymd::month(x)
 )
 run_bmk(
   data.table::quarter(x),
+  clock::get_quarter(clock::as_year_quarter_day(x)),
   lubridate::quarter(x),
   ymd::quarter(x)
 )
 run_bmk(
   data.table::yday(x),
+  clock::get_day(clock::as_year_day(x)),
   lubridate::yday(x),
   funchir::quick_yday(x),
   ymd::yday(x)
 )
 run_bmk(
   data.table::mday(x),
+  clock::get_day(x),
   lubridate::mday(x),
   funchir::quick_mday(x),
   ymd::mday(x)
 )
 run_bmk(
   data.table::wday(x),
+  clock::weekday_code(clock::as_weekday(x)),
   lubridate::wday(x),
   ymd::wday(x)
 )
 run_bmk(
   data.table::isoweek(x),
+  clock::get_week(clock::as_iso_year_week_day(x)),
   lubridate::isoweek(x),
   ymd::isoweek(x)
 )

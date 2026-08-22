@@ -83,8 +83,8 @@ run_bmk(
 
 | expression        |    min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
 |:------------------|-------:|-------:|--------:|:----------|-------:|------:|-----:|
-| ymd::ymd(x)       |   41.8 |   42.9 | 22733.0 | 810.52KB  |    2.3 |  9999 |    1 |
-| lubridate::ymd(x) | 1364.7 | 1494.1 |   647.3 | 9.11MB    |   13.0 |   298 |    6 |
+| ymd::ymd(x)       |   41.8 |   43.3 | 21861.1 | 810.52KB  |    2.2 |  9999 |    1 |
+| lubridate::ymd(x) | 1365.3 | 1534.8 |   627.8 | 9.11MB    |   13.2 |   286 |    6 |
 
 ``` r
 
@@ -98,8 +98,8 @@ run_bmk(
 
 | expression        |    min | median |  itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
 |:------------------|-------:|-------:|---------:|:----------|-------:|------:|-----:|
-| ymd::ymd(x)       |    4.1 |    4.8 | 171097.1 | 3.17KB    |    0.0 | 10000 |    0 |
-| lubridate::ymd(x) | 1690.1 | 1974.2 |    492.7 | 365.38KB  |   15.1 |   228 |    7 |
+| ymd::ymd(x)       |    4.1 |    4.8 | 179995.6 | 3.17KB    |     18 |  9999 |    1 |
+| lubridate::ymd(x) | 1688.7 | 1864.3 |    508.7 | 365.38KB  |     15 |   237 |    7 |
 
 ``` r
 
@@ -115,24 +115,26 @@ run_bmk(
 
 | expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
 |:---|---:|---:|---:|:---|---:|---:|---:|
-| ymd::ymd(x) | 30.5 | 31.6 | 30648.7 | 2.39KB | 0.0 | 10000 | 0 |
-| clock::as_date(clock::year_month_day_parse(x)) | 159.7 | 167.0 | 5590.3 | 3.66MB | 21.8 | 2566 | 10 |
-| lubridate::ymd(x) | 787.4 | 855.8 | 1104.3 | 193.52KB | 17.0 | 519 | 8 |
-| as.Date(x) | 1051.0 | 1081.9 | 902.8 | 101.69KB | 0.0 | 452 | 0 |
+| ymd::ymd(x) | 30.5 | 32.0 | 30464.0 | 2.39KB | 0.0 | 10000 | 0 |
+| clock::as_date(clock::year_month_day_parse(x)) | 160.6 | 177.9 | 3698.0 | 3.66MB | 14.9 | 1734 | 7 |
+| lubridate::ymd(x) | 792.3 | 930.1 | 940.8 | 193.52KB | 12.9 | 436 | 6 |
+| as.Date(x) | 1054.4 | 1090.4 | 889.7 | 101.69KB | 2.0 | 441 | 1 |
 
 ``` r
 
 x <- ymd::ymd(210515) + 1:100
 run_bmk(
   ymd::eop$tm(x),
+  clock::as_date(clock::calendar_end(clock::as_year_month_day(x), "month")),
   lubridate::ceiling_date(x, "month") - 1
 )
 ```
 
 | expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
 |:---|---:|---:|---:|:---|---:|---:|---:|
-| ymd::eop\$tm(x) | 5.8 | 6.2 | 149777.9 | 19.3KB | 15.0 | 9999 | 1 |
-| lubridate::ceiling_date(x, “month”) - 1 | 35.5 | 37.7 | 24565.2 | 159.5KB | 29.5 | 9988 | 12 |
+| ymd::eop\$tm(x) | 5.8 | 6.4 | 148901.5 | 19.3KB | 0.0 | 10000 | 0 |
+| clock::as_date(clock::calendar_end(clock::as_year_month_day(x), “month”)) | 108.9 | 115.8 | 7867.6 | 34.9KB | 30.1 | 3664 | 14 |
+| lubridate::ceiling_date(x, “month”) - 1 | 35.4 | 38.0 | 24469.2 | 159.5KB | 29.4 | 9988 | 12 |
 
 ### edate
 
@@ -142,26 +144,30 @@ x <- ymd::ymd(c(200115, 200131, 200229, 200331, 200401))
 x <- rep(x, 100)
 run_bmk(
   ymd::edate(x, 2),
+  clock::add_months(x, 2, invalid = "previous"),
   x %m+% months(2)
 )
 ```
 
-| expression       |    min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
-|:-----------------|-------:|-------:|--------:|:----------|-------:|------:|-----:|
-| ymd::edate(x, 2) |   12.3 |   13.0 | 73250.4 | 6.2KB     |    7.3 |  9999 |    1 |
-| x %m+% months(2) | 1344.3 | 1438.6 |   682.7 | 496.5KB   |    4.1 |   337 |    2 |
+| expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
+|:---|---:|---:|---:|:---|---:|---:|---:|
+| ymd::edate(x, 2) | 12.3 | 13.3 | 73041.1 | 6.2KB | 0.0 | 10000 | 0 |
+| clock::add_months(x, 2, invalid = “previous”) | 157.2 | 166.9 | 5423.6 | 161KB | 25.7 | 2534 | 12 |
+| x %m+% months(2) | 1354.3 | 1431.7 | 675.3 | 496.5KB | 6.1 | 332 | 3 |
 
 ``` r
 run_bmk(
   ymd::edate(x, -12),
+  clock::add_months(x, -12, invalid = "previous"),
   x %m+% months(-12)
 )
 ```
 
-| expression         |    min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
-|:-------------------|-------:|-------:|--------:|:----------|-------:|------:|-----:|
-| ymd::edate(x, -12) |   12.4 |   13.2 | 72652.5 | 3.95KB    |    7.3 |  9999 |    1 |
-| x %m+% months(-12) | 1758.2 | 1871.2 |   517.6 | 310.65KB  |   10.4 |   248 |    5 |
+| expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
+|:---|---:|---:|---:|:---|---:|---:|---:|
+| ymd::edate(x, -12) | 12.3 | 13.2 | 72121.2 | 3.95KB | 7.2 | 9999 | 1 |
+| clock::add_months(x, -12, invalid = “previous”) | 158.5 | 169.1 | 5191.7 | 65.65KB | 23.3 | 2455 | 11 |
+| x %m+% months(-12) | 1751.0 | 1986.7 | 487.9 | 310.65KB | 9.1 | 215 | 4 |
 
 ### Extract Date Part
 
@@ -172,6 +178,7 @@ x <- as.Date(data.table::as.IDate(sample(seq(-25000, 45000), 1e6, TRUE)))
 
 run_bmk(
   data.table::year(x),
+  clock::get_year(x),
   lubridate::year(x),
   funchir::quick_year(x),
   ymd::year(x)
@@ -182,14 +189,16 @@ run_bmk(
 
 | expression             |      min |   median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
 |:-----------------------|---------:|---------:|--------:|:----------|-------:|------:|-----:|
-| data.table::year(x)    |   3357.6 |   3477.4 |   271.4 | 7.64MB    |   35.9 |   136 |   18 |
-| lubridate::year(x)     | 206448.2 | 239828.0 |     4.4 | 64.85MB   |    8.7 |     3 |    6 |
-| funchir::quick_year(x) |  26009.0 |  26505.6 |    29.6 | 22.93MB   |   13.8 |    15 |    7 |
-| ymd::year(x)           |   6800.3 |   6992.0 |   140.9 | 3.82MB    |    7.9 |    71 |    4 |
+| data.table::year(x)    |   3353.1 |   3502.2 |   260.6 | 7.64MB    |   55.7 |   131 |   28 |
+| clock::get_year(x)     |  17215.0 |  18977.2 |    41.8 | 30.53MB   |   39.8 |    21 |   20 |
+| lubridate::year(x)     | 205532.1 | 238408.2 |     4.3 | 64.85MB   |    7.2 |     3 |    5 |
+| funchir::quick_year(x) |  25727.2 |  27358.1 |    33.8 | 22.93MB   |    9.9 |    17 |    5 |
+| ymd::year(x)           |   6806.8 |   6942.4 |   140.5 | 3.82MB    |    9.9 |    71 |    5 |
 
 ``` r
 run_bmk(
   data.table::month(x),
+  clock::get_month(x),
   lubridate::month(x),
   ymd::month(x)
 )
@@ -199,13 +208,15 @@ run_bmk(
 
 | expression           |      min |   median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
 |:---------------------|---------:|---------:|--------:|:----------|-------:|------:|-----:|
-| data.table::month(x) |  20128.4 |  20535.7 |    48.1 | 7.63MB    |    9.6 |    25 |    5 |
-| lubridate::month(x)  | 256228.7 | 258042.5 |     3.9 | 103MB     |    7.8 |     2 |    4 |
-| ymd::month(x)        |   7236.2 |   7411.4 |   132.1 | 3.82MB    |    7.9 |    67 |    4 |
+| data.table::month(x) |  19978.4 |  20979.9 |    47.7 | 7.63MB    |    7.9 |    24 |    4 |
+| clock::get_month(x)  |  17698.4 |  18647.8 |    48.9 | 26.71MB   |   27.4 |    25 |   14 |
+| lubridate::month(x)  | 225250.3 | 254814.8 |     3.9 | 103MB     |    5.9 |     2 |    3 |
+| ymd::month(x)        |   7264.4 |   7476.1 |   131.6 | 3.82MB    |   10.0 |    66 |    5 |
 
 ``` r
 run_bmk(
   data.table::quarter(x),
+  clock::get_quarter(clock::as_year_quarter_day(x)),
   lubridate::quarter(x),
   ymd::quarter(x)
 )
@@ -213,31 +224,37 @@ run_bmk(
 #> disabled.
 ```
 
-| expression             |      min |   median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
-|:-----------------------|---------:|---------:|--------:|:----------|-------:|------:|-----:|
-| data.table::quarter(x) |  16649.2 |  17041.2 |    58.1 | 7.63MB    |    5.8 |    30 |    3 |
-| lubridate::quarter(x)  | 278270.2 | 280509.0 |     3.6 | 118.29MB  |   10.7 |     2 |    6 |
-| ymd::quarter(x)        |  13623.7 |  13850.3 |    71.7 | 3.82MB    |    4.0 |    36 |    2 |
+| expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
+|:---|---:|---:|---:|:---|---:|---:|---:|
+| data.table::quarter(x) | 16695.6 | 17065.9 | 57.6 | 7.63MB | 6.0 | 29 | 3 |
+| clock::get_quarter(clock::as_year_quarter_day(x)) | 22743.8 | 24452.2 | 37.6 | 26.73MB | 19.8 | 19 | 10 |
+| lubridate::quarter(x) | 244914.8 | 250065.3 | 4.0 | 118.29MB | 8.0 | 2 | 4 |
+| ymd::quarter(x) | 13689.2 | 14148.4 | 69.3 | 3.82MB | 5.9 | 35 | 3 |
 
 ``` r
 run_bmk(
   data.table::yday(x),
+  clock::get_day(clock::as_year_day(x)),
   lubridate::yday(x),
   funchir::quick_yday(x),
   ymd::yday(x)
 )
+#> Warning: Some expressions had a GC in every iteration; so filtering is
+#> disabled.
 ```
 
-| expression             |      min |   median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
-|:-----------------------|---------:|---------:|--------:|:----------|-------:|------:|-----:|
-| data.table::yday(x)    |   4625.0 |   4788.2 |   208.5 | 7.63MB    |   33.9 |    86 |   14 |
-| lubridate::yday(x)     | 236137.1 | 236137.1 |     4.2 | 64.85MB   |   16.9 |     1 |    4 |
-| funchir::quick_yday(x) |  21883.4 |  22274.1 |    44.8 | 19.08MB   |   22.4 |    14 |    7 |
-| ymd::yday(x)           |   6772.3 |   6954.2 |   143.3 | 3.82MB    |    4.1 |    70 |    2 |
+| expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
+|:---|---:|---:|---:|:---|---:|---:|---:|
+| data.table::yday(x) | 4639.7 | 4864.0 | 199.9 | 7.63MB | 13.9 | 101 | 7 |
+| clock::get_day(clock::as_year_day(x)) | 19214.7 | 21036.1 | 43.8 | 22.9MB | 12.0 | 22 | 6 |
+| lubridate::yday(x) | 212040.0 | 214421.6 | 4.6 | 64.85MB | 6.2 | 3 | 4 |
+| funchir::quick_yday(x) | 22006.7 | 23076.6 | 39.8 | 19.08MB | 13.9 | 20 | 7 |
+| ymd::yday(x) | 6828.4 | 7047.6 | 140.4 | 3.82MB | 4.0 | 71 | 2 |
 
 ``` r
 run_bmk(
   data.table::mday(x),
+  clock::get_day(x),
   lubridate::mday(x),
   funchir::quick_mday(x),
   ymd::mday(x)
@@ -248,30 +265,32 @@ run_bmk(
 
 | expression             |      min |   median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
 |:-----------------------|---------:|---------:|--------:|:----------|-------:|------:|-----:|
-| data.table::mday(x)    |  19306.0 |  19851.4 |    49.9 | 7.63MB    |    4.0 |    25 |    2 |
-| lubridate::mday(x)     | 201549.2 | 209073.6 |     4.5 | 57.22MB   |    4.5 |     3 |    3 |
-| funchir::quick_mday(x) |   9063.7 |   9518.0 |    96.4 | 7.65MB    |    7.9 |    49 |    4 |
-| ymd::mday(x)           |   7349.0 |   7622.6 |   130.0 | 3.82MB    |    6.0 |    65 |    3 |
+| data.table::mday(x)    |  19289.1 |  19788.3 |    49.2 | 7.63MB    |    2.0 |    25 |    1 |
+| clock::get_day(x)      |  17082.0 |  17939.6 |    54.7 | 26.71MB   |   19.5 |    28 |   10 |
+| lubridate::mday(x)     | 207501.9 | 222374.2 |     4.4 | 57.22MB   |    4.4 |     3 |    3 |
+| funchir::quick_mday(x) |   9333.4 |  10908.9 |    81.9 | 7.65MB    |    8.0 |    41 |    4 |
+| ymd::mday(x)           |   7366.5 |   9651.2 |    99.6 | 3.82MB    |    2.0 |    51 |    1 |
 
 ``` r
 run_bmk(
   data.table::wday(x),
+  clock::weekday_code(clock::as_weekday(x)),
   lubridate::wday(x),
   ymd::wday(x)
 )
-#> Warning: Some expressions had a GC in every iteration; so filtering is
-#> disabled.
 ```
 
-| expression          |      min |   median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
-|:--------------------|---------:|---------:|--------:|:----------|-------:|------:|-----:|
-| data.table::wday(x) |   1659.4 |   1750.8 |   506.9 | 7.63MB    |   61.9 |   254 |   31 |
-| lubridate::wday(x)  | 207571.0 | 245077.7 |     4.3 | 64.85MB   |    8.6 |     3 |    6 |
-| ymd::wday(x)        |   8603.3 |   8944.3 |   108.6 | 3.82MB    |    9.9 |    55 |    5 |
+| expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
+|:---|---:|---:|---:|:---|---:|---:|---:|
+| data.table::wday(x) | 1671.6 | 2153.2 | 363.4 | 7.63MB | 30.9 | 153 | 13 |
+| clock::weekday_code(clock::as_weekday(x)) | 10204.5 | 13697.9 | 69.3 | 22.91MB | 24.9 | 25 | 9 |
+| lubridate::wday(x) | 258137.3 | 258137.3 | 3.9 | 64.85MB | 3.9 | 1 | 1 |
+| ymd::wday(x) | 9279.6 | 10908.8 | 89.6 | 3.82MB | 6.6 | 41 | 3 |
 
 ``` r
 run_bmk(
   data.table::isoweek(x),
+  clock::get_week(clock::as_iso_year_week_day(x)),
   lubridate::isoweek(x),
   ymd::isoweek(x)
 )
@@ -279,11 +298,12 @@ run_bmk(
 #> disabled.
 ```
 
-| expression             |      min |   median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
-|:-----------------------|---------:|---------:|--------:|:----------|-------:|------:|-----:|
-| data.table::isoweek(x) | 552578.0 | 552578.0 |     1.8 | 122.08MB  |    3.6 |     1 |    2 |
-| lubridate::isoweek(x)  | 524713.2 | 524713.2 |     1.9 | 278.5MB   |    9.5 |     1 |    5 |
-| ymd::isoweek(x)        |   9559.8 |   9947.8 |    91.5 | 3.82MB    |    4.0 |    46 |    2 |
+| expression | min | median | itr.sec | mem_alloc | gc.sec | n_itr | n_gc |
+|:---|---:|---:|---:|:---|---:|---:|---:|
+| data.table::isoweek(x) | 601227.6 | 601227.6 | 1.7 | 122.08MB | 6.7 | 1 | 4 |
+| clock::get_week(clock::as_iso_year_week_day(x)) | 31462.4 | 38713.8 | 23.4 | 26.72MB | 9.7 | 12 | 5 |
+| lubridate::isoweek(x) | 625706.3 | 625706.3 | 1.6 | 278.5MB | 9.6 | 1 | 6 |
+| ymd::isoweek(x) | 9738.4 | 10692.3 | 90.7 | 3.82MB | 3.9 | 46 | 2 |
 
 ## Session Info
 
