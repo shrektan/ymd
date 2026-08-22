@@ -51,7 +51,7 @@ can be installed following [the instructions from the Rust book](https://doc.rus
 After that, you can build the package via:
 
 ```r
-remotes::install_github("ymd")
+remotes::install_github("shrektan/ymd")
 ```
 
 ## Use Cases and Benchmarks

@@ -49,7 +49,7 @@ Rust book](https://doc.rust-lang.org/book/ch01-01-installation.html).
 After that, you can build the package via:
 
 ``` r
-remotes::install_github("ymd")
+remotes::install_github("shrektan/ymd")
 ```
 
 ## Use Cases and Benchmarks
