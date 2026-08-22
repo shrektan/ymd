@@ -4,6 +4,24 @@ use extendr_api::prelude::*;
 // The days from 1970-1-1 (R's first date) to CE (1-1-0)
 const R_DATE_FROM_CE: i32 = 719163;
 
+fn days_since_epoch_to_date(days: i32) -> Option<NaiveDate> {
+    days.checked_add(R_DATE_FROM_CE)
+        .and_then(NaiveDate::from_num_days_from_ce_opt)
+}
+
+fn real_days_since_epoch_to_date(days: f64) -> Option<NaiveDate> {
+    if !days.is_finite() {
+        return None;
+    }
+
+    let days = days.floor();
+    if days < i32::MIN as f64 || days > i32::MAX as f64 {
+        return None;
+    }
+
+    days_since_epoch_to_date(days as i32)
+}
+
 pub fn robj2date(x: Robj, var: &str) -> extendr_api::Result<Vec<Option<NaiveDate>>> {
     if !x.inherits("Date") {
         return Err(Error::Other(format!("{} is not a Date", var)));
@@ -12,13 +30,7 @@ pub fn robj2date(x: Robj, var: &str) -> extendr_api::Result<Vec<Option<NaiveDate
         Rtype::Doubles => x
             .as_real_iter()
             .unwrap()
-            .map(|d| {
-                if d.is_na() {
-                    None
-                } else {
-                    NaiveDate::from_num_days_from_ce_opt(*d as i32 + R_DATE_FROM_CE)
-                }
-            })
+            .map(|d| real_days_since_epoch_to_date(*d))
             .collect(),
         Rtype::Integers => x
             .as_integer_vector()
@@ -28,7 +40,7 @@ pub fn robj2date(x: Robj, var: &str) -> extendr_api::Result<Vec<Option<NaiveDate
                 if d.is_na() {
                     None
                 } else {
-                    NaiveDate::from_num_days_from_ce_opt(d + R_DATE_FROM_CE)
+                    days_since_epoch_to_date(*d)
                 }
             })
             .collect(),
