@@ -5,10 +5,15 @@
 Tested on:
 
 * macOS (local), R 4.6.1
+* Windows Server 2022 (win-builder), R-devel 4.7.0 (2026-08-21 r90440)
 
-The exact source tarball checked locally was also accepted for checking by
-win-builder R-devel; its result is pending. The official macOS builder
-currently offers only R-devel, and two upload attempts returned HTTP 502.
+The exact source tarball checked locally also completed win-builder R-devel
+with Status: OK. I inspected both its `00check.log` and `00install.out`; the
+installation performed one Rust library build, did not run wrapper generation,
+and emitted no vendor-extraction warnings. The official macOS builder currently
+offers only R-devel, and two upload attempts returned HTTP 502, so this is
+recorded as a builder infrastructure exception; the same source tarball passed
+locally on current-release macOS R.
 
 # CRAN check issue
 
