@@ -21,3 +21,4 @@
 ^check$
 
 ^update_authors\.R$
+^update_vendor\.sh$
