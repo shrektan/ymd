@@ -1,10 +1,17 @@
 # Changelog
 
-## ymd 0.1.6
+## ymd 0.1.7
 
 - Follow R’s flooring semantics for fractional `Date` values, including
   dates before the Unix epoch, across date-part and period helpers
-  ([\#9](https://github.com/shrektan/ymd/issues/9)).
+  ([\#9](https://github.com/shrektan/ymd/issues/9),
+  [\#12](https://github.com/shrektan/ymd/issues/12)).
+- Add equivalent `clock` comparisons throughout the README benchmarks
+  ([\#8](https://github.com/shrektan/ymd/issues/8),
+  [\#11](https://github.com/shrektan/ymd/issues/11)).
+
+## ymd 0.1.6
+
 - Fix the CRAN compiled-code NOTE about the non-API
   `R_NamespaceRegistry` entry point by upgrading the extendr Rust crates
   to version 0.9.0.

@@ -18,13 +18,13 @@ Source:
 [`DESCRIPTION`](https://github.com/shrektan/ymd/blob/main/DESCRIPTION)
 
 Tan X (2026). *ymd: Parse 'YMD' Format Number or String to Date*. R
-package version 0.1.6, <https://shrektan.github.io/ymd/>.
+package version 0.1.7, <https://shrektan.github.io/ymd/>.
 
     @Manual{,
       title = {ymd: Parse 'YMD' Format Number or String to Date},
       author = {Xianying Tan},
       year = {2026},
-      note = {R package version 0.1.6},
+      note = {R package version 0.1.7},
       url = {https://shrektan.github.io/ymd/},
     }
 
